@@ -4,7 +4,8 @@ Team
 - Inkaran
 - Mohamed
 
-#Contrat d'accee
+#Contrat d'accès
+
 **Connexion**
 ----
   Return un token ou une erreur
@@ -44,7 +45,9 @@ Team
     **Content:** `{ error : "Mot de passe erroné" }`
 
 * **Sample Call:**
-team Front-end dois mettre à jour vue.js 
+
+team Front-end dois mettre à jour vue.js
+
   ```javascript
     $.ajax({
       url: "/users/1",
