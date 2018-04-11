@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using projet.Models;
 
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace projet.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Connexion")]
     public class ConnexionController : Controller
     {
 
@@ -31,9 +32,9 @@ namespace projet.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Boolean Get(String id)
         {
-            return "value";
+            return db.ValideId(id);
         }
 
         // POST api/values

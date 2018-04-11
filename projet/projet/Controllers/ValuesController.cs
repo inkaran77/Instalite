@@ -20,17 +20,21 @@ namespace projet.Controllers
 
         // GET: api/values
         [HttpGet]
-        public List<User> Get()
+        public String Get()
         {
-            return db.GetAllUsers();
+           
+            return db.GetAllUsers2();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Boolean Get(String id)
         {
-            return "value";
+            
+            return db.IsIdValide(id);
         }
+
+
 
         // POST api/values
         [HttpPost]

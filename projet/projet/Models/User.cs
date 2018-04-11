@@ -6,6 +6,8 @@ namespace projet.Models
 {
     public class User
     {
+        
+
         public ObjectId Id { get; set; }
 
         [BsonElement("UserId")]
