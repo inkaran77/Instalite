@@ -17,12 +17,40 @@ export default {
   name: 'app',
   data () {
     return {
+      First_name: '',
+      Last_name:'',
+      Birth_date: '',
+      Gender:'',
+      Email: '',
+      Id:'',
+      Password:'',
+      My_photo:'',
+      City: '',
+      Country:''
 
     }
   },
 
   methods:{
-
+    signUp:function(){
+      this.Id=this.$refs.login.value
+      this.Password=this.$refs.password.value
+      this.$emit('changeCompo','registration')
+      this.$http.post('http://localhost:5001/api/values',{
+        First_name:this.First_name,
+        Last_name:this.Last_name,
+        Birth_date:this.Birth_date,
+        Gender:this.Gender,
+        Email:this.Email,
+        Id:this.Id,
+        Password:this.Password,
+        My_photo:this.My_photo,
+        City:this.City,
+        Country:this.Country
+      }).then(function(data){
+          console.log(data);
+    })
+  },
       },
 }
 </script>

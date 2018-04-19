@@ -16,23 +16,32 @@ export default {
   name: 'app',
   data () {
     return {
-      login: '',
-      password:''
+      Id: '',
+      Password:''
     }
   },
 
   methods:{
     connexion:function(){
-      this.login=this.$refs.login.value
-      this.password=this.$refs.password.value
+      this.Id=this.$refs.login.value
+      this.Password=this.$refs.password.value
       this.$emit('changeCompo','registration')
       this.$http.get('http://localhost:5001/api/values',{
-        login:this.login,
-        password:this.password
+        Id:this.Id,
+        Password:this.Password
       }).then(function(data){
           console.log(data);
     })
-          }
+  },
+
+    getPassword:function(){
+      this.Id=this.$refs.login.value
+      this.$http.get('http://localhost:5001/api/values',{
+        Id:this.Id,
+      }).then(function(data){
+          console.log(data);
+    })
+    }
 
 
       },
