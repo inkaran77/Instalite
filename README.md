@@ -44,11 +44,11 @@ Team
   * **Code:** 401 UNAUTHORIZED <br />
     **Content:** `{ error : "Mot de passe erroné" }`
 
-** Inscription **
+**Inscription**
 ———
-* ** Url : **
+* **Url :**
 http://localhost:5000/Instalite/Inscription/ 
-* ** Format : **
+* **Format :**
 {
 "UserId ": "Ik",
 "Password":"123",
