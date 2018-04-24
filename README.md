@@ -44,6 +44,23 @@ Team
   * **Code:** 401 UNAUTHORIZED <br />
     **Content:** `{ error : "Mot de passe erroné" }`
 
+** Inscription **
+———
+* ** Url : **
+http://localhost:5000/Instalite/Inscription/ 
+* ** Format : **
+{
+"UserId ": "Ik",
+"Password":"123",
+"First_Name":"Inkaran",
+"Last_Name": "Thuraiyappah",
+"Gender":"m",
+"Email":"ik@gmail.com",
+"Birth_date": "2000/10/10",
+"City":"Evry",
+"Country":"France"
+}
+
 * **Sample Call:**
 
 team Front-end dois mettre à jour vue.js
