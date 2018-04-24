@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using projet.Models;
 
@@ -27,6 +27,7 @@ namespace projet.Controllers
         [HttpGet]
         public List<User> Get()
         {
+            Console.WriteLine("a");
             return db.GetAllUsers();
         }
 
@@ -34,13 +35,24 @@ namespace projet.Controllers
         [HttpGet("{id}")]
         public Boolean Get(String id)
         {
-            return db.ValideId(id);
+            return db.IsIdUsed(id);
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]User user)
         {
+            // if (db.IsIdValide(id) == false){
+            // return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Id déjà prit");
+            // }
+            // var u = user.Id.ToString();
+            //Console.WriteLine(u);
+          
+           
+
+            return Json(user);
+
+
         }
 
         // PUT api/values/5

@@ -3,12 +3,13 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 //using MongoDB.Driver.Builders;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+
+using System.Net.Mail;
+using System.Net;
 
 namespace projet.Models
 {
-    public class DataAccess : InterfaceInscription
+    public class DataAccess 
     {
         MongoClient _client;
         IMongoDatabase _db;
@@ -18,6 +19,35 @@ namespace projet.Models
             _client = new MongoClient("mongodb://localhost:27017");
             _db=_client.GetDatabase("Instalite");
         }
+
+
+
+        public void Inscription(User u)
+        {
+            _db.GetCollection<User>("user").InsertOne(new User
+            {
+                UserId = u.UserId,
+                Password = u.Password,
+                First_name = u.First_name,
+                Last_name = u.Last_name,
+                Gender = u.Gender,
+                Email = u.Email,
+                Birth_date = u.Birth_date,
+                City = u.City,
+                Country = u.Country,
+            });
+            
+        }
+
+        // Test si l'id est déjà prit ou pas
+        public Boolean IsIdUsed(String Id)
+        {
+
+            var filter = Builders<User>.Filter.Eq("UserId", Id);
+            Boolean result = _db.GetCollection<User>("user").Find(filter).Any();
+            return result;
+        }
+
 
 
         // Test retour brute
@@ -52,24 +82,22 @@ namespace projet.Models
             return a;
         }
 
-        public Boolean Inscription(String Id, String Password){
-
-            if(IsIdValide(Id) == false){
-                _db.GetCollection<User>("user").InsertOne(new User { UserId = Id, Password = Password });
-                return true;
-            }
-            return false;
-        }
-
-
-        public Boolean IsIdValide(String Id)
+        public void SendMail(String Message)
         {
+            SmtpClient client = new SmtpClient();
+            client.Host = "smtp.gmail.com";
+            client.Port = 587;
+            client.UseDefaultCredentials = false;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.EnableSsl = true;
+            client.Credentials = new NetworkCredential("inkaran.thuraiyappah@gmail.com", "password");
 
-            var filter = Builders<User>.Filter.Eq("UserId", Id);
-            Boolean result = _db.GetCollection<User>("user").Find(filter).Any();
-            return result;
+            MailMessage mm = new MailMessage("inkaran.thuraiyappah@gmail.com", "inkaran.thuraiyappah@gmail.com");
+
+            client.Send(mm);
         }
- 
+
+
 
     }
 }
