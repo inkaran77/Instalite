@@ -65,7 +65,7 @@ http://localhost:5000/Instalite/Inscription/
 
 team Front-end dois mettre à jour vue.js
 
-  ```javascript
+ javascript
     $.ajax({
       url: "/users/1",
       dataType: "json",
@@ -74,9 +74,10 @@ team Front-end dois mettre à jour vue.js
         console.log(r);
       }
     });
-    ```
+    
+  
 
-    **Mot de passe oublié**
+ **Mot de passe oublié**
     ----
       Return un String
 
