@@ -1,17 +1,106 @@
 <template>
-  <body class="body page-index clearfix">
-    <button id="bn-connexion" class="_button">Connexion</button>
-    <input id="password" class="_input _input-1" name="password" placeholder="Mo de passe" type="text">
-    <input id="login" class="_input _input-2" name="login" placeholder="Login" type="text">
-    <div class="container">
-      <div class="element"></div>
-    </div>
-    <div class="element element-2"></div>
-  </body>
+  <body>
+    <form class="form-horizontal">
+<fieldset>
 
+<!-- Form Name -->
+<legend>Inscription</legend>
+
+<!-- Text input-->
+<div class="form-group">
+ <label class="col-md-4 control-label" for="nominput"></label>
+ <div class="col-md-4">
+ <input  placeholder="Nom" class="form-control input-md" required="" type="text" v-model="First_name">
+
+ </div>
+
+
+<!-- Text input-->
+
+ <label class="col-md-4 control-label" for="prenominput"></label>
+ <div class="col-md-4">
+ <input  placeholder="Prénom" class="form-control input-md" required="" type="text" v-model="Last_name">
+
+ </div>
+
+
+
+ <label class="col-md-4 " for="dateinput"></label>
+ <div class="col-md-4">
+<input  placeholder="Date de naissance" class="form-control input-group date" required="" type="date" v-model="Birth_date">
+
+ </div>
+
+
+<!-- Multiple Radios (inline) -->
+
+ <label class="col-md-4 control-label" for="radios">Sexe :</label>
+ <div class="col-md-4">
+   <label class="radio-inline" for="radios-0">
+     <input  value="Male" checked="checked" type="radio" v-model="Gender">
+     Homme
+   </label>
+   <label class="radio-inline" for="radios-1">
+     <input  value="Female" type="radio" v-model="Gender">
+     Femme
+   </label>
+ </div>
+
+
+<!-- Text input-->
+
+ <label class="col-md-4 control-label" for="emailinput"></label>
+ <div class="col-md-4">
+ <input  placeholder="Email" class="form-control input-md" required="" type="email" v-model="Email">
+
+ </div>
+
+
+<!-- Password input-->
+
+ <label class="col-md-4 control-label" for="passwordinput"></label>
+ <div class="col-md-2">
+   <input placeholder="Mot de passe" class="form-control input-md" required="" type="password" v-model="Password">
+   <input  placeholder="Confirmation mot de passe" class="form-control input-md" required="Password" type="password">
+
+ </div>
+
+
+<!-- Text input-->
+
+ <label class="col-md-4 control-label" for="cityinput"></label>
+ <div class="col-md-4">
+ <input  placeholder="Ville" class="form-control input-md" required="" type="text" v-model="City">
+
+ </div>
+
+
+<!-- Text input-->
+
+ <label class="col-md-4 control-label" for="countryinput"></label>
+ <div class="col-md-4">
+ <input  placeholder="Pays" class="form-control input-md" required="" type="text" v-model="Country">
+
+ </div>
+
+
+<!-- Button -->
+
+ <label class="col-md-4 control-label" for="signbutton"></label>
+ <div class="col-md-4">
+   <button  v-on:click="signUp()" class="btn btn-primary">Inscription</button>
+ </div>
+</div>
+
+</fieldset>
+</form>
+     </body>
 </template>
 
 <script>
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 export default {
 
   name: 'app',
@@ -36,7 +125,7 @@ export default {
       this.Id=this.$refs.login.value
       this.Password=this.$refs.password.value
       this.$emit('changeCompo','registration')
-      this.$http.post('http://localhost:5001/api/values',{
+      this.$http.post('http://localhost:5000/Instalite/Inscription/',{
         First_name:this.First_name,
         Last_name:this.Last_name,
         Birth_date:this.Birth_date,
@@ -68,86 +157,4 @@ body {
   color: rgb(255, 255, 255);
 }
 
-.container {
-  position: absolute;
-  top: 16px;
-  right: 740px;
-  z-index: 2;
-  width: 114px;
-  height: 106px;
-}
-
-.container .element {
-  top: -15px;
-  z-index: 1;
-  width: 129px;
-  height: 138px;
-  background: url('./assets/icon.png') rgba(222, 222, 222, 0);
-  background-size: cover;
-  background-position: left top;
-}
-
-.element {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-}
-
-._button {
-  display: block;
-  position: absolute;
-  top: 376px;
-  left: 0;
-  right: 0;
-  z-index: 5;
-  width: 144px;
-  height: 38px;
-  margin: 0 auto;
-  border-radius: 25px;
-  background-color: rgb(7, 42, 71);
-  font-size: 1em;
-  text-align: center;
-  color: rgb(255, 255, 255);
-}
-
-._button:hover {
-  background-color: rgb(121, 159, 191);
-}
-
-._input {
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 163px;
-  height: 34px;
-  margin: 0 auto;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: rgb(242, 242, 242);
-  font-size: 0.813em;
-  text-align: center;
-  color: rgb(0, 0, 0);
-}
-
-.element-2 {
-  top: 50px;
-  width: 435px;
-  min-width: 200px;
-  max-width: 435px;
-  height: 489px;
-  border-radius: 25px;
-  background-color: rgb(255, 255, 255);
-}
-
-._input-1 {
-  top: 312px;
-  z-index: 4;
-}
-
-._input-2 {
-  top: 264px;
-  z-index: 3;
-}
 </style>
