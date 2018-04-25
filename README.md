@@ -79,7 +79,8 @@ team Front-end dois mettre à jour vue.js
 
  **Mot de passe oublié**
     ---
-      Return un String
+     
+    Return un String
 
     * **URL**
 
@@ -128,7 +129,8 @@ team Front-end dois mettre à jour vue.js
 
    **Inscription**
         ----
-          Return un String
+          
+    Return un String
 
         * **URL**
 
