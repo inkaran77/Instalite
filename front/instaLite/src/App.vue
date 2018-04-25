@@ -1,13 +1,16 @@
 <template>
-  <component v-bind:is="pageView"></component>
+  <component v-bind:is="pageView" v-on:changeCompo="updateCompo($event)"></component>
 
 </template>
 
 <script>
 import connexion from './connexion.vue'
+import registration from './registration.vue'
 export default {
   components : {
-  'connexion':connexion
+  'connexion':connexion,
+  'registration':registration
+
 },
 
   name: 'app',
@@ -17,8 +20,10 @@ export default {
     }
   },
   methods: {
-
-  }
+    updateCompo:function(nouvoCompo){
+      this.pageView=nouvoCompo;
+    }
+},
 
 
   }

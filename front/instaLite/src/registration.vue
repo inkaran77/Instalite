@@ -1,11 +1,12 @@
 <template>
   <body class="body page-index clearfix">
-    <input v-on:keyup.enter="connexion()" ref="password" id="password" class="_input _input-1" name="password" placeholder="Mot de passe" type="password">
-    <input id="login" class="_input _input-2" ref="login" name="login" placeholder="Login" type="text">
-    <div class="element element-1"></div>
+    <button id="bn-connexion" class="_button">Connexion</button>
+    <input id="password" class="_input _input-1" name="password" placeholder="Mo de passe" type="text">
+    <input id="login" class="_input _input-2" name="login" placeholder="Login" type="text">
+    <div class="container">
+      <div class="element"></div>
+    </div>
     <div class="element element-2"></div>
-    <button v-on:click="connexion()" id="bn-connexion" class="_button">Connexion</button>
-
   </body>
 
 </template>
@@ -16,37 +17,44 @@ export default {
   name: 'app',
   data () {
     return {
-      Id: '',
-      Password:''
+      First_name: '',
+      Last_name:'',
+      Birth_date: '',
+      Gender:'',
+      Email: '',
+      Id:'',
+      Password:'',
+      My_photo:'',
+      City: '',
+      Country:''
+
     }
   },
 
   methods:{
-    connexion:function(){
+    signUp:function(){
       this.Id=this.$refs.login.value
       this.Password=this.$refs.password.value
       this.$emit('changeCompo','registration')
-      this.$http.get('http://localhost:5001/api/values',{
+      this.$http.post('http://localhost:5001/api/values',{
+        First_name:this.First_name,
+        Last_name:this.Last_name,
+        Birth_date:this.Birth_date,
+        Gender:this.Gender,
+        Email:this.Email,
         Id:this.Id,
-        Password:this.Password
+        Password:this.Password,
+        My_photo:this.My_photo,
+        City:this.City,
+        Country:this.Country
       }).then(function(data){
           console.log(data);
     })
   },
-
-    getPassword:function(){
-      this.Id=this.$refs.login.value
-      this.$http.get('http://localhost:5001/api/values',{
-        Id:this.Id,
-      }).then(function(data){
-          console.log(data);
-    })
-    }
-
-
       },
 }
 </script>
+
 
 <style>
 body {
@@ -60,6 +68,25 @@ body {
   color: rgb(255, 255, 255);
 }
 
+.container {
+  position: absolute;
+  top: 16px;
+  right: 740px;
+  z-index: 2;
+  width: 114px;
+  height: 106px;
+}
+
+.container .element {
+  top: -15px;
+  z-index: 1;
+  width: 129px;
+  height: 138px;
+  background: url('./assets/icon.png') rgba(222, 222, 222, 0);
+  background-size: cover;
+  background-position: left top;
+}
+
 .element {
   position: absolute;
   left: 0;
@@ -70,10 +97,10 @@ body {
 ._button {
   display: block;
   position: absolute;
-  top: 360px;
+  top: 376px;
   left: 0;
   right: 0;
-  z-index: 4;
+  z-index: 5;
   width: 144px;
   height: 38px;
   margin: 0 auto;
@@ -93,8 +120,8 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  width: 167px;
-  height: 15px;
+  width: 163px;
+  height: 34px;
   margin: 0 auto;
   padding: 10px;
   border-radius: 5px;
@@ -104,31 +131,23 @@ body {
   color: rgb(0, 0, 0);
 }
 
-.element-1 {
-  top: 104px;
-  z-index: 1;
-  width: 129px;
-  height: 138px;
-  background: url('./assets/icon.png') rgba(222, 222, 222, 0);
-  background-size: cover;
-  background-position: left top;
-}
-
 .element-2 {
   top: 50px;
   width: 435px;
+  min-width: 200px;
+  max-width: 435px;
   height: 489px;
   border-radius: 25px;
   background-color: rgb(255, 255, 255);
 }
 
 ._input-1 {
-  top: 300px;
-  z-index: 3;
+  top: 312px;
+  z-index: 4;
 }
 
 ._input-2 {
-  top: 240px;
-  z-index: 2;
+  top: 264px;
+  z-index: 3;
 }
 </style>
