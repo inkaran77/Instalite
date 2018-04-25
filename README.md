@@ -78,7 +78,7 @@ team Front-end dois mettre à jour vue.js
   
 
  **Mot de passe oublié**
-    ----
+    ---
       Return un String
 
     * **URL**
@@ -115,7 +115,7 @@ team Front-end dois mettre à jour vue.js
 
     team Front-end dois mettre à jour vue.js
 
-      ```javascript
+      javascript
         $.ajax({
           url: "/users/1",
           dataType: "json",
@@ -124,9 +124,9 @@ team Front-end dois mettre à jour vue.js
             console.log(r);
           }
         });
-        ```
+        
 
-        **Inscription**
+   **Inscription**
         ----
           Return un String
 
