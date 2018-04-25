@@ -76,17 +76,16 @@ team Front-end dois mettre à jour vue.js
     });
     
   
-
- **Mot de passe oublié**
+**Mot de passe oublié**
     ---
      
     Return un String
 
-    * **URL**
+* **URL**
 
       à remplir par Back-end team
 
-    * **Method:**
+* **Method:**
 
       `GET`
 
