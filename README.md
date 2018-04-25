@@ -79,15 +79,15 @@ team Front-end dois mettre à jour vue.js
 **Mot de passe oublié**
     ---
      
-    Return un String
+   Return un String
 
 * **URL**
 
-      à remplir par Back-end team
+   à remplir par Back-end team
 
 * **Method:**
 
-      `GET`
+   GET
 
     *  **URL Params**
 
@@ -125,23 +125,22 @@ team Front-end dois mettre à jour vue.js
           }
         });
         
-
-   **Inscription**
+**Inscription**
         ----
           
-    Return un String
+Return un String
 
-        * **URL**
+* **URL**
 
-          à remplir par Back-end team
+  http://localhost:5000/Instalite/Inscription/
 
-        * **Method:**
+* **Method:**
 
-          `POST`
+   POST
 
-        *  **URL Params**
+*  **URL Params**
 
-           **Required:**
+      **Required:**
 
            `First_name=[String]`
            `Last_name=[String]`
@@ -154,7 +153,7 @@ team Front-end dois mettre à jour vue.js
            `City=[String]`
            `Country=[String]`
 
-        * **Data Params**
+     * **Data Params**
 
           None
 
