@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 export default {
 
   name: 'app',
@@ -49,6 +51,7 @@ export default {
 </script>
 
 <style>
+
 body {
   height: 100%;
   background: url('./assets/background.jpg')rgb(255, 255, 255);
