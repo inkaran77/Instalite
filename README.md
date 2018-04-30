@@ -142,13 +142,13 @@ Return un String
 
       **Required:**
 
-           `First_name=[String]`
-           `Last_name=[String]`
+           `First_Name=[String]`
+           `Last_Name=[String]`
            `Birth_date=[Date]`
            `Gender=[String]`
            `Email=[String]`
            `Password=[String]`
-           `Id=[String]`
+           `UserId=[String]`
            `My_photo=[String]`
            `City=[String]`
            `Country=[String]`
