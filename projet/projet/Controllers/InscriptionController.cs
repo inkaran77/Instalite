@@ -26,6 +26,7 @@ namespace projet.Controllers
         [HttpPost]
         public void /*HttpResponseMessage*/ Post([FromBody]User user)
         {
+            
             if (db.IsIdUsed(user.UserId) == false)
             {
                 db.Inscription(user);

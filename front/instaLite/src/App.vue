@@ -8,17 +8,19 @@
 import connexion from './connexion.vue'
 import registration from './registration.vue'
 import test from './test.vue'
+import home from './home.vue'
 export default {
   components : {
   'connexion':connexion,
   'registration':registration,
-  'test':test
+  'test':test,
+  'home':home
 },
 
   name: 'app',
   data () {
     return {
-      pageView:'registration'
+      pageView:'connexion'
     }
   },
   methods: {

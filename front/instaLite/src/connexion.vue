@@ -1,11 +1,18 @@
 <template>
-  <body class="body page-index clearfix">
-    <input v-on:keyup.enter="connexion()" ref="password" id="password" class="_input _input-1" name="password" placeholder="Mot de passe" type="password">
-    <input id="login" class="_input _input-2" ref="login" name="login" placeholder="Login" type="text">
-    <div class="element element-1"></div>
-    <div class="element element-2"></div>
-    <button v-on:click="connexion()" id="bn-connexion" class="_button">Connexion</button>
+    <body class="body">
+      <form @submit.prevent="signUp">
+      <div class="bander signflex ">
+        <div class="icon"></div>
+        <h3>Bienvenue sur InstaLite</h3>
 
+                <input  placeholder="Login" v-validate="'required|alpha'" class="{'input': true, 'is-danger': errors.has('Nom'),input-md sizenput } " required="" type="text" v-model="UserId">
+              <input  placeholder="Mot de passe"  class=" input-md sizenput" required="" type="password" v-model="Password">
+              <a href="#" v-on:click="getPassword()">Mot de passe oublié</a>
+              <button  v-on:click="connexion()" class="btn btn-success btn-touch">Connexion</button>
+              <button  v-on:click="signUp()" class="btn btn-primary btn-touch">Inscription</button>
+
+      </div>
+</form>
   </body>
 
 </template>
@@ -18,32 +25,61 @@ export default {
   name: 'app',
   data () {
     return {
-      Id: '',
+      UserId: '',
       Password:''
     }
   },
 
   methods:{
     connexion:function(){
-      this.Id=this.$refs.login.value
-      this.Password=this.$refs.password.value
-      this.$emit('changeCompo','registration')
-      this.$http.get('http://localhost:5001/api/values',{
-        Id:this.Id,
-        Password:this.Password
-      }).then(function(data){
-          console.log(data);
-    })
-  },
+      this.$validator.validateAll().then((result) => {
+            if (result) {
+              console.log("click")
+              this.$http.get('http://localhost:5000/Instalite/Inscription/',{
+                UserId:this.UserId,
+                Password:this.Password
+              }).then(function(response){
+                if(reponse.status==200){
+                  alert('Inscription reussi')
+                  var token=response.data
+                  this.$emit('changeCompo','home')
+                  console.log(data);
+                }
+                if(response.status==401){
+                  alert('Mot de pass erroné')
+                }
+                alert('Vérifier votre login/mot de passe')
+            })
+              return;
+            }
+
+
+          });
+        },
 
     getPassword:function(){
-      this.Id=this.$refs.login.value
-      this.$http.get('http://localhost:5001/api/values',{
-        Id:this.Id,
-      }).then(function(data){
-          console.log(data);
-    })
-    }
+      this.$validator.validateAll().then((result) => {
+            if (result) {
+              this.$http.get('http://localhost:5001/api/values',{
+                UserId:this.UserId,
+              }).then(function(data){
+                  if(data.status==200){
+                    alert('Votre mot de passe vous à été envoyé par mail')
+                  }
+                  alert('Erreur,veuillez réessayer')
+            })
+            return;
+            }
+            if(!result){
+            alert('Entrer votre login puis cliquer sur mot de passe oublié')
+}
+          });
+
+  },
+
+  signUp:function(){
+    this.$emit('changeCompo','registration')
+  }
 
 
       },
@@ -51,6 +87,10 @@ export default {
 </script>
 
 <style>
+.body{
+  display: flex;
+  justify-content: center;
+}
 
 body {
   height: 100%;
@@ -60,78 +100,41 @@ body {
   background-position: left top, left top;
   background-attachment: scroll, scroll;
   font: 400 1em/1.38 Helvetica;
-  color: rgb(255, 255, 255);
-}
 
-.element {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-}
 
-._button {
+}
+.bander{
   display: block;
-  position: absolute;
-  top: 360px;
-  left: 0;
-  right: 0;
-  z-index: 4;
-  width: 144px;
-  height: 38px;
-  margin: 0 auto;
-  border-radius: 25px;
-  background-color: rgb(7, 42, 71);
-  font-size: 1em;
-  text-align: center;
-  color: rgb(255, 255, 255);
-}
-
-._button:hover {
-  background-color: rgb(121, 159, 191);
-}
-
-._input {
-  display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 167px;
-  height: 15px;
-  margin: 0 auto;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: rgb(242, 242, 242);
-  font-size: 0.813em;
-  text-align: center;
-  color: rgb(0, 0, 0);
-}
-
-.element-1 {
-  top: 104px;
-  z-index: 1;
-  width: 129px;
-  height: 138px;
-  background: url('./assets/icon.png') rgba(222, 222, 222, 0);
-  background-size: cover;
-  background-position: left top;
-}
-
-.element-2 {
+  min-width: 500px;
+  min-height: 640px;
+  max-width: 600px;
+  max-height: 640px;
+  background-color: white;
+  position: relative;
   top: 50px;
-  width: 435px;
-  height: 489px;
   border-radius: 25px;
-  background-color: rgb(255, 255, 255);
-}
 
-._input-1 {
-  top: 300px;
-  z-index: 3;
 }
+.signflex{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sizenput{
+  margin-bottom: 20px;
+}
+.icon{
+  height: 200px;
+  width: 200px;
+  background-image: url(assets/icon.png);
+  background-repeat: no-repeat;
 
-._input-2 {
-  top: 240px;
-  z-index: 2;
+}
+button{
+  margin-bottom: 10px;
+}
+a:only-of-type{
+  margin-bottom: 10px;
 }
 </style>
