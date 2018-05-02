@@ -106,7 +106,8 @@ Team
 *  **URL Params**
 
       **Required:**
-			`UserId=[String]`
+      
+		``   `UserId=[String]`
            `First_Name=[String]`
            `Last_Name=[String]`
            `Birth_date=[Date]`
@@ -116,8 +117,9 @@ Team
         	`My_photo=[String]`
            `City=[String]`
            `Country=[String]`
-	
+		``
 	 **Example:**
+	 	``
 	 	{
 			"UserId ": "Ik",
 			"Password":"123",
@@ -129,7 +131,7 @@ Team
 			"City":"Evry",
 			"Country":"France"
 		}
-	
+		``
      * **Data Params**
 
           None
