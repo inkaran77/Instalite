@@ -1,6 +1,6 @@
 <template>
     <body class="body">
-      <form @submit.prevent="signUp">
+      <form @submit.prevent="connexion">
       <div class="bander signflex ">
         <div class="icon"></div>
         <h3>Bienvenue sur InstaLite</h3>
