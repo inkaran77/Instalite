@@ -39,9 +39,7 @@ Team
   * **Code:** 404 NOT FOUND <br />
     **Content:** `{ error : "L'utilisateur n'existe pas" }`
 
-  OR
-
-  * **Code:** 401 UNAUTHORIZED <br />
+  * **Code:** 400 BADREQUEST <br />
     **Content:** `{ error : "Mot de passe erroné" }`
 
  
@@ -95,7 +93,7 @@ Team
         });
         
 **Inscription**
-----
+---
 
 * **URL**
 
