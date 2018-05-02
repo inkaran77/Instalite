@@ -10,7 +10,8 @@ using projet.Models;
 
 namespace projet.Controllers
 {
-    [Route("api/Connexion")]
+
+    [Route("Instalite/Connexion")]
     public class ConnexionController : Controller
     {
 
@@ -24,34 +25,25 @@ namespace projet.Controllers
 
 
         // GET: api/values
-        [HttpGet]
-        public List<User> Get()
+        [HttpGet("{id}/{password}")]
+        public IActionResult Get(String id,String password)
         {
-            Console.WriteLine("a");
-            return db.GetAllUsers();
-        }
+            if (db.IsIdUsed(id) == false) 
+            {
+                //String a = "Id";
+                return new NotFoundObjectResult("L'utilisateur n'existe pas");
+            }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public Boolean Get(String id)
-        {
-            return db.IsIdUsed(id);
-        }
+            if (db.IsIdUsed(id) == true)
+            {
+                if(db.ValidePassword(id,password)==false)
+                {
+                    return new NotFoundObjectResult("Mot de passe erroné");
+                }
+            }
 
-        // POST api/values
-        [HttpPost]
-        public IActionResult Post([FromBody]User user)
-        {
-            // if (db.IsIdValide(id) == false){
-            // return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Id déjà prit");
-            // }
-            // var u = user.Id.ToString();
-            //Console.WriteLine(u);
-          
-           
-
-            return Json(user);
-
+            // rajouter token
+            return new OkObjectResult("Vous êtes connecté");
 
         }
 
@@ -67,4 +59,6 @@ namespace projet.Controllers
         {
         }
     }
+
+    
 }

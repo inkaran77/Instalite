@@ -12,7 +12,7 @@ Team
 
 * **URL**
 
-  à remplir par Back-end team
+   http://localhost:5000/Instalite/Connexion/id/password
 
 * **Method:**
 
@@ -44,40 +44,9 @@ Team
   * **Code:** 401 UNAUTHORIZED <br />
     **Content:** `{ error : "Mot de passe erroné" }`
 
-**Inscription**
-———
-* **Url :**
-http://localhost:5000/Instalite/Inscription/ 
-* **Format :**
-{
-"UserId ": "Ik",
-"Password":"123",
-"First_Name":"Inkaran",
-"Last_Name": "Thuraiyappah",
-"Gender":"m",
-"Email":"ik@gmail.com",
-"Birth_date": "2000/10/10",
-"City":"Evry",
-"Country":"France"
-}
-
-* **Sample Call:**
-
-team Front-end dois mettre à jour vue.js
-
- javascript
-    $.ajax({
-      url: "/users/1",
-      dataType: "json",
-      type : "GET",
-      success : function(r) {
-        console.log(r);
-      }
-    });
-    
-  
+ 
 **Mot de passe oublié**
-    ---
+---
      
    Return un String
 
@@ -126,9 +95,7 @@ team Front-end dois mettre à jour vue.js
         });
         
 **Inscription**
-        ----
-          
-Return un String
+----
 
 * **URL**
 
@@ -141,18 +108,30 @@ Return un String
 *  **URL Params**
 
       **Required:**
-
+			`UserId=[String]`
            `First_Name=[String]`
            `Last_Name=[String]`
            `Birth_date=[Date]`
            `Gender=[String]`
            `Email=[String]`
            `Password=[String]`
-           `UserId=[String]`
-           `My_photo=[String]`
+        	`My_photo=[String]`
            `City=[String]`
            `Country=[String]`
-
+	
+	 **Example:**
+	 	{
+			"UserId ": "Ik",
+			"Password":"123",
+			"First_Name":"Inkaran",
+			"Last_Name": "Thuraiyappah",
+			"Gender":"m",
+			"Email":"ik@gmail.com",
+			"Birth_date": "2000/01/01",
+			"City":"Evry",
+			"Country":"France"
+		}
+	
      * **Data Params**
 
           None
@@ -164,13 +143,9 @@ Return un String
 
         * **Error Response:**
 
-          * **Code:** 404 NOT FOUND <br />
-            **Content:** `{ error : "L'utilisateur n'existe pas" }`
-
-          OR
-
-          * **Code:** 401 UNAUTHORIZED <br />
-            **Content:** `{ error : "Login existe déja" }`
+          
+          * **Code:** 400 BADREQUEST <br />
+            **Content:** `{ error : "ID déjà  utilisé" }`
 
         * **Sample Call:**
 

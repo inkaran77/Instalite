@@ -21,7 +21,7 @@ namespace projet.Models
         }
 
 
-
+        // Inscrire un nouveau utilisateur
         public void Inscription(User u)
         {
             _db.GetCollection<User>("user").InsertOne(new User
@@ -48,6 +48,17 @@ namespace projet.Models
             return result;
         }
 
+        //Test si le mot de passe est valide
+        public Boolean ValidePassword(String Id,String Password)
+        {
+
+            var filterId = Builders<User>.Filter.Eq("UserId", Id);
+            var filterPassword = Builders<User>.Filter.Eq("Password", Password);
+            var filter = filterId & filterPassword;
+            Boolean result = _db.GetCollection<User>("user").Find(filter).Any();
+
+            return result;
+        }
 
 
         // Test retour brute

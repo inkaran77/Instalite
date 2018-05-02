@@ -24,15 +24,15 @@ namespace projet.Controllers
 
         // POST Instalite/Inscription
         [HttpPost]
-        public void /*HttpResponseMessage*/ Post([FromBody]User user)
+        public IActionResult Post([FromBody]User user)
         {
             
             if (db.IsIdUsed(user.UserId) == false)
             {
                 db.Inscription(user);
-                Console.Write("Inscription Ok");
+                return new OkObjectResult("Félicitation, vous êtes bien inscrit");
             }
-            else Console.Write("Id déjà utilisé");    //return Request.CreateResponse(HttpStatusCode.NotFound, "No Data found");
+            else return new BadRequestObjectResult("ID déja utilisé");
         }
 
 
