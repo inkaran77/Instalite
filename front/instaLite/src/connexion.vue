@@ -35,15 +35,10 @@ export default {
       this.$validator.validateAll().then((result) => {
             if (result) {
               console.log("click")
-<<<<<<< HEAD
-<<<<<<< HEAD
+
               this.$http.get('http://localhost:5000/Instalite/Connexion',{params:{
-=======
-              this.$http.get('http://localhost:5000/Instalite/Connexion/'UserId'/'Password,{
->>>>>>> ffe874009c1d680a424640ecb6f35e121b2c8748
-=======
-              this.$http.get('http://localhost:5000/Instalite/Connexion/'UserId'/'Password,{
->>>>>>> ffe874009c1d680a424640ecb6f35e121b2c8748
+
+
                 UserId:this.UserId,
                 Password:this.Password
               }}).then(function(response){
