@@ -35,12 +35,16 @@ export default {
       this.$validator.validateAll().then((result) => {
             if (result) {
               console.log("click")
-              this.$http.get('http://localhost:5000/Instalite/Inscription/',{
+<<<<<<< HEAD
+              this.$http.get('http://localhost:5000/Instalite/Connexion',{params:{
+=======
+              this.$http.get('http://localhost:5000/Instalite/Connexion/'UserId'/'Password,{
+>>>>>>> ffe874009c1d680a424640ecb6f35e121b2c8748
                 UserId:this.UserId,
                 Password:this.Password
-              }).then(function(response){
+              }}).then(function(response){
                 if(reponse.status==200){
-                  alert('Inscription reussi')
+                  alert(response.statusText)
                   var token=response.data
                   this.$emit('changeCompo','home')
                   console.log(data);

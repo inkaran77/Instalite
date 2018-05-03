@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using projet.Models;
 
@@ -11,6 +12,8 @@ using projet.Models;
 namespace projet.Controllers
 {
     [Route("Instalite/Inscription")]
+   // [EnableCors("AllowSpecificOrigin")]
+    [DisableCors]
     public class InscriptionController : Controller
     {
 

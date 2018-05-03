@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using projet.Models;
 
@@ -12,6 +13,8 @@ namespace projet.Controllers
 {
 
     [Route("Instalite/Connexion")]
+   //[EnableCors("AllowSpecificOrigin")]
+    [DisableCors]
     public class ConnexionController : Controller
     {
 
@@ -26,6 +29,7 @@ namespace projet.Controllers
 
         // GET: api/values
         [HttpGet("{id}/{password}")]
+       // [DisableCors]
         public IActionResult Get(String id,String password)
         {
             if (db.IsIdUsed(id) == false) 

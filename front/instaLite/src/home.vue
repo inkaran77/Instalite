@@ -2,12 +2,12 @@
   <body>
 
        	<div class="menu">
-                 <button onclick="profilbar()" class="btn-profil">Menu</button>
+
             <div class="flexend">
 
             </div>
             <div class="flexend">
-                 <input type="text" name="Recherche">
+                 <button class=" btn btn-danger">Déconnexion</button>
             </div>
 
             </div>
@@ -18,7 +18,7 @@
 
             <div id="profil">
                  <div class="containers">
-                 <h1>Mon Compte</h1>
+
 
                  </div>
 
@@ -29,11 +29,11 @@
                       </div>
                       <div class="container-name">
                            <div class="box-follow">
-                                <h3>Abonnée</h3><h3>500</h3>
+                                <h5>Abonnée</h5><h5>500</h5>
 
                            </div>
                            <div class="box-follow ">
-                                <h3>Abos</h3><h3>500</h3>
+                                <h5>Abos</h5><h5>500</h5>
                            </div>
                       </div>
                       <button class="btn-compte">Photo</button>
@@ -113,19 +113,8 @@ h3 {
      margin-top: -23px;
 
 }
-.btn-profil{
-     display: block;
-     width: 10%;
-     height: 60px;
-     background-color: #00A7E0;
-     border-color: #00A7E0;
-     font-size: 25px;
-     color: white;
-     min-width: 165px;
-}
-.btn-profil:hover{
-     background-color: #006e93;
-}
+
+
 #droite {
      display: block;
      height: 2px;
@@ -135,18 +124,17 @@ h3 {
      top: -10px;
 }
 .containers{
+
      display: flex;
      flex-direction: row;
 }
  #profil{
+   position: fixed;
 display: block;
 height: 100%;
 width: 350px;
-background-color: #4E4E4E;
-position: relative;
-right: 350px;
-display: flex;
-align-items: center;
+background-color: rgb(7, 42, 71);
+
 
 
  }
@@ -208,10 +196,15 @@ h2 {
      display: block;
      width: 100%;
      height: 40px;
-     background-color: #4E4E4E;
-     font-size: 20px;
+     background-color: rgb(7, 42, 71);
+     border-color: rgb(7, 42, 71);
+     border: 0;
      font-family: arial;
      color: white;
+}
+.btn-compte:hover{
+  background-color: #FFFF;
+  color:black;
 }
 .end {
      height: 390px;

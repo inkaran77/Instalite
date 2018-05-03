@@ -74,11 +74,15 @@ export default {
    this.$validator.validateAll().then((result) => {
          if (result) {
            console.log("click")
-           this.$http.post('http://localhost:5000/Instalite/Inscription/',{
+<<<<<<< HEAD
+           this.$http.post('https://jsonplaceholder.typicode.com/posts',{
+=======
+           this.$http.post('http://localhost:5000/Instalite/Inscription',{
+>>>>>>> ffe874009c1d680a424640ecb6f35e121b2c8748
              UserId:this.Id,
              Password:this.Password,
-             First_name:this.First_name,
-             Last_name:this.Last_name,
+             First_Name:this.First_name,
+             Last_Name:this.Last_name,
               Gender:this.Gender,
                Email:this.Email,
              Birth_date:this.Birth_date,
