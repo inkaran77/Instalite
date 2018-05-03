@@ -35,7 +35,7 @@ export default {
       this.$validator.validateAll().then((result) => {
             if (result) {
               console.log("click")
-              this.$http.get('http://localhost:5000/Instalite/Inscription/',{
+              this.$http.get('http://localhost:5000/Instalite/Connexion/'UserId'/'Password,{
                 UserId:this.UserId,
                 Password:this.Password
               }).then(function(response){
