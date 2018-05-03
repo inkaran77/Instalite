@@ -75,7 +75,11 @@ export default {
          if (result) {
            console.log("click")
 <<<<<<< HEAD
+<<<<<<< HEAD
            this.$http.post('https://jsonplaceholder.typicode.com/posts',{
+=======
+           this.$http.post('http://localhost:5000/Instalite/Inscription',{
+>>>>>>> ffe874009c1d680a424640ecb6f35e121b2c8748
 =======
            this.$http.post('http://localhost:5000/Instalite/Inscription',{
 >>>>>>> ffe874009c1d680a424640ecb6f35e121b2c8748
