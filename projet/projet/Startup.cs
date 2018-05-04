@@ -30,6 +30,8 @@ namespace projet
             services.AddCors(); // pour CORS
             services.AddMvc();
 
+
+            // Ajoute la configuration de cors à tous les controlleurs
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new CorsAuthorizationFilterFactory("AllowSpecificOrigin"));

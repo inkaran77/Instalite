@@ -28,19 +28,19 @@ namespace projet.Controllers
 
 
         // GET: api/values
-        [HttpGet("{id}/{password}")]
+        [HttpGet("")]
        // [DisableCors]
-        public IActionResult Get(String id,String password)
+        public IActionResult Get(String Userid,String Password)
         {
-            if (db.IsIdUsed(id) == false) 
+            if (db.IsIdUsed(Userid) == false) 
             {
                 //String a = "Id";
                 return new NotFoundObjectResult("L'utilisateur n'existe pas");
             }
 
-            if (db.IsIdUsed(id) == true)
+            if (db.IsIdUsed(Userid) == true)
             {
-                if(db.ValidePassword(id,password)==false)
+                if(db.ValidePassword(Userid,Password)==false)
                 {
                     return new BadRequestObjectResult("Mot de passe erroné");
                 }

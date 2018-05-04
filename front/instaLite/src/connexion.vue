@@ -48,7 +48,7 @@ export default {
                   this.$emit('changeCompo','home')
                   console.log(data);
                 }
-                if(response.status==401){
+                if(response.status==400){
                   alert('Mot de pass erroné')
                 }
                 alert('Vérifier votre login/mot de passe')
