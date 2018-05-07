@@ -74,7 +74,7 @@ export default {
 
    this.$validator.validateAll().then((result) => {
          if (result) {
-           this.$http.post('http://localhost:5000/Instalite/Inscription/',{
+           this.$http.post('http://localhost:5000/Instalite/Inscription',{
              UserId:this.Id,
              Password:this.Password,
              First_name:this.First_name,

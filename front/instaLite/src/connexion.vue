@@ -42,17 +42,18 @@ export default {
                 UserId:this.UserId,
                 Password:this.Password
               }}).then(function(response){
-                if(reponse.status==200){
-                  alert(response.statusText)
+                if(response.status==200){
+                  alert("Vous êtes connecté")
                   var token=response.data
                   this.$emit('changeCompo','home')
                   console.log(data);
+
+
                 }
-                if(response.status==400){
-                  alert('Mot de pass erroné')
-                }
-                alert('Vérifier votre login/mot de passe')
+
             })
+            
+            alert('Vérifier votre login/mot de passe')
               return;
             }
 

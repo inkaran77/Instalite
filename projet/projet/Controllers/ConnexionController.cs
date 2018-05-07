@@ -27,7 +27,7 @@ namespace projet.Controllers
         }
 
 
-        // GET: api/values
+        // GET: Instalite/Connexion/Connexion?UserId=&Password=
         [HttpGet("")]
        // [DisableCors]
         public IActionResult Get(String Userid,String Password)

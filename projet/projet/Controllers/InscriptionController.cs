@@ -25,6 +25,7 @@ namespace projet.Controllers
         }
 
 
+        /* Post avec FromBody 
         // POST Instalite/Inscription
         [HttpPost]
         public IActionResult Post([FromBody]User user)
@@ -37,6 +38,20 @@ namespace projet.Controllers
             }
             else return new BadRequestObjectResult("ID déja utilisé");
         }
+        */
+
+        [HttpPost]
+        public IActionResult Post([FromBody]User user)
+        {
+
+            if (db.IsIdUsed(user.UserId) == false)
+            {
+                db.Inscription(user);
+                return new OkObjectResult("Félicitation, vous êtes bien inscrit");
+            }
+            else return new BadRequestObjectResult("ID déja utilisé");
+        }
+
 
 
 
