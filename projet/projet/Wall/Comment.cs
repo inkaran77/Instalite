@@ -4,7 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 
-namespace projet.Models
+namespace projet.Wall
 {
     public class Comment
     {

@@ -78,14 +78,14 @@ export default {
 
            this.$http.post('http://localhost:5000/Instalite/Inscription',{
 
-             UserId:this.Id,
+             UserId:this.UserId,
              Password:this.Password,
              First_Name:this.First_name,
              Last_Name:this.Last_name,
               Gender:this.Gender,
                Email:this.Email,
              Birth_date:this.Birth_date,
-             //My_photo:this.My_photo,
+             My_photo:this.fichier,
              City:this.City,
              Country:this.Country
            }).then(function(response){

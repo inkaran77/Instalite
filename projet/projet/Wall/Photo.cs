@@ -1,16 +1,18 @@
-﻿using System;
+﻿using System;   
 using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 
-namespace projet.Models
+namespace projet.Wall
 {
-    public class Like
+    public class Photo
     {
         public ObjectId Id { get; set; }
 
-        [BsonElement("Author")]
-        public string Author { get; set; }
+        [BsonElement("Image")]
+        public Byte[] Image { get; set; }
     }
+
+
 }

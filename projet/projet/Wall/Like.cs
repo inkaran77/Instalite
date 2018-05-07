@@ -4,13 +4,13 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 
-namespace projet.Models
+namespace projet.Wall
 {
-    public class Photo
+    public class Like
     {
         public ObjectId Id { get; set; }
 
-        [BsonElement("Image")]
-        public BsonBinaryData Image { get; set; }
+        [BsonElement("Author")]
+        public string Author { get; set; }
     }
 }
