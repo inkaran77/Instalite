@@ -4,12 +4,22 @@
       <div class="bander signflex ">
         <div class="icon"></div>
         <h3>Bienvenue sur InstaLite</h3>
-
-                <input  placeholder="Login" v-validate="'required|alpha'" class="{'input': true, 'is-danger': errors.has('Nom'),input-md sizenput } " required="" type="text" v-model="UserId">
-              <input  placeholder="Mot de passe"  class=" input-md sizenput" required="" type="password" v-model="Password">
+        <div class="md-layout-item md-small-size-100 md-size-33">
+          <md-field>
+            <label>Login</label>
+            <md-input v-model="UserId"v-validate="'required|alpha'" required="" type="text"></md-input>
+          </md-field>
+        </div>
+        <div class="md-layout-item md-small-size-100 md-size-33">
+          <md-field>
+            <label>Mot de passe </label>
+            <md-input v-model="Password" required="" type="password"></md-input>
+          </md-field>
+        </div>
               <a href="#" v-on:click="getPassword()">Mot de passe oublié</a>
               <button  v-on:click="connexion()" class="btn btn-success btn-touch">Connexion</button>
               <button  v-on:click="signUp()" class="btn btn-primary btn-touch">Inscription</button>
+
 
       </div>
 </form>
@@ -41,17 +51,17 @@ export default {
 
                 UserId:this.UserId,
                 Password:this.Password
-              }}).then(function(response){
-                if(reponse.status==200){
-                  alert(response.statusText)
+              }}).then(response => {
+
+                  alert('Connexion reussi')
                   var token=response.data
                   this.$emit('changeCompo','home')
                   console.log(data);
-                }
-                if(response.status==400){
+                },(response) => {
+                if(response.status==401){
                   alert('Mot de pass erroné')
                 }
-                alert('Vérifier votre login/mot de passe')
+                alert('Problème serveur, veuillez réessayer')
             })
               return;
             }
@@ -63,13 +73,13 @@ export default {
     getPassword:function(){
       this.$validator.validateAll().then((result) => {
             if (result) {
-              this.$http.get('http://localhost:5001/api/values',{
+              this.$http.get('http://localhost:5001/api/values',{params:{
                 UserId:this.UserId,
-              }).then(function(data){
-                  if(data.status==200){
+              }}).then(response => {
+
                     alert('Votre mot de passe vous à été envoyé par mail')
-                  }
-                  alert('Erreur,veuillez réessayer')
+                  },(response) => {
+                  alert('Erreur serveur,veuillez réessayer')
             })
             return;
             }
@@ -97,7 +107,7 @@ export default {
 
 body {
   height: 100%;
-  background: url('./assets/background.jpg')rgb(255, 255, 255);
+  background: url('./assets/background2.jpg')rgb(255, 255, 255);
   background-repeat: repeat, repeat;
   background-size: cover, cover;
   background-position: left top, left top;
@@ -109,10 +119,11 @@ body {
 .bander{
   display: block;
   min-width: 500px;
-  min-height: 640px;
+  min-height: 550px;
   max-width: 600px;
-  max-height: 640px;
-  background-color: white;
+  max-height: 600px;
+  background-color: rgba(255,255,255,0.6);
+
   position: relative;
   top: 50px;
   border-radius: 25px;

@@ -7,35 +7,35 @@
     <center><h1>Inscription</h1></center>
     <div >
 <fieldset>
-      <div class="container-photo">
-        <input type="file" name="fichier">
-        <div class="photo">
-        </div>
-        <input  placeholder="Login" name="login" v-validate="'required|alpha'" class="{'input': true, 'is-danger': errors.has('login'),input-md sizinput2 } " required="" type="text" v-model="UserId">
+  <div class="container-photo">
+     <input type="file" name="fichier">
+     <div class="photo">
+     </div>
 
-      </div>
+   </div>
 
-      <div class="container-inpute">
+   <div class="container-inpute">
+     <input  placeholder="Login" name="login" v-validate="'required|alpha'" class="{'input': true, 'is-danger': errors.has('login'),input-md sizinput2 } " required="" type="text" v-model="UserId">
 
-        <input  placeholder="Nom" name="Nom" v-validate="'required|alpha'" class="{'input': true, 'is-danger': errors.has('Nom'),input-md sizinput } " required="" type="text" v-model="First_name">
-      <input  placeholder="Prénom" v-validate="'required|alpha'" class=" input-md sizinput" required="" type="text" v-model="Last_name">
-      <input  placeholder="Date de naissance" v-validate="'required'" class=" input-group date sizinput" required="" type="date" v-model="Birth_date">
-          <div class="togle">
-            Femme <input style="color:black"type="radio" class="togle2"name="sexe"required="Sexe"value="Female">
-            Homme <input type="radio" class="togle2"name="sexe"required="Sexe"value="Male">
-          </div>
+     <input  placeholder="Nom" name="Nom" v-validate="'required|alpha'" class="{'input': true, 'is-danger': errors.has('Nom'),input-md sizinput } " required="" type="text" v-model="First_name">
+   <input  placeholder="Prénom" v-validate="'required|alpha'" class=" input-md sizinput" required="" type="text" v-model="Last_name">
+   <input  placeholder="Date de naissance" v-validate="'required'" class=" input-group date sizinput" required="" type="date" v-model="Birth_date">
+       <div class="togle">
+         Femme <input style="color:black"type="radio" class="togle2"name="sexe"required="Sexe"value="Female">
+         Homme <input type="radio" class="togle2"name="sexe"required="Sexe"value="Male">
+       </div>
 
-      <input name="ps1"placeholder="Mot de passe"  v-validate="'required'" class="input-md sizinput" required="" type="password" v-model="Password">
-      <input  name="ps2"placeholder="Confirmation mot de passe" v-validate="'required|confirmed:ps1'"class=" input-md sizinput" required="" type="password">
-      <span v-show="errors.has('ps2')" style="color:red;font-size:10px;" class="help ">Mot de passe de confirmation différent</span>
-      <input  placeholder="Email" v-validate="'required|email'" class="{'input': true, 'is-danger': errors.has('email'),input-md sizinput2 } " required="" type="email" v-model="Email">
-      <input  placeholder="Ville" v-validate="'required|alpha'" class="input-md sizinput" required="" type="text" v-model="City">
-      <input  placeholder="Pays" v-validate="'required|alpha'"class=" input-md sizinput" required="" type="text" v-model="Country">
-      <button  v-on:click="signUp()" class="btn btn-primary btn-touch">Inscription</button>
+   <input name="ps1"placeholder="Mot de passe"  v-validate="'required'" class="input-md sizinput" required="" type="password" v-model="Password">
+   <input  name="ps2"placeholder="Confirmation mot de passe" v-validate="'required|confirmed:ps1'"class=" input-md sizinput" required="" type="password">
+   <span v-show="errors.has('ps2')" style="color:red;font-size:10px;" class="help ">Mot de passe de confirmation différent</span>
+   <input  placeholder="Email" v-validate="'required|email'" class="{'input': true, 'is-danger': errors.has('email'),input-md sizinput2 } " required="" type="email" v-model="Email">
+   <input  placeholder="Ville" v-validate="'required|alpha'" class="input-md sizinput" required="" type="text" v-model="City">
+   <input  placeholder="Pays" v-validate="'required|alpha'"class=" input-md sizinput" required="" type="text" v-model="Country">
+   <button  v-on:click="signUp()" class="btn btn-primary btn-touch">Inscription</button>
 
 
 
-      </div>
+</div>
     </fieldset>
 
   </div>
@@ -61,16 +61,17 @@ export default {
       Email: '',
       Id:'',
       Password:'',
-      My_photo:'',
+      My_photo:null,
       City: '',
-      Country:''
+      Country:'',
+      lienUrl:require('./assets/background2.jpg')
     }
   },
 
   methods:{
 
      signUp:function(){
-
+ console.log("click")
    this.$validator.validateAll().then((result) => {
          if (result) {
            console.log("click")
@@ -88,12 +89,12 @@ export default {
              //My_photo:this.My_photo,
              City:this.City,
              Country:this.Country
-           }).then(function(response){
-             if(response.status==200){
+           }, {emulateJSON:true}).then(response => {
+
                alert('Inscription reussi')
                this.$emit('changeCompo','connexion')
                console.log(response.data);
-             }
+             },(response) => {
              if(response.status==401){
                alert('Login déja utilisé, veuillez choisir un autre Login')
              }
@@ -102,7 +103,10 @@ export default {
            return;
          }
        });
-     }
+     },
+     onFileChanged (event) {
+    this.My_photo = event.target.files[0]
+  },
   },
 
 }
@@ -112,7 +116,7 @@ export default {
 
 body {
   height: 100%;
-  background: url('./assets/background.jpg')rgb(255, 255, 255);
+  background: url('./assets/background2.jpg')rgb(255, 255, 255);
   background-repeat: repeat, repeat;
   background-size: cover, cover;
   background-position: left top, left top;
@@ -140,12 +144,13 @@ div:first-child{
 .bander{
   display: block;
   min-width: 500px;
-  min-height: 640px;
+  min-height: 620px;
   max-width: 600px;
-  max-height: 640px;
-  background-color: white;
+  max-height: 550px;
+  background-color: rgba(255,255,255,0.6);
+
   position: relative;
-  top: 50px;
+  top: 10px;
   border-radius: 25px;
 
 }
@@ -155,7 +160,7 @@ div:first-child{
   display: flex;
   justify-content: center;
   position: relative;
-  top : -90px;
+  top : -100px;
 }
 .photo{
   display: block;
@@ -165,8 +170,8 @@ div:first-child{
   min-height: 150px;
   max-height: 250px;
   background-color: black;
-  top: -20px;
-  left: 20px;
+  top: -50px;
+  left: 70px;
 
 
 }
@@ -202,14 +207,15 @@ div:first-child{
   flex-wrap: wrap;
   align-items: flex-start;
   position: relative;
-  top: -90px;
+  top: -170px;
 
 
 }
 .btn-touch{
   position: relative;
-  top: 20px;
+  top: 10px;
   width: 200px;
+  border-radius: 20px;
 }
 .togle{
   margin-left: 20px;

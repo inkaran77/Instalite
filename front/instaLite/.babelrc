@@ -1,6 +1,22 @@
 {
   "presets": [
-    ["env", { "modules": false }],
-    "stage-3"
+    "@vue/app"
+  ],
+  "plugins": [
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "src": "./src"
+        }
+      }
+    ]
   ]
 }
