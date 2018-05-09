@@ -1,5 +1,5 @@
 ﻿using System;
-namespace projet.Models
+namespace projet.Profile
 {
     public interface InterfaceInscription
     {

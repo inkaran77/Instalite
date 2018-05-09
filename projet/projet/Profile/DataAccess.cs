@@ -6,8 +6,9 @@ using System.Collections.Generic;
 
 using System.Net.Mail;
 using System.Net;
+using projet.Wall;
 
-namespace projet.Models
+namespace projet.Profile
 {
     public class DataAccess 
     {
@@ -32,6 +33,7 @@ namespace projet.Models
                 Last_name = u.Last_name,
                 Gender = u.Gender,
                 Email = u.Email,
+                My_photo= u.My_photo,
                 Birth_date = u.Birth_date,
                 City = u.City,
                 Country = u.Country,
@@ -46,6 +48,17 @@ namespace projet.Models
             var filter = Builders<User>.Filter.Eq("UserId", Id);
             Boolean result = _db.GetCollection<User>("user").Find(filter).Any();
             return result;
+        }
+
+        // Ajoute photo et renvoie son id
+        public String AddPhoto(Byte[] a)
+        {
+            Photo photo = new Photo();
+            photo.Image = a;
+            _db.GetCollection<Photo>("photo").InsertOne(photo);
+            var id = photo.Id.ToString();
+            return id;
+
         }
 
         //Test si le mot de passe est valide

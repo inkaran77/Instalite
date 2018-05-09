@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using projet.Models;
+using projet.Profile;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -27,7 +27,7 @@ namespace projet.Controllers
         }
 
 
-        // GET: api/values
+        // GET: Instalite/Connexion/Connexion?UserId=&Password=
         [HttpGet("")]
        // [DisableCors]
         public IActionResult Get(String Userid,String Password)

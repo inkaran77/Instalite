@@ -5,14 +5,14 @@ using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using projet.Models;
+using projet.Profile;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace projet.Controllers
 {
     [Route("Instalite/Inscription")]
-   // [EnableCors("AllowSpecificOrigin")]
+   // [EnableCors("AllowSpecificOrigin")]   
     [DisableCors]
     public class InscriptionController : Controller
     {
@@ -25,11 +25,10 @@ namespace projet.Controllers
         }
 
 
-        // POST Instalite/Inscription
-        [HttpPost]
+       [HttpPost]
         public IActionResult Post([FromBody]User user)
         {
-            
+
             if (db.IsIdUsed(user.UserId) == false)
             {
                 db.Inscription(user);
@@ -40,5 +39,9 @@ namespace projet.Controllers
 
 
 
+
+
     }
-}
+
+ }
+

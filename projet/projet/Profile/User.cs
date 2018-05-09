@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace projet.Models
+namespace projet.Profile
 {
     public class User
     {
@@ -31,10 +31,10 @@ namespace projet.Models
         [BsonElement("Email")]
         public string Email { get; set; }
 
-        /*
+        // String car on met l'id de la photo
         [BsonElement("My_photo")]
-        public binary?? My_Photo { get; set; }
-        */
+        public string My_photo { get; set; }
+
 
         [BsonElement("City")]
         public string City { get; set; }
@@ -42,6 +42,10 @@ namespace projet.Models
         [BsonElement("Country")]
         public string Country { get; set; }
 
+        // List string des Id des post ou list des post ?
+        [BsonElement("List_post")]
+        public List<String> List_post { get; set; }
+       
         /*
         [BsonElement("Waiting_List")]
         public List<String> ou List<User> Waiting_List { get; set; }

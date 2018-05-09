@@ -63,6 +63,8 @@ export default {
                 }
                 alert('Problème serveur, veuillez réessayer')
             })
+
+            alert('Vérifier votre login/mot de passe')
               return;
             }
 

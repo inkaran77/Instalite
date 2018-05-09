@@ -25,7 +25,7 @@ namespace projet
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<Models.DataAccess>();
+            services.AddTransient<Profile.DataAccess>();
 
             services.AddCors(); // pour CORS
             services.AddMvc();
@@ -50,8 +50,12 @@ namespace projet
             // CORS
             app.UseCors(builder =>
                         builder.WithOrigins("http://localhost:8080")
+                        .AllowAnyOrigin()
                         .AllowAnyHeader()
-                       );
+                        .AllowAnyMethod()
+                        );
+                        
+                      
 
                 
 
