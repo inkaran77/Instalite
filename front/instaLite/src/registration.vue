@@ -21,8 +21,8 @@
    <input  placeholder="Prénom" v-validate="'required|alpha'" class=" input-md sizinput" required="" type="text" v-model="Last_name">
    <input  placeholder="Date de naissance" v-validate="'required'" class=" input-group date sizinput" required="" type="date" v-model="Birth_date">
        <div class="togle">
-         Femme <input style="color:black"type="radio" class="togle2"name="sexe"required="Sexe"value="Female">
-         Homme <input type="radio" class="togle2"name="sexe"required="Sexe"value="Male">
+         Femme <input style="color:black"type="radio" class="togle2"name="sexe"required=""value="Female" v-model="Gender">
+         Homme <input type="radio" class="togle2"name="sexe"required=""value="Male" v-model="Gender">
        </div>
 
    <input name="ps1"placeholder="Mot de passe"  v-validate="'required'" class="input-md sizinput" required="" type="password" v-model="Password">
