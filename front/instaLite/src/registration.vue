@@ -89,7 +89,7 @@ export default {
              My_photo:this.fichier,
              City:this.City,
              Country:this.Country
-           }, {emulateJSON:true}).then(response => {
+           }).then(response => {
 
                alert('Inscription reussi')
                this.$emit('changeCompo','connexion')
