@@ -1,0 +1,87 @@
+#+TITLE: Projet Instalite
+[[file:./front/instaLite/src/assets/icon.png]]
+
+* Table of Contents                                       :TOC_4_gh:noexport:
+- [[#team][Team]]
+- [[#contexte][Contexte]]
+- [[#contrat-daccès][Contrat d'accès]]
+  - [[#connexion][Connexion]]
+  - [[#inscription][Inscription]]
+  - [[#ajout-de-photo-profil-inscription-loading][Ajout de photo profil Inscription (loading...)]]
+  - [[#mot-de-passe-oublié-loading][Mot de passe oublié (loading...)]]
+
+* Team
+- Ganeistan
+- Inkaran
+- Mohamed
+  
+* Contexte
+Nous avons choisi parmi les projets disponibles (Bataille Navale, Tinder Job, Twitter etc..), 
+le projet Instagram Like, un sujet proposé et encadré par notre enseignant Julien Hairapian.
+Notre application InstaLite est une version réduite qui reprend le concept d'Instagram.
+
+* Contrat d'accès
+** Connexion
+   - Return : =un token ou une http code erreur=
+   - Url :[[http://localhost:5000/Instalite/Connexion]]
+   - Method : =GET=
+   - Required : =Id=[String]=  =Password=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Token=
+   - Error Response 1 :
+     - Code : =404 NOT FOUND=
+     - Content : =L'utilisateur n'existe pas= 
+   - Error Response 2 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Mot de passe erroné= 
+
+** Inscription
+   - Return : http code
+   - Url : [[http://localhost:5000/Instalite/Inscription]]
+   - Method : POST
+   - Required :
+          =UserId=[String]=
+          =First_Name=[String]=
+          =Last_Name=[String]=
+          =Birth_date=[Date]=
+          =Gender=[String]=
+          =Email=[String]=
+          =Password=[String]=
+          =My_photo=[String]=
+          =City=[String]=
+          =Country=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Félicitations, vous êtes bien inscrit=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =ID déja utilisé= 
+
+** Ajout de photo profil Inscription (loading...)
+ - Return : String du ObjectID de la photo à mettre dans My_Photo
+   - Url : [[http://localhost:5000/Instalite/Photo]]
+   - Method : POST
+   - Required : =Photo in binary=
+   - Success Response :
+     - Code : 
+     - Content : 
+   - Error Response 1 :
+     - Code : =404 NOT FOUND=
+     - Content : 
+   - Error Response 2 :
+     - Code : =400 BAD REQUEST=
+     - Content : 
+
+** Mot de passe oublié (loading...)
+  - Return : String
+   - Url :[[http://localhost:5000/Instalite/Connexion]]
+   - Method : =GET=
+   - Required : =Id=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Votre mot de passe à été envoyer par mail=
+   - Error Response :
+     - Code : =404 NOT FOUND=
+     - Content : =L'utilisateur n'existe pas= 
+   
