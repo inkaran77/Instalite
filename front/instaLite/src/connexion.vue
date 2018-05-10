@@ -6,7 +6,7 @@
         <h3>Bienvenue sur InstaLite</h3>
         <div class="md-layout-item md-small-size-100 md-size-33">
           <md-field>
-            <label>Login</label>
+            <label>Identifiant</label>
             <md-input v-model="UserId"v-validate="'required|alpha'" required="" type="text"></md-input>
           </md-field>
         </div>
@@ -109,7 +109,7 @@ export default {
 
 body {
   height: 100%;
-  background: url('./assets/background2.jpg')rgb(255, 255, 255);
+  background: url('./assets/background17.jpg')rgb(255, 255, 255);
   background-repeat: repeat, repeat;
   background-size: cover, cover;
   background-position: left top, left top;
@@ -124,7 +124,7 @@ body {
   min-height: 550px;
   max-width: 600px;
   max-height: 600px;
-  background-color: rgba(255,255,255,0.6);
+  background-color: rgba(0,0,0,0.4);
 
   position: relative;
   top: 50px;
@@ -145,6 +145,7 @@ body {
   width: 200px;
   background-image: url(assets/icon.png);
   background-repeat: no-repeat;
+
 
 }
 button{
