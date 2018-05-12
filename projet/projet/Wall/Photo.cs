@@ -8,10 +8,11 @@ namespace projet.Wall
 {
     public class Photo
     {
-        public ObjectId Id { get; set; }
+       
+        public ObjectId _id { get; set; }
 
-        [BsonElement("Image")]
-        public Byte[] Image { get; set; }
+        [BsonElement("UrlPhoto")]
+        public String UrlPhoto { get; set; }
     }
 
 

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Net.Mail;
 using System.Net;
 using projet.Wall;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace projet.Profile
 {
@@ -50,19 +52,8 @@ namespace projet.Profile
             return result;
         }
 
-        // Ajoute photo et renvoie son id
-        public String AddPhoto(Byte[] a)
-        {
-            Photo photo = new Photo();
-            photo.Image = a;
-            _db.GetCollection<Photo>("photo").InsertOne(photo);
-            var id = photo.Id.ToString();
-            return id;
-
-        }
-
         //Test si le mot de passe est valide
-        public Boolean ValidePassword(String Id,String Password)
+        public Boolean ValidePassword(String Id, String Password)
         {
 
             var filterId = Builders<User>.Filter.Eq("UserId", Id);
@@ -73,6 +64,32 @@ namespace projet.Profile
             return result;
         }
 
+        // Ajoute photo et renvoie son id
+        public String AddPhoto(String lien)
+        {
+            Photo photo = new Photo();
+            photo.UrlPhoto = lien;
+            _db.GetCollection<Photo>("photo").InsertOne(photo);
+            var id = photo._id.ToString();
+            return id;
+
+        }
+
+        public String GetPhoto(String PhotoId)
+        {
+            var filter = Builders<Photo>.Filter.Eq("_id", ObjectId.Parse(PhotoId));
+            var result = _db.GetCollection<Photo>("photo").Find(filter).ToList();
+            return result.ToJson();
+
+
+         //  var jArray = JArray.Parse(result.ToJson());
+         //  return jArray[1]["UrlPhoto"].Value<String>();
+
+            //var cList = JsonConvert.DeserializeObject<Photo>(result.ToJson());
+            //String obj = cList.UrlPhoto.ToString();
+            //return obj;
+
+        }
 
         // Test retour brute
         public List<User> GetAllUsers()

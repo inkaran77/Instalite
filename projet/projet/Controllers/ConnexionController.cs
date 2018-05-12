@@ -57,8 +57,6 @@ namespace projet.Controllers
                 new Claim(JwtRegisteredClaimNames.NameId, Userid)
             };
            
-            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["SigningKey"]));
-            //var signinKey = new SymmetricSecurityKey(keyByteArray);
             const string sec = "401abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1";
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(sec));
            
@@ -67,15 +65,13 @@ namespace projet.Controllers
                 issuer: "instalite.fr",
                 audience: "instalite.fr",
                 claims: claims,
-                expires: DateTime.UtcNow.AddDays(2.0),
+                expires: DateTime.UtcNow.AddMinutes(20),
                 notBefore: DateTime.UtcNow,
                 signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
             );
 
             return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
-           // new JwtSecurityTokenHandler().);
-           // return new OkObjectResult("Vous êtes connecté");
-
+          
         }
 
 

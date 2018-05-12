@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,34 +26,41 @@ namespace projet.Controllers
             db = new DataAccess();
         }
 
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        // 
+        [HttpGet("")]
+        public String GetPhoto(String id)
         {
-            return new string[] { "value1", "value2" };
+
+            return db.GetPhoto(id);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // Post avec lien, renvoie l'id de la photo dans le bd
+        [HttpPost("")]
+        public String AddPhoto(String UrlPhoto)
         {
-            return "value";
-        }
 
-        // Post avec binary, renvoie l'id de la photo dans le bd
-        [HttpPost]
-        public String AddPhoto()
-        {
+            var a = db.AddPhoto(UrlPhoto);
+            return a;
+
+            // En binary ancienne version
+            /*
             using (var ms = new MemoryStream(2048))
             {
                 Request.Body.CopyToAsync(ms);
                 ms.ToArray();// returns base64 encoded string JSON result
 
                 var a=db.AddPhoto(ms.ToArray());
+
+                // A effacer : Recuperer L'id de l'utlisateur directement du token
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                Console.WriteLine(userId);
+                //
+
                 return a;
 
             }
-
+            */
         }
 
 
