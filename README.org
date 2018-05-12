@@ -22,13 +22,13 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 
 * Contrat d'accès
 ** Connexion
-   - Return : =un token ou une http code erreur=
+   - Return : =un bearer token ou une http code erreur=
    - Url :[[http://localhost:5000/Instalite/Connexion]]
    - Method : =GET=
    - Required : =Id=[String]=  =Password=[String]=
    - Success Response :
      - Code : =200=
-     - Content : =Token=
+     - Content : =Bearer Token=
    - Error Response 1 :
      - Code : =404 NOT FOUND=
      - Content : =L'utilisateur n'existe pas= 
@@ -62,7 +62,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
  - Return : String du ObjectID de la photo à mettre dans My_Photo
    - Url : [[http://localhost:5000/Instalite/Photo]]
    - Method : POST
-   - Required : =Photo in binary=
+   - Required : =un bearer token et Photo in binary=
    - Success Response :
      - Code : 
      - Content : 
