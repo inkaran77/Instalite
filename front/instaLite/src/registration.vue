@@ -8,9 +8,22 @@
     <div >
 <fieldset>
   <div class="container-photo">
-     <input type="file" name="fichier">
-     <div class="photo">
-     </div>
+
+       <picture-input
+         ref="pictureInput"
+         @change="onChanged"
+         width="100"
+         height="150"
+         margin="16"
+         accept="image/jpeg,image/png"
+         size="10"
+         buttonClass="btn"
+         :customStrings="{
+           upload: '<h1>Bummer!</h1>',
+           drag: 'Votre Photo'
+         }">
+       </picture-input>
+
 
    </div>
 
@@ -48,11 +61,23 @@
 <script>
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import PictureInput from 'vue-picture-input'
 export default {
-
+  components: {
+      PictureInput
+    },
   name: 'app',
   data () {
     return {
+      cloudinary: {
+   uploadPreset: 'nachrlb3',
+   apiKey: '157225663566444',
+   cloudName: 'dvejva95o'
+ },
+ thumb: {
+     url: ''
+   },
+   thumbs:[],
       UserId:'',
       First_name: '',
       Last_name:'',
@@ -64,17 +89,47 @@ export default {
       My_photo:null,
       City: '',
       Country:'',
-      lienUrl:require('./assets/background2.jpg')
+      UrlPhoto:''
     }
   },
-
+  computed: {
+      clUrl: function() {
+          return `https://api.cloudinary.com/v1_1/${this.cloudinary.cloudName}/upload`
+        },
+          },
   methods:{
+    onChanged(image){
+      this.image=image
+      this.My_photo=image
+    },
 
+    upload:function() {
+      console.log('clikde')
+  const formData = new FormData()
+  formData.append('file', this.My_photo);
+  formData.append('upload_preset', this.cloudinary.uploadPreset);
+  formData.append('tags', 'gs-vue,gs-vue-uploaded');
+  // For debug purpose only
+  // Inspects the content of formData
+  for(var pair of formData.entries()) {
+    console.log(pair[0]+', '+pair[1]);
+  }
+  this.$http.post(this.clUrl, formData).then(response => {
+
+    this.UrlPhoto=response.data.secure_url;
+    console.log(this.UrlPhoto)
+ return true;
+}, response => {
+ // error callback
+ alert('verifier votre connexion internet et réessayer')
+ return false;
+});
+
+},
      signUp:function(){
  console.log("click")
    this.$validator.validateAll().then((result) => {
-         if (result) {
-           console.log("click")
+         if (result && this.upload()) {
 
 
            this.$http.post('http://localhost:5000/Instalite/Inscription',{
@@ -86,7 +141,7 @@ export default {
               Gender:this.Gender,
                Email:this.Email,
              Birth_date:this.Birth_date,
-             My_photo:this.fichier,
+             UrlPhoto:this.UrlPhoto,
              City:this.City,
              Country:this.Country
            }).then(response => {
@@ -104,9 +159,7 @@ export default {
          }
        });
      },
-     onFileChanged (event) {
-    this.My_photo = event.target.files[0]
-  },
+
   },
 
 }
@@ -160,18 +213,19 @@ div:first-child{
   display: flex;
   justify-content: center;
   position: relative;
-  top : -100px;
+  top : -150px;
+  left:420px;
 }
 .photo{
   display: block;
   position: relative;
   min-width: 100px;
-  max-width: 200px;
+  max-width: 300px;
   min-height: 150px;
   max-height: 250px;
-  background-color: black;
+
   top: -50px;
-  left: 70px;
+  left: 190px;
 
 
 }
