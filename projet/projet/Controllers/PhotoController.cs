@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using projet.Profile;
@@ -12,6 +13,7 @@ using projet.Wall;
 
 namespace projet.Controllers
 {
+    [Authorize]
     [Route("Instalite/Photo")]
     public class PhotoController : Controller
     {
