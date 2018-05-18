@@ -49,6 +49,13 @@ namespace projet.Profile
             
         }
 
+        public void Poster(Post p){
+            _db.GetCollection<Post>("post").InsertOne(new Post
+            {
+                
+            });
+        }
+
 
         // Test si l'id est déjà prit ou pas
         public Boolean IsIdUsed(String Id)
