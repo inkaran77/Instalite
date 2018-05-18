@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-
+using projet.Profile;
 
 namespace projet.Wall
 {
@@ -34,5 +34,10 @@ namespace projet.Wall
         [BsonElement("List_comment")]
         public List<Comment> List_comment { get; set; }
 
+
+
+    
     }
+
+
 }

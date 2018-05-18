@@ -31,7 +31,21 @@ namespace projet.Controllers
 
             if (db.IsIdUsed(user.UserId) == false)
             {
-                db.Inscription(user);
+                User u= new User
+               {
+                   UserId = user.UserId,
+                   Password = user.Password,
+                   First_name = user.First_name,
+                   Last_name = user.Last_name,
+                   Gender = user.Gender,
+                   Email = user.Email,
+                   UrlPhoto = user.UrlPhoto,
+                   Birth_date = user.Birth_date,
+                   City = user.City,
+                   Country = user.Country,
+               }; 
+                db.Insert(u, "user");
+                //db.Inscription(user);
                 return new OkObjectResult("Félicitation, vous êtes bien inscrit");
             }
             else return new BadRequestObjectResult("ID déja utilisé");

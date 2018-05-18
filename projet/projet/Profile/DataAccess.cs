@@ -15,12 +15,18 @@ namespace projet.Profile
     public class DataAccess 
     {
         MongoClient _client;
-        IMongoDatabase _db;
+        IMongoDatabase _db { get; set; }
 
         public DataAccess()
         {
             _client = new MongoClient("mongodb://localhost:27017");
             _db=_client.GetDatabase("Instalite");
+        }
+
+        //Insert modele
+        public void Insert(Object o, String collection)
+        {
+            _db.GetCollection<Object>(collection).InsertOne(o);
         }
 
 
@@ -35,13 +41,14 @@ namespace projet.Profile
                 Last_name = u.Last_name,
                 Gender = u.Gender,
                 Email = u.Email,
-                My_photo= u.My_photo,
+                UrlPhoto= u.UrlPhoto,
                 Birth_date = u.Birth_date,
                 City = u.City,
                 Country = u.Country,
             });
             
         }
+
 
         // Test si l'id est déjà prit ou pas
         public Boolean IsIdUsed(String Id)

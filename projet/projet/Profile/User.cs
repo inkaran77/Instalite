@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using projet.Wall;
 
 namespace projet.Profile
 {
@@ -32,8 +33,8 @@ namespace projet.Profile
         public string Email { get; set; }
 
         // String car on met l'id de la photo
-        [BsonElement("My_photo")]
-        public string My_photo { get; set; }
+        [BsonElement("UrlPhoto")]
+        public string UrlPhoto { get; set; }
 
 
         [BsonElement("City")]
@@ -46,10 +47,15 @@ namespace projet.Profile
         [BsonElement("List_post")]
         public List<String> List_post { get; set; }
        
-        /*
+
         [BsonElement("Waiting_List")]
-        public List<String> ou List<User> Waiting_List { get; set; }
-        */
+        public List<String> Waiting_List { get; set; }
+
+        public void Poster(Post p)
+        {
+            DataAccess db = new DataAccess();
+            db.Insert(p, "post");
+        }
 
     }
 

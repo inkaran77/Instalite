@@ -37,6 +37,7 @@ namespace projet
              {
               jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
                   {
+                    
                     ValidateActor = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
@@ -50,15 +51,36 @@ namespace projet
 
             services.AddTransient<Profile.DataAccess>();
 
-            services.AddCors(); // pour CORS
-            services.AddMvc();
-
-
+            // Test1
+           //services.AddCors(); // pour CORS
+            //services.AddMvc();
             // Ajoute la configuration de cors à tous les controlleurs
+           // services.Configure<MvcOptions>(options =>
+          //  {
+          //      options.Filters.Add(new CorsAuthorizationFilterFactory("AllowSpecificOrigin"));
+         //   });
+
+            // Test2
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:8080")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+            services.AddMvc();
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new CorsAuthorizationFilterFactory("AllowSpecificOrigin"));
             });
+
+            //
+
+           
+
+
+
            
         }
 
@@ -74,13 +96,20 @@ namespace projet
             app.UseAuthentication();
            
             // CORS
+            // Test 1
+            // .AllowAnyOrigin()
+            /*
             app.UseCors(builder =>
                         builder.WithOrigins("http://localhost:8080")
-                        .AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod()
+                        .AllowCredentials()
                         );
-                        
+            */
+
+            // Test 2
+            app.UseCors("AllowSpecificOrigin");
+
             app.UseMvc();
 
         }
