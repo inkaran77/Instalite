@@ -8,7 +8,8 @@ namespace projet.Wall
 {
     public class Post
     {
-        public ObjectId Id { get; set; }
+        [BsonId]
+        public ObjectId _id { get; set; }
 
         [BsonElement("Date")]
         public DateTime Date { get; set; }
@@ -25,8 +26,8 @@ namespace projet.Wall
         [BsonElement("Author")]
         public string Author { get; set; }
 
-        [BsonElement("Image")]
-        public Photo Image { get; set; }
+        [BsonElement("UrlPhoto")]
+        public String UrlPhoto { get; set; }
 
         [BsonElement("Like_like")]
         public List<Like> List_like { get; set; }
@@ -34,6 +35,10 @@ namespace projet.Wall
         [BsonElement("List_comment")]
         public List<Comment> List_comment { get; set; }
 
+        public Post()
+        {
+            _id = ObjectId.GenerateNewId();
+        }
 
 
     

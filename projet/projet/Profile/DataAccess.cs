@@ -27,6 +27,7 @@ namespace projet.Profile
         public void Insert(Object o, String collection)
         {
             _db.GetCollection<Object>(collection).InsertOne(o);
+
         }
 
 
@@ -52,7 +53,12 @@ namespace projet.Profile
         public void Poster(Post p){
             _db.GetCollection<Post>("post").InsertOne(new Post
             {
-                
+                Date = p.Date,
+                Description = p.Description,
+                Title = p.Title,
+                Author = p.Author,
+                UrlPhoto = p.UrlPhoto,
+
             });
         }
 

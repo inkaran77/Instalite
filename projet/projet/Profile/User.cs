@@ -8,7 +8,10 @@ namespace projet.Profile
 {
     public class User
     {
-        public ObjectId Id { get; set; }
+        [BsonId]
+        public ObjectId _id { get; set;}
+
+        //public ObjectId Id { get; set; }
 
         [BsonElement("UserId")]
         public string UserId { get; set; }
@@ -51,9 +54,15 @@ namespace projet.Profile
         [BsonElement("Waiting_List")]
         public List<String> Waiting_List { get; set; }
 
+        public User()
+        {
+            _id = ObjectId.GenerateNewId();   
+        }
+
         public void Poster(Post p)
         {
             DataAccess db = new DataAccess();
+
             db.Insert(p, "post");
         }
 

@@ -5,10 +5,29 @@
 - [[#team][Team]]
 - [[#contexte][Contexte]]
 - [[#contrat-daccès][Contrat d'accès]]
-  - [[#connexion][Connexion]]
-  - [[#inscription][Inscription]]
-  - [[#ajout-de-photo-profil-inscription-loading][Ajout de photo profil Inscription (loading...)]]
-  - [[#mot-de-passe-oublié-loading][Mot de passe oublié (loading...)]]
+  - [[#accès][Accès]]
+    - [[#connexion][Connexion]]
+    - [[#inscription][Inscription]]
+    - [[#getmypassword-loading][GetMyPassword (loading...)]]
+  - [[#accueil][Accueil]]
+    - [[#getmyprofile-loading][GetMyProfile (loading...)]]
+    - [[#modifymyprofile-loading][ModifyMyProfile (loading...)]]
+  - [[#file-dactualité][File d'actualité]]
+    - [[#postphoto-loading][PostPhoto (loading...)]]
+    - [[#getmynewsfeed-loading][GetMyNewsFeed (loading...)]]
+    - [[#getpost-loading][GetPost (loading...)]]
+  - [[#abonnéabonnements][Abonné/Abonnements]]
+    - [[#getallmyfollowers-loading][GetAllMyFollowers (loading...)]]
+    - [[#getallmyfollowings-loading][GetAllMyFollowings (loading...)]]
+    - [[#getwaitinglist-loading][GetWaitingList (loading...)]]
+    - [[#follow-sabonner-loading][Follow (s'abonner) (loading...)]]
+    - [[#unfollow-se-désabonner-loading][Unfollow (se désabonner) (loading...)]]
+    - [[#acceptfollower-accepter-une-demande-dabonnement-loading][AcceptFollower (accepter une demande d'abonnement) (loading...)]]
+    - [[#refusefollower-refuser--une-demande-dabonnement-loading][RefuseFollower (refuser  une demande d'abonnement) (loading...)]]
+    - [[#deletefollower-supprimer-un-abonné-loading][DeleteFollower (supprimer un abonné) (loading...)]]
+  - [[#notification][Notification]]
+    - [[#followerrequest--loading][FollowerRequest  (loading...)]]
+    - [[#newpost-loading][NewPost (loading...)]]
 
 * Team
 - Ganeistan
@@ -21,7 +40,8 @@ le projet Instagram Like, un sujet proposé et encadré par notre enseignant J
 Notre application InstaLite est une version réduite qui reprend le concept d'Instagram.
 
 * Contrat d'accès
-** Connexion
+** Accès
+*** Connexion
    - Return : =un bearer token ou une http code erreur=
    - Url :[[http://localhost:5000/Instalite/Connexion]]
    - Method : =GET=
@@ -36,7 +56,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : =Mot de passe erroné= 
 
-** Inscription
+*** Inscription
    - Return : http code
    - Url : [[http://localhost:5000/Instalite/Inscription]]
    - Method : POST
@@ -48,7 +68,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
           =Gender=[String]=
           =Email=[String]=
           =Password=[String]=
-          =My_photo=[String]=
+          =UrlPhoto=[String]=
           =City=[String]=
           =Country=[String]=
    - Success Response :
@@ -57,8 +77,216 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =ID déja utilisé= 
+       
+*** GetMyPassword (loading...)
+  - Return : String
+   - Url :[[http://localhost:5000/Instalite/GetMyPassword]]
+   - Method : =GET=
+   - Required : =Id=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Votre mot de passe à été envoyer par mail=
+   - Error Response :
+     - Code : =404 NOT FOUND=
+     - Content : =L'utilisateur n'existe pas= 
+** Accueil
+*** GetMyProfile (loading...)
+   - Return : http code + user data in json
+   - Url : [[http://localhost:5000/Instalite/GetMyProfile]]
+   - Method : Get
+   - Required :
+           =Bearer Token=
+   - Success Response :
+     - Code : =200=
+     - Content : =user=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur= 
 
-** Ajout de photo profil Inscription (loading...)
+*** ModifyMyProfile (loading...)
+
+** File d'actualité
+*** PostPhoto (loading...)
+   - Return : http code 
+   - Url : [[http://localhost:5000/Instalite/PostPhoto]]
+   - Method : Post
+   - Required : 
+          =Bearer Token==  
+          =Author=[String]=
+          =Title=[String]=
+          =Description=[String]=
+          =Date=[Date]=
+          =UrlPhoto=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Votre poste a était ajouté=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur= 
+       
+
+*** GetMyNewsFeed (loading...)
+   - Return : http code + liste url des derniers postes des followings au format json
+   - Url : [[http://localhost:5000/Instalite/GetMyNewsFeed]]
+   - Method : Get
+   - Required : =Bearer Token=
+   - Success Response :
+     - Code : =200=
+     - Content : =liste json=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+
+
+*** GetPost (loading...)
+   - Description : Lorsque l'utilisateur clique sur une photo alors le poste est affiché
+   - Return : http code + les informations du post cliqué (Auteur, nombre de like, liste des commentaires...)
+   - Url : [[http://localhost:5000/Instalite/GetPost]]
+   - Method : Get
+   - Required :
+          =Bearer Token=
+          =UrlPhoto=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Post au format json=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+
+
+   
+
+** Abonné/Abonnements
+*** GetAllMyFollowers (loading...)
+   - Return : http code + tous les id et les photo de profil des followers
+   - Url : [[http://localhost:5000/Instalite/GetAllMyFollowers]]
+   - Method : Get
+   - Required :
+          =Bearer Token=
+   - Success Response :
+     - Code : =200=
+     - Content : =liste id et les photo de profils  au format json=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+*** GetAllMyFollowings (loading...)
+   - Return : http code + tous les id et les photos de profil des followings
+   - Url : [[http://localhost:5000/Instalite/GetAllMyFollowings]]
+   - Method : Get
+   - Required :
+          =Bearer Token=
+   - Success Response :
+     - Code : =200=
+     - Content : =liste id et les photo de profils  au format json=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+
+*** GetWaitingList (loading...)
+ - Return : http code + tous les id et les photos de profil des utilisateurs de la WaitingList
+   - Url : [[http://localhost:5000/Instalite/GetWaitingList]]
+   - Method : Get
+   - Required :
+          =Bearer Token=
+   - Success Response :
+     - Code : =200=
+     - Content : =liste id et les photo de profils  au format json=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+*** Follow (s'abonner) (loading...)
+   - Description : Lorsqu'utilisateur A clique sur s'abonner : 
+       - L'id de l'utilisateur A  est envoyé et ajouté à la WaitingList de l'utilisateur B
+   - Return : http code 
+   - Url : [[http://localhost:5000/Instalite/Follow]]
+   - Method : Put
+   - Required :
+          =Bearer Token=
+          =Id=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Demande d'abonnement a bien était envoyé=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+
+*** Unfollow (se désabonner) (loading...)
+   - Description : Lorsqu'utilisateur A clique sur se désabonner :
+     - L'id de l'utilisateur B est envoyé  
+     - L'utilisateur B est supprimer de la liste des followings de l'utilisateur A
+     - L'utilisateur A est supprimer de la liste des followers de l'utilisateur B 
+ 
+   - Return : http code 
+   - Url : [[http://localhost:5000/Instalite/UnFollow]]
+   - Method : Delete
+   - Required :
+          =Bearer Token=
+          =Id=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Vous êtes désabonner=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+
+*** AcceptFollower (accepter une demande d'abonnement) (loading...)
+   - Description : Lorsqu'utilisateur A clique sur accepter :
+     - L'id de l'utilisateur B est envoyé  
+     - L'utilisateur B est retirer de la Waintinglist de l'utilisateur A
+     - L'utilisateur B est ajouter à la liste des followers de l'utilisateur A
+     - L'utilisateur A est ajouter à la liste des followings de l'utilisateur B 
+ 
+   - Return : http code 
+   - Url : [[http://localhost:5000/Instalite/AcceptFollower]]
+   - Method : Put
+   - Required :
+          =Bearer Token=
+          =Id=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Nouveau abonné accepté=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+*** RefuseFollower (refuser  une demande d'abonnement) (loading...)
+  - Description : Lorsqu'utilisateur A clique sur refuser :
+     - L'id de l'utilisateur B est envoyé  
+     - L'utilisateur B est retirer de la Waintinglist de l'utilisateur A
+
+   - Return : http code 
+   - Url : [[http://localhost:5000/Instalite/RefuseFollower]]
+   - Method : Delete
+   - Required :
+          =Bearer Token=
+          =Id=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Demande d'abonnement refusée=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+*** DeleteFollower (supprimer un abonné) (loading...)
+  - Description : Lorsqu'utilisateur A clique sur supprimer un abonné :
+     - L'id de l'utilisateur B est envoyé  
+     - L'utilisateur B est supprimer de la liste des followers de l'utilisateur A
+     - L'utilisateur A est supprimer de la liste des followings de l'utilisateur B
+ 
+   - Return : http code 
+   - Url : [[http://localhost:5000/Instalite/DeleteFollower]]
+   - Method : Delete
+   - Required :
+          =Bearer Token=
+          =Id=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Abonné supprimé=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+** Notification
+*** FollowerRequest  (loading...)
+*** NewPost (loading...)
+** COMMENT Ajout de photo profil Inscription (loading...)
  - Return : String du ObjectID de la photo à mettre dans My_Photo
    - Url : [[http://localhost:5000/Instalite/Photo]]
    - Method : POST
@@ -73,15 +301,8 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : 
 
-** Mot de passe oublié (loading...)
-  - Return : String
-   - Url :[[http://localhost:5000/Instalite/Connexion]]
-   - Method : =GET=
-   - Required : =Id=[String]=
-   - Success Response :
-     - Code : =200=
-     - Content : =Votre mot de passe à été envoyer par mail=
-   - Error Response :
-     - Code : =404 NOT FOUND=
-     - Content : =L'utilisateur n'existe pas= 
+
+
+
+
    
