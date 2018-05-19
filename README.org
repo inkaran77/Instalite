@@ -12,10 +12,13 @@
   - [[#accueil][Accueil]]
     - [[#getmyprofile-loading][GetMyProfile (loading...)]]
     - [[#modifymyprofile-loading][ModifyMyProfile (loading...)]]
+    - [[#getmyphotos-loading][GetMyPhotos (loading...)]]
   - [[#file-dactualité][File d'actualité]]
     - [[#postphoto-loading][PostPhoto (loading...)]]
+    - [[#deletepost-loading][DeletePost (loading...)]]
     - [[#getmynewsfeed-loading][GetMyNewsFeed (loading...)]]
     - [[#getpost-loading][GetPost (loading...)]]
+    - [[#like-loading][Like (loading...)]]
   - [[#abonnéabonnements][Abonné/Abonnements]]
     - [[#getallmyfollowers-loading][GetAllMyFollowers (loading...)]]
     - [[#getallmyfollowings-loading][GetAllMyFollowings (loading...)]]
@@ -26,8 +29,10 @@
     - [[#refusefollower-refuser--une-demande-dabonnement-loading][RefuseFollower (refuser  une demande d'abonnement) (loading...)]]
     - [[#deletefollower-supprimer-un-abonné-loading][DeleteFollower (supprimer un abonné) (loading...)]]
   - [[#notification][Notification]]
-    - [[#followerrequest--loading][FollowerRequest  (loading...)]]
-    - [[#newpost-loading][NewPost (loading...)]]
+    - [[#notify][Notify]]
+      - [[#followerrequest--loading][FollowerRequest  (loading...)]]
+      - [[#newpost-loading][NewPost (loading...)]]
+    - [[#deletenotification][DeleteNotification]]
 
 * Team
 - Ganeistan
@@ -105,6 +110,18 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 
 *** ModifyMyProfile (loading...)
 
+*** GetMyPhotos (loading...)
+   - Return : http code + liste des photos 
+   - Url : [[http://localhost:5000/Instalite/GetMyPhotos
+   - Method : Get
+   - Required :
+           =Bearer Token=
+   - Success Response :
+     - Code : =200=
+     - Content : =liste des photos au format json=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur= 
 ** File d'actualité
 *** PostPhoto (loading...)
    - Return : http code 
@@ -124,7 +141,19 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : =Erreur= 
        
-
+*** DeletePost (loading...)
+   - Return : http code 
+   - Url : [[http://localhost:5000/Instalite/DeletePost]]
+   - Method : Delete
+   - Required : 
+          =Bearer Token=
+          =UrlPhoto=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Votre poste a était supprimé=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur= 
 *** GetMyNewsFeed (loading...)
    - Return : http code + liste url des derniers postes des followings au format json
    - Url : [[http://localhost:5000/Instalite/GetMyNewsFeed]]
@@ -155,7 +184,8 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 
 
    
-
+*** Comment (loading...)
+*** Like (loading...)
 ** Abonné/Abonnements
 *** GetAllMyFollowers (loading...)
    - Return : http code + tous les id et les photo de profil des followers
@@ -284,8 +314,10 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
 ** Notification
-*** FollowerRequest  (loading...)
-*** NewPost (loading...)
+*** Notify
+**** FollowerRequest  (loading...)
+**** NewPost (loading...)
+*** DeleteNotification
 ** COMMENT Ajout de photo profil Inscription (loading...)
  - Return : String du ObjectID de la photo à mettre dans My_Photo
    - Url : [[http://localhost:5000/Instalite/Photo]]
