@@ -4,6 +4,7 @@
 * Table of Contents                                       :TOC_4_gh:noexport:
 - [[#team][Team]]
 - [[#contexte][Contexte]]
+- [[#avancement-du-projet][Avancement du projet]]
 - [[#contrat-daccès][Contrat d'accès]]
   - [[#accès][Accès]]
     - [[#connexion][Connexion]]
@@ -43,6 +44,33 @@
 Nous avons choisi parmi les projets disponibles (Bataille Navale, Tinder Job, Twitter etc..), 
 le projet Instagram Like, un sujet proposé et encadré par notre enseignant Julien Hairapian.
 Notre application InstaLite est une version réduite qui reprend le concept d'Instagram.
+
+* Avancement du projet
+| Fontionnalité      | Front        | Back       |
+|--------------------+--------------+------------|
+| Connexion          | Ganeistan OK | Inkaran OK |
+| Inscription        | Ganeistan    | Inkaran OK |
+| GetMyPassword      | Ganeistan OK | Inkaran    |
+|--------------------+--------------+------------|
+| GetMyProfile       | Ganeistan    | Inkaran    |
+| GetMyPhotos        | Ganeistan    | Inkaran    |
+| ModifyMyProfile    | Ganeistan    | Inkaran    |
+|--------------------+--------------+------------|
+| PostPhoto          | Ganeistan    | Inkaran    |
+| DeletePost         | Ganeistan    | Inkaran    |
+| GetMyNewsFeed      | Ganeistan    | Inkaran    |
+| GetPost            | Ganeistan    | Inkaran    |
+| Like               | Ganeistan    | Inkaran    |
+| Comment            | Ganeistan    | Inkaran    |
+|--------------------+--------------+------------|
+| GetAllMyFollowers  | Mohamed      |            |
+| GetAllMyFollowings | Mohamed      |            |
+| GetWaitingList     | Mohamed      |            |
+| Follow             | Mohamed      |            |
+| Unfollow           | Mohamed      |            |
+| AcceptFollower     | Mohamed      |            |
+| RefuseFollower     | Mohamed      |            |
+| DeleteFollower     | Mohamed      |            |
 
 * Contrat d'accès
 ** Accès
@@ -182,8 +210,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
 
-
-   
+ 
 *** Comment (loading...)
 *** Like (loading...)
 ** Abonné/Abonnements

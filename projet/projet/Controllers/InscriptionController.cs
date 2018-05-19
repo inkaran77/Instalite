@@ -34,7 +34,6 @@ namespace projet.Controllers
                 
                 User u = new User()
                 {
-                   // Id=new MongoDB.Bson.ObjectId(), 
                    UserId = user.UserId,
                    Password = user.Password,
                    First_name = user.First_name,
@@ -45,10 +44,14 @@ namespace projet.Controllers
                    Birth_date = user.Birth_date,
                    City = user.City,
                    Country = user.Country,
-               }; 
-                db.Insert(u, "user");
-               // db.Inscription(user);
-                return new OkObjectResult("Félicitation, vous êtes bien inscrit");
+                }; 
+                // db.Inscription(user); // ANCIEN
+                Boolean b=db.Insert(u, "user");
+                if (b == true)
+                {
+                    return new OkObjectResult("Félicitation, vous êtes bien inscrit");
+                }
+                else return StatusCode(503); // erreur serveur
             }
             else return new BadRequestObjectResult("ID déja utilisé");
         }

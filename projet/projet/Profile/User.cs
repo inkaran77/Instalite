@@ -59,11 +59,11 @@ namespace projet.Profile
             _id = ObjectId.GenerateNewId();   
         }
 
-        public void Poster(Post p)
+        public Boolean PostPhoto(Post p)
         {
             DataAccess db = new DataAccess();
 
-            db.Insert(p, "post");
+            return db.Insert(p, "post");
         }
 
     }

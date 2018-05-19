@@ -23,15 +23,23 @@ namespace projet.Profile
             _db=_client.GetDatabase("Instalite");
         }
 
-        //Insert modele
-        public void Insert(Object o, String collection)
-        {
-            _db.GetCollection<Object>(collection).InsertOne(o);
 
+        public Boolean Insert(Object o, String collection)
+        {
+            try
+            {
+                _db.GetCollection<Object>(collection).InsertOne(o);
+                return true;
+            }
+
+            catch (Exception e) {
+                Console.WriteLine(e);
+                return false;
+            }
         }
 
 
-        // Inscrire un nouveau utilisateur
+        // ANCIEN //Inscrire un nouveau utilisateur
         public void Inscription(User u)
         {
             _db.GetCollection<User>("user").InsertOne(new User

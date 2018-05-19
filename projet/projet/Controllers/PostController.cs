@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using projet.Profile;
 using projet.Wall;
@@ -10,7 +11,7 @@ using projet.Wall;
 
 namespace projet.Controllers
 {
-    [Route("Instalite/Post")]
+    [Authorize]
     public class PostController : Controller
     {   
         DataAccess db;
@@ -36,8 +37,26 @@ namespace projet.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]Post p)
+        [Route("Instalite/PostPhoto2")]
+        public IActionResult Post([FromBody]Post p)
         {
+                Post post = new Post()
+                {
+                    Date = p.Date,
+                    Description = p.Description,
+                    Title = p.Title,
+                    Author = p.Author,
+                    UrlPhoto = p.UrlPhoto,
+                };
+
+                User u = new User();
+                Boolean b=u.PostPhoto(post);
+                if (b==true)
+                {
+                    return new OkObjectResult("Votre poste a était ajouté");
+                }
+           
+                else return new BadRequestObjectResult("Erreur");
             
         }
 
