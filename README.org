@@ -39,9 +39,9 @@
 - Ganeistan
 - Inkaran
 - Mohamed
-  
+
 * Contexte
-Nous avons choisi parmi les projets disponibles (Bataille Navale, Tinder Job, Twitter etc..), 
+Nous avons choisi parmi les projets disponibles (Bataille Navale, Tinder Job, Twitter etc..),
 le projet Instagram Like, un sujet proposé et encadré par notre enseignant Julien Hairapian.
 Notre application InstaLite est une version réduite qui reprend le concept d'Instagram.
 
@@ -50,7 +50,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 |----------------------+--------------+------------+------|
 | *Accès*              |              |            |      |
 | Connexion            | Ganeistan OK | Inkaran OK | OK   |
-| Inscription          | Ganeistan    | Inkaran OK |      |
+| Inscription          | Ganeistan OK | Inkaran OK | OK   |
 | GetMyPassword        | Ganeistan OK | Inkaran    |      |
 |----------------------+--------------+------------+------|
 | *Accueil*            |              |            |      |
@@ -88,10 +88,10 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =Bearer Token=
    - Error Response 1 :
      - Code : =404 NOT FOUND=
-     - Content : =L'utilisateur n'existe pas= 
+     - Content : =L'utilisateur n'existe pas=
    - Error Response 2 :
      - Code : =400 BAD REQUEST=
-     - Content : =Mot de passe erroné= 
+     - Content : =Mot de passe erroné=
 
 *** Inscription
    - Return : http code
@@ -113,8 +113,8 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =Félicitations, vous êtes bien inscrit=
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
-     - Content : =ID déja utilisé= 
-       
+     - Content : =ID déja utilisé=
+
 *** GetMyPassword (loading...)
   - Return : String
    - Url :[[http://localhost:5000/Instalite/GetMyPassword]]
@@ -125,7 +125,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =Votre mot de passe à été envoyer par mail=
    - Error Response :
      - Code : =404 NOT FOUND=
-     - Content : =L'utilisateur n'existe pas= 
+     - Content : =L'utilisateur n'existe pas=
 ** Accueil
 *** GetMyProfile (loading...)
    - Return : http code + user data in json
@@ -138,12 +138,12 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =user=
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
-     - Content : =Erreur= 
+     - Content : =Erreur=
 
 *** ModifyMyProfile (loading...)
 
 *** GetMyPhotos (loading...)
-   - Return : http code + liste des photos 
+   - Return : http code + liste des photos
    - Url : [[http://localhost:5000/Instalite/GetMyPhotos
    - Method : Get
    - Required :
@@ -153,14 +153,14 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =liste des photos au format json=
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
-     - Content : =Erreur= 
+     - Content : =Erreur=
 ** File d'actualité
 *** PostPhoto (loading...)
-   - Return : http code 
+   - Return : http code
    - Url : [[http://localhost:5000/Instalite/PostPhoto]]
    - Method : Post
-   - Required : 
-          =Bearer Token==  
+   - Required :
+          =Bearer Token==
           =Author=[String]=
           =Title=[String]=
           =Description=[String]=
@@ -171,13 +171,13 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =Votre poste a était ajouté=
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
-     - Content : =Erreur= 
-       
+     - Content : =Erreur=
+
 *** DeletePost (loading...)
-   - Return : http code 
+   - Return : http code
    - Url : [[http://localhost:5000/Instalite/DeletePost]]
    - Method : Delete
-   - Required : 
+   - Required :
           =Bearer Token=
           =UrlPhoto=[String]=
    - Success Response :
@@ -185,7 +185,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =Votre poste a était supprimé=
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
-     - Content : =Erreur= 
+     - Content : =Erreur=
 *** GetMyNewsFeed (loading...)
    - Return : http code + liste url des derniers postes des followings au format json
    - Url : [[http://localhost:5000/Instalite/GetMyNewsFeed]]
@@ -214,7 +214,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
 
- 
+
 *** Comment (loading...)
 *** Like (loading...)
 ** Abonné/Abonnements
@@ -256,9 +256,9 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
 *** Follow (s'abonner) (loading...)
-   - Description : Lorsqu'utilisateur A clique sur s'abonner : 
+   - Description : Lorsqu'utilisateur A clique sur s'abonner :
        - L'id de l'utilisateur A  est envoyé et ajouté à la WaitingList de l'utilisateur B
-   - Return : http code 
+   - Return : http code
    - Url : [[http://localhost:5000/Instalite/Follow]]
    - Method : Put
    - Required :
@@ -273,11 +273,11 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 
 *** Unfollow (se désabonner) (loading...)
    - Description : Lorsqu'utilisateur A clique sur se désabonner :
-     - L'id de l'utilisateur B est envoyé  
+     - L'id de l'utilisateur B est envoyé
      - L'utilisateur B est supprimer de la liste des followings de l'utilisateur A
-     - L'utilisateur A est supprimer de la liste des followers de l'utilisateur B 
- 
-   - Return : http code 
+     - L'utilisateur A est supprimer de la liste des followers de l'utilisateur B
+
+   - Return : http code
    - Url : [[http://localhost:5000/Instalite/UnFollow]]
    - Method : Delete
    - Required :
@@ -292,12 +292,12 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 
 *** AcceptFollower (accepter une demande d'abonnement) (loading...)
    - Description : Lorsqu'utilisateur A clique sur accepter :
-     - L'id de l'utilisateur B est envoyé  
+     - L'id de l'utilisateur B est envoyé
      - L'utilisateur B est retirer de la Waintinglist de l'utilisateur A
      - L'utilisateur B est ajouter à la liste des followers de l'utilisateur A
-     - L'utilisateur A est ajouter à la liste des followings de l'utilisateur B 
- 
-   - Return : http code 
+     - L'utilisateur A est ajouter à la liste des followings de l'utilisateur B
+
+   - Return : http code
    - Url : [[http://localhost:5000/Instalite/AcceptFollower]]
    - Method : Put
    - Required :
@@ -311,10 +311,10 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =Erreur=
 *** RefuseFollower (refuser  une demande d'abonnement) (loading...)
   - Description : Lorsqu'utilisateur A clique sur refuser :
-     - L'id de l'utilisateur B est envoyé  
+     - L'id de l'utilisateur B est envoyé
      - L'utilisateur B est retirer de la Waintinglist de l'utilisateur A
 
-   - Return : http code 
+   - Return : http code
    - Url : [[http://localhost:5000/Instalite/RefuseFollower]]
    - Method : Delete
    - Required :
@@ -328,11 +328,11 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =Erreur=
 *** DeleteFollower (supprimer un abonné) (loading...)
   - Description : Lorsqu'utilisateur A clique sur supprimer un abonné :
-     - L'id de l'utilisateur B est envoyé  
+     - L'id de l'utilisateur B est envoyé
      - L'utilisateur B est supprimer de la liste des followers de l'utilisateur A
      - L'utilisateur A est supprimer de la liste des followings de l'utilisateur B
- 
-   - Return : http code 
+
+   - Return : http code
    - Url : [[http://localhost:5000/Instalite/DeleteFollower]]
    - Method : Delete
    - Required :
@@ -355,17 +355,11 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Method : POST
    - Required : =un bearer token et Photo in binary=
    - Success Response :
-     - Code : 
-     - Content : 
+     - Code :
+     - Content :
    - Error Response 1 :
      - Code : =404 NOT FOUND=
-     - Content : 
+     - Content :
    - Error Response 2 :
      - Code : =400 BAD REQUEST=
-     - Content : 
-
-
-
-
-
-   
+     - Content :

@@ -1,6 +1,6 @@
 <template>
 <body class="body">
-  <form @submit.prevent="signUp">
+  <form @submit.prevent="">
   <div class="bander">
 
     <div class="element element-3"></div>
@@ -101,9 +101,6 @@ export default {
     onChanged(image){
       this.image=image
       this.My_photo=image
-    },
-
-    upload:function() {
       console.log('clikde')
   const formData = new FormData()
   formData.append('file', this.My_photo);
@@ -118,45 +115,53 @@ export default {
 
     this.UrlPhoto=response.data.secure_url;
     console.log(this.UrlPhoto)
- return true;
+
 }, response => {
  // error callback
- alert('verifier votre connexion internet et réessayer')
+ if(response.status==400){
+   alert('Ajouter une photo')
+ }
+ else{alert('verifier votre connexion internet et réessayer')}
  return false;
 });
 
-},
+    },
+
      signUp:function(){
- console.log("click")
+
    this.$validator.validateAll().then((result) => {
-         if (result && this.upload()) {
-
-
+         if (result) {
+           if(this.UrlPhoto===''){
+             alert('Ajouter photo')
+             return
+            }
+console.log('click')
            this.$http.post('http://localhost:5000/Instalite/Inscription',{
 
              UserId:this.UserId,
-             Password:this.Password,
              First_Name:this.First_name,
              Last_Name:this.Last_name,
+              Birth_date:this.Birth_date,
               Gender:this.Gender,
                Email:this.Email,
-             Birth_date:this.Birth_date,
+               Password:this.Password,
              UrlPhoto:this.UrlPhoto,
              City:this.City,
              Country:this.Country
            }).then(response => {
 
-               alert('Inscription reussi')
+               alert(response.data)
                this.$emit('changeCompo','connexion')
                console.log(response.data);
              },(response) => {
-             if(response.status==401){
+             if(response.status==400){
                alert('Login déja utilisé, veuillez choisir un autre Login')
              }
-             alert('échec inscription, veuillez réessayer')
+            else{ alert('échec inscription, veuillez réessayer')}
          })
            return;
          }
+
        });
      },
 

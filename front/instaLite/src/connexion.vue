@@ -1,6 +1,6 @@
 <template>
     <body class="body">
-      <form @submit.prevent="connexion">
+      <form @submit.prevent="">
       <div class="bander signflex ">
         <div class="icon"></div>
         <h3>Bienvenue sur InstaLite</h3>
@@ -44,7 +44,7 @@ export default {
     connexion:function(){
       this.$validator.validateAll().then((result) => {
             if (result) {
-              console.log("click")
+            //  console.log("click")
 
               this.$http.get('http://localhost:5000/Instalite/Connexion',{params:{
 
@@ -55,16 +55,23 @@ export default {
 
                   alert('Connexion reussi')
                   var token=response.data
+                  localStorage.setItem('token',JSON.stringify(token))
                   this.$emit('changeCompo','home')
-                  console.log(data);
+                  console.log(localStorage.getItem('token'));
+                  localStorage.token = response.data.token
+                  this.error = false
+
                 },(response) => {
-                if(response.status==401){
+                if(response.status==400){
                   alert('Mot de pass erroné')
                 }
-                alert('Problème serveur, veuillez réessayer')
+                else if(response.status==404){
+                alert('L utilisateur existe pas')
+              }
+              else{alert('Vérifier votre login/mot de passe')}
             })
 
-            alert('Vérifier votre login/mot de passe')
+
               return;
             }
 
@@ -73,9 +80,10 @@ export default {
         },
 
     getPassword:function(){
+
       this.$validator.validateAll().then((result) => {
             if (result) {
-              this.$http.get('http://localhost:5001/api/values',{params:{
+              this.$http.get('http://localhost:5000/Instalite/GetMyPassword',{params:{
                 UserId:this.UserId,
               }}).then(response => {
 
@@ -98,6 +106,12 @@ export default {
 
 
       },
+
+      updated () {
+  if (localStorage.token) {
+    this.$emit('changeCompo','home')
+  }
+}
 }
 </script>
 
@@ -154,4 +168,5 @@ button{
 a:only-of-type{
   margin-bottom: 10px;
 }
+
 </style>

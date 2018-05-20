@@ -88,6 +88,26 @@ export default{
     onChanged(image){
       this.image=image
       this.My_photo=image
+      const formData = new FormData()
+      formData.append('file', this.My_photo);
+      formData.append('upload_preset', this.cloudinary.uploadPreset);
+      formData.append('tags', 'gs-vue,gs-vue-uploaded');
+      // For debug purpose only
+      // Inspects the content of formData
+      for(var pair of formData.entries()) {
+        console.log(pair[0]+', '+pair[1]);
+      }
+      this.$http.post(this.clUrl, formData).then(response => {
+
+        this.UrlPhoto=response.data.secure_url;
+        console.log(this.UrlPhoto)
+     return true;
+    }, response => {
+     // error callback
+     alert('verifier votre connexion internet et réessayer')
+     return false;
+    });
+
     },
     upload:function() {
 
@@ -116,11 +136,12 @@ export default{
   vPost:function(){
 
     if(this.upload()){
-   this.$http.post('http://localhost:5000/Instalite/Inscription',{
+   this.$http.post('http://localhost:5000/Instalite/PostPhoto',{
 
-     UrlPhoto:this.UrlPhoto,
-     title:this.title,
-     description:this.description
+
+     Title:this.title,
+     Description:this.description,
+     UrlPhoto:this.UrlPhoto
 
    }).then(response => {
 
