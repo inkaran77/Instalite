@@ -8,9 +8,16 @@ namespace projet.Wall
 {
     public class Like
     {
-        public ObjectId Id { get; set; }
+        [BsonId]
+        public String _id { get; set; }
 
         [BsonElement("Author")]
         public string Author { get; set; }
+    
+        public Like()
+        {
+            _id = ObjectId.GenerateNewId().ToString();
+        }
     }
+
 }

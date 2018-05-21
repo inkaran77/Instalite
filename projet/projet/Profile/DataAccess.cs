@@ -15,7 +15,8 @@ namespace projet.Profile
     public class DataAccess 
     {
         MongoClient _client;
-        IMongoDatabase _db { get; set; }
+
+        public IMongoDatabase _db { get; set; }
 
         public DataAccess()
         {
@@ -51,13 +52,14 @@ namespace projet.Profile
                 Gender = u.Gender,
                 Email = u.Email,
                 UrlPhoto= u.UrlPhoto,
-                Birth_date = u.Birth_date,
+               Birth_date = u.Birth_date,
                 City = u.City,
                 Country = u.Country,
             });
             
         }
 
+        // ANCIEN
         public void Poster(Post p){
             _db.GetCollection<Post>("post").InsertOne(new Post
             {
@@ -92,6 +94,7 @@ namespace projet.Profile
             return result;
         }
 
+        // ANCIEN
         // Ajoute photo et renvoie son id
         public String AddPhoto(String lien)
         {
@@ -103,6 +106,7 @@ namespace projet.Profile
 
         }
 
+        // ANCIEN
         public String GetPhoto(String PhotoId)
         {
             var filter = Builders<Photo>.Filter.Eq("_id", ObjectId.Parse(PhotoId));

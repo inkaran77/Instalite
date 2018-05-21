@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +38,7 @@ namespace projet.Controllers
 
         // POST api/values
         [HttpPost]
-        [Route("Instalite/PostPhoto2")]
+        [Route("Instalite/PostPhoto")]
         public IActionResult Post([FromBody]Post p)
         {
                 Post post = new Post()
@@ -48,9 +49,11 @@ namespace projet.Controllers
                     Author = p.Author,
                     UrlPhoto = p.UrlPhoto,
                 };
-
+                
+                // On récupere l'id de l'user du token
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 User u = new User();
-                Boolean b=u.PostPhoto(post);
+                Boolean b=u.PostPhoto(post,userId);
                 if (b==true)
                 {
                     return new OkObjectResult("Votre poste a était ajouté");

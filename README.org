@@ -12,14 +12,14 @@
     - [[#getmypassword-loading][GetMyPassword (loading...)]]
   - [[#accueil][Accueil]]
     - [[#getmyprofile-loading][GetMyProfile (loading...)]]
-    - [[#modifymyprofile-loading][ModifyMyProfile (loading...)]]
     - [[#getmyphotos-loading][GetMyPhotos (loading...)]]
+    - [[#modifymyprofile-loading][ModifyMyProfile (loading...)]]
   - [[#file-dactualité][File d'actualité]]
     - [[#postphoto-loading][PostPhoto (loading...)]]
     - [[#deletepost-loading][DeletePost (loading...)]]
-    - [[#getmynewsfeed-loading][GetMyNewsFeed (loading...)]]
     - [[#getpost-loading][GetPost (loading...)]]
     - [[#like-loading][Like (loading...)]]
+    - [[#getmynewsfeed-loading][GetMyNewsFeed (loading...)]]
   - [[#abonnéabonnements][Abonné/Abonnements]]
     - [[#getallmyfollowers-loading][GetAllMyFollowers (loading...)]]
     - [[#getallmyfollowings-loading][GetAllMyFollowings (loading...)]]
@@ -54,17 +54,17 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | GetMyPassword        | Ganeistan OK | Inkaran    |      |
 |----------------------+--------------+------------+------|
 | *Accueil*            |              |            |      |
-| GetMyProfile         | Ganeistan    | Inkaran    |      |
-| GetMyPhotos          | Ganeistan    | Inkaran    |      |
+| GetMyProfile         | Ganeistan    | Inkaran OK |      |
+| GetMyPhotos          | Ganeistan    | Inkaran OK |      |
 | ModifyMyProfile      | Ganeistan    | Inkaran    |      |
 |----------------------+--------------+------------+------|
 | *Fil d'actualité*    |              |            |      |
-| PostPhoto            | Ganeistan    | Inkaran    |      |
+| PostPhoto            | Ganeistan    | Inkaran OK |      |
 | DeletePost           | Ganeistan    | Inkaran    |      |
-| GetMyNewsFeed        | Ganeistan    | Inkaran    |      |
 | GetPost              | Ganeistan    | Inkaran    |      |
 | Like                 | Ganeistan    | Inkaran    |      |
 | Comment              | Ganeistan    | Inkaran    |      |
+| GetMyNewsFeed        | Ganeistan    | Inkaran    |      |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
 | GetAllMyFollowers    | Mohamed      |            |      |
@@ -101,7 +101,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
           =UserId=[String]=
           =First_Name=[String]=
           =Last_Name=[String]=
-          =Birth_date=[Date]=
+          =Birth_date=[String]=
           =Gender=[String]=
           =Email=[String]=
           =Password=[String]=
@@ -136,26 +136,41 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Success Response :
      - Code : =200=
      - Content : =user=
-   - Error Response 1 :
-     - Code : =400 BAD REQUEST=
-     - Content : =Erreur=
-
-*** ModifyMyProfile (loading...)
+   
 
 *** GetMyPhotos (loading...)
    - Return : http code + liste des photos
-   - Url : [[http://localhost:5000/Instalite/GetMyPhotos
+   - Url : [[http://localhost:5000/Instalite/GetMyPhotos]]
    - Method : Get
    - Required :
            =Bearer Token=
    - Success Response :
      - Code : =200=
      - Content : =liste des photos au format json=
+
+*** ModifyMyProfile (loading...)
+   - Return : http code + liste des photos
+   - Url : [[http://localhost:5000/Instalite/ModifyMyProfile]]
+   - Method : Put
+   - Required :
+           =Bearer Token=
+          =First_Name=[String]=
+          =Last_Name=[String]=
+          =Email=[String]=
+          =Password=[String]=
+          =UrlPhoto=[String]=
+          =City=[String]=
+          =Country=[String]=
+   - Success Response :
+    - Code : =200=
+    - Content : =Votre profil est bien mise à jour=   
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
-     - Content : =Erreur=
+     - Content : =Aucune modification effectué=
+
 ** File d'actualité
 *** PostPhoto (loading...)
+   - Description : Pour back end, ajout du post dans la collection post + ajoute dans la liste de posts de l'utilisateur
    - Return : http code
    - Url : [[http://localhost:5000/Instalite/PostPhoto]]
    - Method : Post
@@ -164,7 +179,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
           =Author=[String]=
           =Title=[String]=
           =Description=[String]=
-          =Date=[Date]=
+          =Date=[String]=
           =UrlPhoto=[String]=
    - Success Response :
      - Code : =200=
@@ -186,18 +201,6 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
-*** GetMyNewsFeed (loading...)
-   - Return : http code + liste url des derniers postes des followings au format json
-   - Url : [[http://localhost:5000/Instalite/GetMyNewsFeed]]
-   - Method : Get
-   - Required : =Bearer Token=
-   - Success Response :
-     - Code : =200=
-     - Content : =liste json=
-   - Error Response 1 :
-     - Code : =400 BAD REQUEST=
-     - Content : =Erreur=
-
 
 *** GetPost (loading...)
    - Description : Lorsque l'utilisateur clique sur une photo alors le poste est affiché
@@ -216,7 +219,21 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 
 
 *** Comment (loading...)
+
 *** Like (loading...)
+
+*** GetMyNewsFeed (loading...)
+   - Return : http code + liste url des photos  des followings au format json (ensuite pour afficher un post il faut utiliser GetPost)
+   - Url : [[http://localhost:5000/Instalite/GetMyNewsFeed]]
+   - Method : Get
+   - Required : =Bearer Token=
+   - Success Response :
+     - Code : =200=
+     - Content : =liste des urls au format json=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+
 ** Abonné/Abonnements
 *** GetAllMyFollowers (loading...)
    - Return : http code + tous les id et les photo de profil des followers

@@ -9,10 +9,10 @@ namespace projet.Wall
     public class Post
     {
         [BsonId]
-        public ObjectId _id { get; set; }
+        public String _id { get; set; }
 
         [BsonElement("Date")]
-        public DateTime Date { get; set; }
+        public String Date { get; set; }
 
         [BsonElement("Description")]
         public string Description { get; set; }
@@ -37,7 +37,7 @@ namespace projet.Wall
 
         public Post()
         {
-            _id = ObjectId.GenerateNewId();
+            _id = ObjectId.GenerateNewId().ToString();
         }
 
 

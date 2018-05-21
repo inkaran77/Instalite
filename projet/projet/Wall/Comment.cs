@@ -8,7 +8,8 @@ namespace projet.Wall
 {
     public class Comment
     {
-        public ObjectId Id { get; set; }
+        [BsonId]
+        public String _id { get; set; }
 
         [BsonElement("Date")]
         public DateTime Date { get; set; }
@@ -18,5 +19,14 @@ namespace projet.Wall
 
         [BsonElement("Author")]
         public string Author { get; set; }
+    
+        public Comment()
+        {
+            _id = ObjectId.GenerateNewId().ToString();
+        }
+    
+    
     }
+
+
 }
