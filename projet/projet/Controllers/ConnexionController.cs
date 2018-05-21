@@ -65,7 +65,7 @@ namespace projet.Controllers
                 issuer: "instalite.fr",
                 audience: "instalite.fr",
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(40),
+                expires: DateTime.UtcNow.AddMinutes(180),
                 notBefore: DateTime.UtcNow,
                 signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
             );

@@ -12,7 +12,7 @@ namespace projet.Wall
         public String _id { get; set; }
 
         [BsonElement("Date")]
-        public DateTime Date { get; set; }
+        public String Date { get; set; }
 
         [BsonElement("Message")]
         public string Message { get; set; }

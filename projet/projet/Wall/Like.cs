@@ -12,7 +12,7 @@ namespace projet.Wall
         public String _id { get; set; }
 
         [BsonElement("Author")]
-        public string Author { get; set; }
+        public String Author { get; set; }
     
         public Like()
         {

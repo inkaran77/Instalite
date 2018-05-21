@@ -56,14 +56,15 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | *Accueil*            |              |            |      |
 | GetMyProfile         | Ganeistan    | Inkaran OK |      |
 | GetMyPhotos          | Ganeistan    | Inkaran OK |      |
-| ModifyMyProfile      | Ganeistan    | Inkaran    |      |
+| ModifyMyProfile      | Ganeistan    | Inkaran OK |      |
 |----------------------+--------------+------------+------|
 | *Fil d'actualité*    |              |            |      |
 | PostPhoto            | Ganeistan    | Inkaran OK |      |
-| DeletePost           | Ganeistan    | Inkaran    |      |
-| GetPost              | Ganeistan    | Inkaran    |      |
+| DeletePost           | Ganeistan    | Inkaran OK |      |
+| GetPost              | Ganeistan    | Inkaran OK |      |
 | Like                 | Ganeistan    | Inkaran    |      |
 | Comment              | Ganeistan    | Inkaran    |      |
+| GetAllComments       | Ganeistan    | Inkaran    |      |
 | GetMyNewsFeed        | Ganeistan    | Inkaran    |      |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
@@ -201,7 +202,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
-
+       
 *** GetPost (loading...)
    - Description : Lorsque l'utilisateur clique sur une photo alors le poste est affiché
    - Return : http code + les informations du post cliqué (Auteur, nombre de like, liste des commentaires...)
@@ -218,9 +219,34 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =Erreur=
 
 
-*** Comment (loading...)
-
 *** Like (loading...)
+   - Return : http code
+   - Url : [[http://localhost:5000/Instalite/Like]]
+   - Method : Put
+   - Required :
+          =Bearer Token=
+          =UrlPhoto=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Post liké=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+
+*** Comment (loading...)
+   - Return : http code
+   - Url : [[http://localhost:5000/Instalite/Comment]]
+   - Method : Put
+   - Required :
+          =Bearer Token=
+          =UrlPhoto=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Post commenté=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+
 
 *** GetMyNewsFeed (loading...)
    - Return : http code + liste url des photos  des followings au format json (ensuite pour afficher un post il faut utiliser GetPost)

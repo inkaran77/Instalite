@@ -52,7 +52,6 @@ namespace projet.Profile
         [BsonElement("Country")]
         public string Country { get; set; }
 
-        // List string des Id des post ou list des post ?
         [BsonElement("List_post")]
         public List<String> List_post { get; set; }
        
@@ -83,6 +82,52 @@ namespace projet.Profile
             var result2 = db._db.GetCollection<User>("user").UpdateOne(filter,update);
           
             return db.Insert(p, "post");
+        }
+
+        public String GetPost(String urlphoto){
+            
+            DataAccess db = new DataAccess();
+
+            // On recupere l'id du post correspondant à l'urlphoto
+            var filter = Builders<Post>.Filter.Eq("UrlPhoto", urlphoto);
+            var result = db._db.GetCollection<Post>("post").Find(filter).FirstOrDefault();
+
+            return result.ToJson();
+        }
+
+
+        public Boolean DeletePost(String urlphoto,String userId)
+        {
+            Boolean test = false;
+            DataAccess db = new DataAccess();
+
+            // On recupere l'id du post correspondant à l'urlphoto
+            var filter = Builders<Post>.Filter.Eq("UrlPhoto", urlphoto);
+            var result = db._db.GetCollection<Post>("post").Find(filter).FirstOrDefault();
+            if (result == null) return test; // si le post n'existe pas
+            Post p = JsonConvert.DeserializeObject<Post>(result.ToJson());
+
+            // On va supprimer le post dans la liste de post de l'utilisateur
+            var result2 = GetMyProfile(userId);
+            User u = JsonConvert.DeserializeObject<User>(result2);
+
+            if(u.List_post.Contains(p._id)==true){
+                u.List_post.Remove(p._id);
+
+                // On fait la mise à jour au niveau de l'utilisateur
+                var filter2 = Builders<User>.Filter.Eq("UserId", u.UserId);
+                var update = Builders<User>.Update.Set(x => x.List_post, u.List_post);
+                var result3 = db._db.GetCollection<User>("user").UpdateOne(filter2, update);
+
+                // On va supprimer le post dans sa collection
+                var filter3 = Builders<Post>.Filter.Eq("UrlPhoto", urlphoto);
+                var result4 = db._db.GetCollection<Post>("post").DeleteOne(filter3);
+
+                test = true;
+                return test;
+            }
+
+            else return test;
         }
 
         public String GetMyProfile(String userId)

@@ -22,21 +22,15 @@ namespace projet.Controllers
             db = new DataAccess();
         }
 
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        [HttpGet("")]
+        [Route("Instalite/GetPost")]
+        public IActionResult Get(String UrlPhoto)
         {
-            return new string[] { "value1", "value2" };
+            User u = new User();
+            return new OkObjectResult(u.GetPost(UrlPhoto));
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
         [HttpPost]
         [Route("Instalite/PostPhoto")]
         public IActionResult Post([FromBody]Post p)
@@ -48,6 +42,9 @@ namespace projet.Controllers
                     Title = p.Title,
                     Author = p.Author,
                     UrlPhoto = p.UrlPhoto,
+                    List_like = new List<Like>(),
+                    List_comment = new List<Comment>(),
+                    Like_counter = 0,
                 };
                 
                 // On récupere l'id de l'user du token
@@ -63,16 +60,61 @@ namespace projet.Controllers
             
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+       
+        [HttpPut("")]
+        [Route("Instalite/Like")]
+        public IActionResult Like(String UrlPhoto)
         {
+            // On récupere l'id de l'user du token
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            Post p = new Post();
+            Like l = new Like();
+            l.Author = userId;
+            if(p.Like(UrlPhoto,l)==true)
+            {
+                return new OkObjectResult("Post liké");
+            } 
+
+            else return new BadRequestObjectResult("Erreur");
+        }
+
+        [HttpPut("")]
+        [Route("Instalite/Comment")]
+        public IActionResult Comment(String UrlPhoto,String Message)
+        {
+            // On récupere l'id de l'user du token
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            Post post = new Post();
+            Comment c = new Comment();
+            c.Author = userId;
+            c.Date = DateTime.Now.ToString();
+            c.Message = Message;
+
+            if (post.Comment(UrlPhoto, c) == true)
+            {
+                return new OkObjectResult("Post commenté");
+            }
+
+            else return new BadRequestObjectResult("Erreur");
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("")]
+        [Route("Instalite/DeletePost")]
+        public IActionResult DeletePost(String UrlPhoto)
         {
+            // On récupere l'id de l'user du token
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            User u = new User();
+
+            if (u.DeletePost(UrlPhoto, userId) == true)
+            {
+                return new OkObjectResult("Votre poste a était supprimé");
+            }
+            else return new BadRequestObjectResult("Erreur");
+
         }
     }
 }
