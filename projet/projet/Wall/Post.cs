@@ -12,31 +12,31 @@ namespace projet.Wall
     public class Post
     {
         [BsonId]
-         public String _id { get; set; }
+        public String _id { get;private set; }
 
         [BsonElement("Date")]
-         String Date { get; set; }
+        public String Date { get; set; }
 
         [BsonElement("Description")]
-         String Description { get; set; }
+        public string Description { get; set; }
 
         [BsonElement("Like_counter")]
-         int Like_counter { get; set; }
+        public int Like_counter { get; set; }
 
         [BsonElement("Title")]
-         String Title { get; set; }
+        public string Title { get; set; }
 
         [BsonElement("Author")]
-         String Author { get; set; }
+        public string Author { get; set; }
 
         [BsonElement("UrlPhoto")]
-         public String UrlPhoto { get; set; }
+        public String UrlPhoto { get; set; }
 
         [BsonElement("Like_like")]
-         List<Like> List_like { get; set; }
+        public List<Like> List_like { get; set; }
 
         [BsonElement("List_comment")]
-         List<Comment> List_comment { get; set; }
+        public List<Comment> List_comment { get; set; }
 
         public Post()
         {
@@ -61,7 +61,7 @@ namespace projet.Wall
                 p.Like_counter++;
 
                 // BUG probleme lorsqu'on deserialize pour p.liste_like est vide
-                // BUG list_like pas instancié ???
+            // BUG list_like pas instancié ???
                 Console.WriteLine(p.List_like.ToJson());
                 if (p.List_like == null)
                 {

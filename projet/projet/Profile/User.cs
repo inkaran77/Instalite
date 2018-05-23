@@ -15,7 +15,7 @@ namespace projet.Profile
     public class User
     {
         [BsonId]
-        public String _id { get; set;}
+        public String _id { get;private set;}
 
         //public ObjectId Id { get; set; }
 
@@ -73,17 +73,7 @@ namespace projet.Profile
         public Boolean PostPhoto(Post p,String userId)
         {
             DataAccess db = new DataAccess();
-            //Post post = new Post()
-            //{
-            //    Date = p.Date,
-            //    Description = p.Description,
-            //    Title = p.Title,
-            //    Author = p.Author,
-            //    UrlPhoto = p.UrlPhoto,
-            //    List_like = new List<Like>(),
-            //    List_comment = new List<Comment>(),
-            //    Like_counter = 0,
-            //};
+
             // On recupere les infos de l'utilisateur qui publie le poste
             var result = GetMyProfile(userId);
             User u = JsonConvert.DeserializeObject<User>(result);

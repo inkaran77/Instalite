@@ -35,22 +35,22 @@ namespace projet.Controllers
         [Route("Instalite/PostPhoto")]
         public IActionResult Post([FromBody]Post p)
         {
-                //Post post = new Post()
-                //{
-                //    Date = p.Date,
-                //    Description = p.Description,
-                //    Title = p.Title,
-                //    Author = p.Author,
-                //    UrlPhoto = p.UrlPhoto,
-                //    List_like = new List<Like>(),
-                //    List_comment = new List<Comment>(),
-                //    Like_counter = 0,
-                //};
+                Post post = new Post()
+                {
+                    Date = p.Date,
+                    Description = p.Description,
+                    Title = p.Title,
+                    Author = p.Author,
+                    UrlPhoto = p.UrlPhoto,
+                    List_like = new List<Like>(),
+                    List_comment = new List<Comment>(),
+                    Like_counter = 0,
+                };
                 
                 // On récupere l'id de l'user du token
                 string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 User u = new User();
-                Boolean b=u.PostPhoto(p,userId);
+                Boolean b=u.PostPhoto(post,userId);
                 if (b==true)
                 {
                     return new OkObjectResult("Votre poste a était ajouté");
