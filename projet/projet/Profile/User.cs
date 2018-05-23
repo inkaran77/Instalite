@@ -59,6 +59,12 @@ namespace projet.Profile
         [BsonElement("Waiting_List")]
         public List<String> Waiting_List { get; set; }
 
+        [BsonElement("Followers")]
+        public Follower Followers{ get; set; }
+
+        [BsonElement("Followings")]
+        public Following Followings { get; set; }
+
         public User()
         {
             _id = ObjectId.GenerateNewId().ToString();   
@@ -67,7 +73,17 @@ namespace projet.Profile
         public Boolean PostPhoto(Post p,String userId)
         {
             DataAccess db = new DataAccess();
-
+            //Post post = new Post()
+            //{
+            //    Date = p.Date,
+            //    Description = p.Description,
+            //    Title = p.Title,
+            //    Author = p.Author,
+            //    UrlPhoto = p.UrlPhoto,
+            //    List_like = new List<Like>(),
+            //    List_comment = new List<Comment>(),
+            //    Like_counter = 0,
+            //};
             // On recupere les infos de l'utilisateur qui publie le poste
             var result = GetMyProfile(userId);
             User u = JsonConvert.DeserializeObject<User>(result);
@@ -150,20 +166,60 @@ namespace projet.Profile
             // On crée un objet user pour pouvoir récupérer les infors qu'on a bessoin
             User u = JsonConvert.DeserializeObject<User>(result);
 
-            List<String> liste_photo = new List<string>();
+
+            // On crée un json pr renvoyer dans le format voulu
+            JObject j = JObject.Parse(@"{'MyPhotos': []}");
+            JArray photos = (JArray)j["MyPhotos"];
+           
             foreach(String post in u.List_post)
             {
                 DataAccess db = new DataAccess();
                 var filter = Builders<Post>.Filter.Eq("_id", post);
                 var result2 = db._db.GetCollection<Post>("post").Find<Post>(filter).FirstOrDefault();
                 Post p = JsonConvert.DeserializeObject<Post>(result2.ToJson());
-                liste_photo.Add(p.UrlPhoto);
+
+                // list d'objets
+                JObject j1 = new JObject(new JProperty("Lien", p.UrlPhoto));
+                photos.Add(j1);
+
+                //photos.Add(p.UrlPhoto); // List de urls 
+
+            }
+            return j.ToString();
+        }
+
+        public String GetWaitingList(String userId)
+        {
+            var result = GetMyProfile(userId);
+
+            // On crée un objet user pour pouvoir récupérer les infors qu'on a bessoin
+            User u = JsonConvert.DeserializeObject<User>(result);
+
+            //// On crée un json pr renvoyer dans le format voulu
+            JObject waitingList = JObject.Parse(@"{'MyWaitingList': []}");
+            JArray j = (JArray)waitingList["MyWaitingList"];
+
+            if (u.Waiting_List.Capacity == 0) return null;
+            foreach (String user in u.Waiting_List)
+            {
+                DataAccess db = new DataAccess();
+
+                // on va chercher dans la collection user 
+                var filter = Builders<User>.Filter.Eq("UserId", user);
+                var result2 = db._db.GetCollection<User>("user").Find<User>(filter).FirstOrDefault();
+                User u1 = JsonConvert.DeserializeObject<User>(result2.ToJson());
+
+
+                JObject j1 = new JObject(new JProperty("UserId", u1.UserId));
+                JProperty jp1 = new JProperty("UrlPhoto", u1.UrlPhoto);
+                j1.Add(jp1);
+                j.Add(j1);
 
             }
 
-            return liste_photo.ToJson();
-        }
+            return waitingList.ToString();
 
+        }
 
         public Boolean ModifyMyProfile(User modification, String userId){
             Boolean test = false;

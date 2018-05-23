@@ -41,36 +41,36 @@ namespace projet.Profile
 
 
         // ANCIEN //Inscrire un nouveau utilisateur
-        public void Inscription(User u)
-        {
-            _db.GetCollection<User>("user").InsertOne(new User
-            {
-                UserId = u.UserId,
-                Password = u.Password,
-                First_name = u.First_name,
-                Last_name = u.Last_name,
-                Gender = u.Gender,
-                Email = u.Email,
-                UrlPhoto= u.UrlPhoto,
-               Birth_date = u.Birth_date,
-                City = u.City,
-                Country = u.Country,
-            });
+        //public void Inscription(User u)
+        //{
+        //    _db.GetCollection<User>("user").InsertOne(new User
+        //    {
+        //        UserId = u.UserId,
+        //        Password = u.Password,
+        //        First_name = u.First_name,
+        //        Last_name = u.Last_name,
+        //        Gender = u.Gender,
+        //        Email = u.Email,
+        //        UrlPhoto= u.UrlPhoto,
+        //       Birth_date = u.Birth_date,
+        //        City = u.City,
+        //        Country = u.Country,
+        //    });
             
-        }
+        //}
 
         // ANCIEN
-        public void Poster(Post p){
-            _db.GetCollection<Post>("post").InsertOne(new Post
-            {
-                Date = p.Date,
-                Description = p.Description,
-                Title = p.Title,
-                Author = p.Author,
-                UrlPhoto = p.UrlPhoto,
+        //public void Poster(Post p){
+        //    _db.GetCollection<Post>("post").InsertOne(new Post
+        //    {
+        //        Date = p.Date,
+        //        Description = p.Description,
+        //        Title = p.Title,
+        //        Author = p.Author,
+        //        UrlPhoto = p.UrlPhoto,
 
-            });
-        }
+        //    });
+        //}
 
 
         // Test si l'id est déjà prit ou pas

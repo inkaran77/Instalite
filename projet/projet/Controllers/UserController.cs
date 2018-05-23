@@ -15,7 +15,7 @@ namespace projet.Controllers
     public class UserController : Controller
     {
         
-        // GET api/values/5
+
         [HttpGet("")]
         [Route("Instalite/GetMyProfile")]
         public IActionResult GetMyProfile()
@@ -39,20 +39,31 @@ namespace projet.Controllers
 
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpGet("")]
+        [Route("Instalite/GetWaitingList")]
+        public IActionResult GetWaitingList()
         {
+            // On récupere l'id de l'user du token
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            User u = new User();
+            u.UserId = userId;
+            if (u.GetWaitingList(userId) == null)
+            {
+                return new BadRequestObjectResult("Pas de demande d'abonnement");
+            }
+
+            else return new OkObjectResult(u.GetWaitingList(userId));
+
         }
 
-        // PUT api/values/5
+
         [HttpPut("")]
         [Route("Instalite/ModifyMyProfile")]
         public IActionResult ModifyMyProfile([FromBody]User user)
         {
             // On récupere l'id de l'user du token
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
+           
             // On recupére les informations contenu dans les champs
             User u = new User()
                 {

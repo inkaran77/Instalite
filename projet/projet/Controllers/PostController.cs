@@ -35,22 +35,22 @@ namespace projet.Controllers
         [Route("Instalite/PostPhoto")]
         public IActionResult Post([FromBody]Post p)
         {
-                Post post = new Post()
-                {
-                    Date = p.Date,
-                    Description = p.Description,
-                    Title = p.Title,
-                    Author = p.Author,
-                    UrlPhoto = p.UrlPhoto,
-                    List_like = new List<Like>(),
-                    List_comment = new List<Comment>(),
-                    Like_counter = 0,
-                };
+                //Post post = new Post()
+                //{
+                //    Date = p.Date,
+                //    Description = p.Description,
+                //    Title = p.Title,
+                //    Author = p.Author,
+                //    UrlPhoto = p.UrlPhoto,
+                //    List_like = new List<Like>(),
+                //    List_comment = new List<Comment>(),
+                //    Like_counter = 0,
+                //};
                 
                 // On récupere l'id de l'user du token
                 string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 User u = new User();
-                Boolean b=u.PostPhoto(post,userId);
+                Boolean b=u.PostPhoto(p,userId);
                 if (b==true)
                 {
                     return new OkObjectResult("Votre poste a était ajouté");
@@ -99,6 +99,22 @@ namespace projet.Controllers
 
             else return new BadRequestObjectResult("Erreur");
         }
+
+        [HttpPut("")]
+        [Route("Instalite/GetAllComments")]
+        public IActionResult GetAllComments(String UrlPhoto)
+        {
+             
+            Post post = new Post();
+            if (post.GetAllComments(UrlPhoto) == null)
+            {
+                return new BadRequestObjectResult("Pas de commentaire");
+            }
+
+            else return new OkObjectResult(post.GetAllComments(UrlPhoto));
+            
+        }
+
 
         // DELETE api/values/5
         [HttpDelete("")]

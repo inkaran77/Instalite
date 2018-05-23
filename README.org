@@ -19,6 +19,7 @@
     - [[#deletepost-loading][DeletePost (loading...)]]
     - [[#getpost-loading][GetPost (loading...)]]
     - [[#like-loading][Like (loading...)]]
+    - [[#getallcomments-loading][GetAllComments (loading)]]
     - [[#getmynewsfeed-loading][GetMyNewsFeed (loading...)]]
   - [[#abonnéabonnements][Abonné/Abonnements]]
     - [[#getallmyfollowers-loading][GetAllMyFollowers (loading...)]]
@@ -63,19 +64,19 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | DeletePost           | Ganeistan    | Inkaran OK |      |
 | GetPost              | Ganeistan    | Inkaran OK |      |
 | Like                 | Ganeistan    | Inkaran    |      |
-| Comment              | Ganeistan    | Inkaran    |      |
-| GetAllComments       | Ganeistan    | Inkaran    |      |
+| Comment              | Ganeistan    | Inkaran OK |      |
+| GetAllComments       | Ganeistan    | Inkaran OK |      |
 | GetMyNewsFeed        | Ganeistan    | Inkaran    |      |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
-| GetAllMyFollowers    | Mohamed      |            |      |
-| GetAllMyFollowings   | Mohamed      |            |      |
-| GetWaitingList       | Mohamed      |            |      |
-| Follow               | Mohamed      |            |      |
-| Unfollow             | Mohamed      |            |      |
-| AcceptFollower       | Mohamed      |            |      |
-| RefuseFollower       | Mohamed      |            |      |
-| DeleteFollower       | Mohamed      |            |      |
+| GetAllMyFollowers    | Mohamed      | Inkaran    |      |
+| GetAllMyFollowings   | Mohamed      | Inkaran    |      |
+| GetWaitingList       | Mohamed      | Inkaran    |      |
+| Follow               | Mohamed      | Inkaran    |      |
+| Unfollow             | Mohamed      | Inkaran    |      |
+| AcceptFollower       | Mohamed      | Inkaran    |      |
+| RefuseFollower       | Mohamed      | Inkaran    |      |
+| DeleteFollower       | Mohamed      | Inkaran    |      |
 
 * Contrat d'accès
 ** Accès
@@ -137,7 +138,9 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Success Response :
      - Code : =200=
      - Content : =user=
-   
+   - Error Response 1 :
+     - Code : =401 Unauthorized=
+ 
 
 *** GetMyPhotos (loading...)
    - Return : http code + liste des photos
@@ -147,7 +150,20 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
            =Bearer Token=
    - Success Response :
      - Code : =200=
-     - Content : =liste des photos au format json=
+     - Content : 
+       {
+          "MyPhotos": [
+            {
+              "Lien": "www.instalite.fr/1"
+            },
+            {
+              "Lien": "www.instalite.fr/2"
+            },
+            {
+              "Lien": "www.instalite.fr/3"
+            }
+          ]
+       }
 
 *** ModifyMyProfile (loading...)
    - Return : http code + liste des photos
@@ -240,6 +256,9 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Required :
           =Bearer Token=
           =UrlPhoto=[String]=
+          =Message=[String]=
+          =Date=[String]=
+          =Author=[String]=
    - Success Response :
      - Code : =200=
      - Content : =Post commenté=
@@ -247,7 +266,35 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
 
-
+*** GetAllComments (loading)
+ - Return : http code + liste des commentaires du post
+   - Url : [[http://localhost:5000/Instalite/GetAllComments]]
+   - Method : Get
+   - Required :
+           =Bearer Token=
+           =UrlPhoto=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : 
+          {
+            "Comments": [
+               {
+                "Author":  "Inkaran"
+                "Message": "Cool"
+               },
+               {
+                "Author":  "Inkaran"
+                "Message": "Super"
+               },
+               {
+               "Author":  "Inkaran"
+               "Message": "Magnifique"
+               }
+            ]
+         }
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Pas de commentaire=
 *** GetMyNewsFeed (loading...)
    - Return : http code + liste url des photos  des followings au format json (ensuite pour afficher un post il faut utiliser GetPost)
    - Url : [[http://localhost:5000/Instalite/GetMyNewsFeed]]
@@ -294,19 +341,27 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
           =Bearer Token=
    - Success Response :
      - Code : =200=
-     - Content : =liste id et les photo de profils  au format json=
+     - Content :
+       { "MyWaitingList": [
+            {
+             "UserId": "inkaran",
+             "UrlPhoto": "www.instalite.fr/909809890898989898"
+            }
+          ]
+       }
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
-     - Content : =Erreur=
+     - Content : =Pas de demande d'abonnement=
 *** Follow (s'abonner) (loading...)
    - Description : Lorsqu'utilisateur A clique sur s'abonner :
-       - L'id de l'utilisateur A  est envoyé et ajouté à la WaitingList de l'utilisateur B
+       - L'id de l'utilisateur B est envoyé
+       - L'id de l'utilisateur A  est  ajouté à la WaitingList de l'utilisateur B
    - Return : http code
    - Url : [[http://localhost:5000/Instalite/Follow]]
    - Method : Put
    - Required :
           =Bearer Token=
-          =Id=[String]=
+          =Id de l'utlisateur B=[String]=
    - Success Response :
      - Code : =200=
      - Content : =Demande d'abonnement a bien était envoyé=

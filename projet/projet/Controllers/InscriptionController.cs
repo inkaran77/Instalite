@@ -46,6 +46,8 @@ namespace projet.Controllers
                     Country = user.Country,
                     List_post = new List<string>(),
                     Waiting_List = new List<string>(),
+                    Followers = new Follower(),
+                    Followings = new Following()
                 }; 
                 // db.Inscription(user); // ANCIEN
                 Boolean b=db.Insert(u, "user");
