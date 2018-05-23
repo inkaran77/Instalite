@@ -54,12 +54,12 @@ export default {
               }}).then(response => {
 
                   alert('Connexion reussi')
-                  var token=response.data
-                  localStorage.setItem('token',JSON.stringify(token))
-                  this.$emit('changeCompo','home')
-                  console.log(localStorage.getItem('token'));
+                  var token=response.data.token
+                  localStorage.setItem('token2',JSON.stringify(token))
+                  console.log(localStorage.getItem('token2'));
                   localStorage.token = response.data.token
                   this.error = false
+                  this.$emit('changeCompo','home')
 
                 },(response) => {
                 if(response.status==400){

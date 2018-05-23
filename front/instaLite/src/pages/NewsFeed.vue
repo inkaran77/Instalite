@@ -39,5 +39,20 @@ export default{
 
 
       },
+      updated () {
+        this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
+         'Authorization': 'Bearer '+ localStorage.token
+       }}).then(response => {
+
+
+            var user=response.data
+            localStorage.setItem('user2',JSON.stringify(user))
+            console.log(localStorage.getItem('user2'));
+            localStorage.user = response.data
+
+          },(response) => {
+        alert('une erreur est survenu')
+      })
+      }
 }
 </script>

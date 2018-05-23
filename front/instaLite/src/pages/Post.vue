@@ -109,41 +109,23 @@ export default{
     });
 
     },
-    upload:function() {
-
-  const formData = new FormData()
-  formData.append('file', this.My_photo);
-  formData.append('upload_preset', this.cloudinary.uploadPreset);
-  formData.append('tags', 'gs-vue,gs-vue-uploaded');
-  // For debug purpose only
-  // Inspects the content of formData
-  for(var pair of formData.entries()) {
-    console.log(pair[0]+', '+pair[1]);
-  }
-  this.$http.post(this.clUrl, formData).then(response => {
-
-    this.UrlPhoto=response.data.secure_url;
-    console.log(this.UrlPhoto)
- return true;
-}, response => {
- // error callback
- alert('verifier votre connexion internet et réessayer')
- return false;
-});
-
-},
 
   vPost:function(){
-
-    if(this.upload()){
+    if(this.UrlPhoto===''){
+      alert('Ajouter photo')
+      return
+     }
    this.$http.post('http://localhost:5000/Instalite/PostPhoto',{
 
-
+     Author:'fff',// localStorage.user.First_Name + localStorage.user.Last_Name
      Title:this.title,
      Description:this.description,
-     UrlPhoto:this.UrlPhoto
+     UrlPhoto:this.UrlPhoto,
+     Date:new Date()
 
-   }).then(response => {
+   }, {headers: {
+    'Authorization': 'Bearer '+ localStorage.token
+  }}).then(response => {
 
        alert('Votre photo est en ligne')
       // this.$emit('changeCompo','connexion')
@@ -152,8 +134,12 @@ export default{
 
      alert('échec, veuillez réessayer')
  })
- }
+},
+updated () {
+
+console.log('fff')
 }
+
 
 
       },
