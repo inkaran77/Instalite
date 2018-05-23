@@ -9,7 +9,7 @@ namespace projet.Wall
     public class Like
     {
         [BsonId]
-        public String _id { get; set; }
+        public String _id { get;private set; }
 
         [BsonElement("Author")]
         public String Author { get; set; }

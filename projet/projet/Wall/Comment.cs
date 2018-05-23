@@ -9,7 +9,7 @@ namespace projet.Wall
     public class Comment
     {
         [BsonId]
-        public String _id { get; set; }
+        public String _id { get;private set; }
 
         [BsonElement("Date")]
         public String Date { get; set; }

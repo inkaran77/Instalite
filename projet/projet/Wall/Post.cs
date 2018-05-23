@@ -44,6 +44,7 @@ namespace projet.Wall
 
         }
 
+
         public Boolean Like(String urlPhoto, Like l)
         {
 
@@ -61,7 +62,10 @@ namespace projet.Wall
                 p.Like_counter++;
 
                 // BUG probleme lorsqu'on deserialize pour p.liste_like est vide
-            // BUG list_like pas instancié ???
+
+
+
+                // BUG list_like pas instancié ???
                 Console.WriteLine(p.List_like.ToJson());
                 if (p.List_like == null)
                 {

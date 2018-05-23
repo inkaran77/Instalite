@@ -8,7 +8,7 @@ namespace projet.Profile
     public class Follower
     {
         [BsonId]
-        public String _id { get; set; }
+        public String _id { get;private set; }
 
         [BsonElement("ListUsers")]
         public List<User> ListUsers { get; set; }

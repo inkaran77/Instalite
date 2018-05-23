@@ -46,7 +46,7 @@ namespace projet.Controllers
                     List_comment = new List<Comment>(),
                     Like_counter = 0,
                 };
-                
+
                 // On récupere l'id de l'user du token
                 string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 User u = new User();
