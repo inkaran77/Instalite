@@ -71,8 +71,8 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | *Abonné/Abonnements* |              |            |      |
 | GetAllMyFollowers    | Mohamed      | Inkaran    |      |
 | GetAllMyFollowings   | Mohamed      | Inkaran    |      |
-| GetWaitingList       | Mohamed      | Inkaran    |      |
-| Follow               | Mohamed      | Inkaran    |      |
+| GetWaitingList       | Mohamed      | Inkaran OK |      |
+| Follow               | Mohamed      | Inkaran OK |      |
 | Unfollow             | Mohamed      | Inkaran    |      |
 | AcceptFollower       | Mohamed      | Inkaran    |      |
 | RefuseFollower       | Mohamed      | Inkaran    |      |
