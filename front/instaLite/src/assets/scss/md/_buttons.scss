@@ -55,6 +55,8 @@
     }
     &.md-danger{
       @include btn-styles($brand-danger);
+      height:40px;
+      weight:60px;
     }
     &.md-white{
         &,

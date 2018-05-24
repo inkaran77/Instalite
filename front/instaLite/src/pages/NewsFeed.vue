@@ -5,7 +5,7 @@
         <md-card>
           <md-card-header data-background-color="blue">
             <h4 class="title">Fil d'actualité</h4>
-            <p class="category">Bonjour</p>
+            <p class="category">Vos photos et celles de vos amis</p>
           </md-card-header>
           <md-card-content>
             <div id="newsfeed">
@@ -34,25 +34,27 @@ export default{
       Password:''
     }
   },
-
+  mounted:function() {
+    this.getAll()
+  },
   methods:{
+    getAll:function () {
+      this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
+       'Authorization': 'Bearer '+ localStorage.token
+     }}).then(response => {
 
 
-      },
-      updated () {
-        this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
-         'Authorization': 'Bearer '+ localStorage.token
-       }}).then(response => {
+          var user=response.data
+          localStorage.setItem('user2',JSON.stringify(user))
+          console.log(localStorage.getItem('user2'));
+          localStorage.user = response.data
 
+        },(response) => {
+      alert('une erreur est survenu')
+    })
+    }
 
-            var user=response.data
-            localStorage.setItem('user2',JSON.stringify(user))
-            console.log(localStorage.getItem('user2'));
-            localStorage.user = response.data
+  },
 
-          },(response) => {
-        alert('une erreur est survenu')
-      })
-      }
 }
 </script>

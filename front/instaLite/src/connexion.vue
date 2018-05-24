@@ -39,7 +39,14 @@ export default {
       Password:''
     }
   },
-
+  mounted:function() {
+    this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
+     'Authorization': 'Bearer '+ localStorage.token
+   }}).then(response => {
+     this.$emit('changeCompo','home')
+      //console.log(this.MyPhotos.Lien)
+      })
+  },
   methods:{
     connexion:function(){
       this.$validator.validateAll().then((result) => {
@@ -58,6 +65,7 @@ export default {
                   localStorage.setItem('token2',JSON.stringify(token))
                   console.log(localStorage.getItem('token2'));
                   localStorage.token = response.data.token
+                  this.getAll()
                   this.error = false
                   this.$emit('changeCompo','home')
 
@@ -79,8 +87,24 @@ export default {
           });
         },
 
-    getPassword:function(){
+        getAll:function () {
+          this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
+           'Authorization': 'Bearer '+ localStorage.token
+         }}).then(response => {
 
+
+              var user=response.data
+              localStorage.setItem('user2',JSON.stringify(user))
+              console.log(localStorage.getItem('user2'));
+              localStorage.user = response.data
+
+            },(response) => {
+          alert('une erreur est survenu')
+        })
+      },
+
+    getPassword:function(){
+// document.location.reload(true); a changer de place
       this.$validator.validateAll().then((result) => {
             if (result) {
               this.$http.get('http://localhost:5000/Instalite/GetMyPassword',{params:{
@@ -102,14 +126,12 @@ export default {
 
   signUp:function(){
     this.$emit('changeCompo','registration')
-  }
+  },
 
 
       },
 
-      updated () {
 
-        }
 }
 </script>
 

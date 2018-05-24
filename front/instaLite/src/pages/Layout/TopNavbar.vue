@@ -44,6 +44,9 @@
               <i class="material-icons">person</i>
               <p class="hidden-lg hidden-md">Profile</p>
             </md-list-item>
+
+            <md-button v-on:click="signOut()" class="md-round md-danger">Déconnexion</md-button>
+
           </md-list>
         </div>
       </div>
@@ -73,6 +76,10 @@ export default{
   methods: {
     toggleSidebar () {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
+    },
+    signOut:function(){
+      localStorage.clear();
+      document.location.reload(true);
     }
   }
 }

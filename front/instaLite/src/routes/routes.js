@@ -9,6 +9,7 @@ import Followers from '@/pages/Followers.vue'
 import Following from '@/pages/Following.vue'
 import Post from '@/pages/Post.vue'
 import Myphoto from '@/pages/Myphoto.vue'
+import Connexion from '@/connexion.vue'
 
 const routes = [
   {
@@ -22,6 +23,12 @@ const routes = [
         name: 'Mon Profil',
         component: UserProfile
       },
+      {
+        path: 'connexion',
+        name: 'Connexion',
+        component: Connexion
+      },
+
 
       {
         path: 'typography',

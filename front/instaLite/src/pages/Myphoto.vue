@@ -9,7 +9,14 @@
           </md-card-header>
           <md-card-content>
             <div id="myphoto">
-              
+              <div class="row">
+
+  <div class="col-sm-4" v-for="Myphoto in Myphotos2">
+<img :src='Myphoto.Lien'>
+
+  </div>
+
+</div>
             </div>
            </md-card-content>
          </md-card>
@@ -30,29 +37,28 @@ export default{
   name: 'app',
   data () {
     return {
-      UserId: '',
-      Password:''
-    }
+
+       Myphotos2:null
+}
   },
+
 
   methods:{
 
 
       },
-      updated () {
-        this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
+
+      mounted:function() {
+        this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
          'Authorization': 'Bearer '+ localStorage.token
        }}).then(response => {
 
+         console.log(response.data.MyPhotos)
+      this.Myphotos2=response.data.MyPhotos
 
-            var user=response.data
-            localStorage.setItem('user2',JSON.stringify(user))
-            console.log(localStorage.getItem('user2'));
-            localStorage.user = response.data
+          //console.log(this.MyPhotos.Lien)
+          })
+      },
 
-          },(response) => {
-        alert('une erreur est survenu')
-      })
-      }
 }
 </script>

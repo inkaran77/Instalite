@@ -151,7 +151,7 @@ console.log('click')
            }).then(response => {
 
                alert(response.data)
-               this.$emit('changeCompo','connexion')
+                 document.location.reload(true);
                console.log(response.data);
              },(response) => {
              if(response.status==400){
