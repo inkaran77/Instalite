@@ -60,7 +60,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | ModifyMyProfile      | Ganeistan    | Inkaran OK |      |
 |----------------------+--------------+------------+------|
 | *Fil d'actualité*    |              |            |      |
-| PostPhoto            | Ganeistan    | Inkaran OK |      |
+| PostPhoto            | Ganeistan    | Inkaran OK |  OK  |
 | DeletePost           | Ganeistan    | Inkaran OK |      |
 | GetPost              | Ganeistan    | Inkaran OK |      |
 | Like                 | Ganeistan    | Inkaran    |      |
@@ -74,7 +74,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | GetWaitingList       | Mohamed      | Inkaran OK |      |
 | Follow               | Mohamed      | Inkaran OK |      |
 | Unfollow             | Mohamed      | Inkaran    |      |
-| AcceptFollower       | Mohamed      | Inkaran    |      |
+| AcceptFollower       | Mohamed      | Inkaran OK |      |
 | RefuseFollower       | Mohamed      | Inkaran    |      |
 | DeleteFollower       | Mohamed      | Inkaran    |      |
 
@@ -192,8 +192,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Url : [[http://localhost:5000/Instalite/PostPhoto]]
    - Method : Post
    - Required :
-          =Bearer Token==
-          =Author=[String]=
+     =Bearer Token=
           =Title=[String]=
           =Description=[String]=
           =Date=[String]=
@@ -257,8 +256,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
           =Bearer Token=
           =UrlPhoto=[String]=
           =Message=[String]=
-          =Date=[String]=
-          =Author=[String]=
+       
    - Success Response :
      - Code : =200=
      - Content : =Post commenté=
