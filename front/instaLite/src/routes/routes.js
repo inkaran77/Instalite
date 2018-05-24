@@ -8,6 +8,7 @@ import NewsFeed from '@/pages/NewsFeed.vue'
 import Followers from '@/pages/Followers.vue'
 import Following from '@/pages/Following.vue'
 import Post from '@/pages/Post.vue'
+import Myphoto from '@/pages/Myphoto.vue'
 
 const routes = [
   {
@@ -46,6 +47,11 @@ const routes = [
         path: 'post',
         name: 'Poster',
         component: Post
+      },
+      {
+        path: 'myphoto',
+        name: 'Myphoto',
+        component: Myphoto
       },
 
 

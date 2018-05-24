@@ -108,10 +108,8 @@ export default {
       },
 
       updated () {
-  if (localStorage.token) {
-    this.$emit('changeCompo','home')
-  }
-}
+
+        }
 }
 </script>
 

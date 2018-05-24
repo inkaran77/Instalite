@@ -12,6 +12,10 @@
         <md-icon>person</md-icon>
         <p>Mon Profil</p>
       </sidebar-link>
+      <sidebar-link to="/myphoto">
+        <md-icon>person</md-icon>
+        <p>Mes Photos</p>
+      </sidebar-link>
       <sidebar-link to="/post">
         <md-icon>content_paste</md-icon>
         <p>Poster</p>
