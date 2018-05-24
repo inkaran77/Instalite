@@ -13,12 +13,12 @@ namespace projet.Profile
         public String _id { get;private  set; }
 
         [BsonElement("ListUsers")]
-        public List<User> ListUsers { get; set; }
+        public List<String> ListUsers { get; set; }
 
         public Following()
         {
             _id = ObjectId.GenerateNewId().ToString();
-            ListUsers = new List<User>();
+            ListUsers = new List<String>();
         }
     
         public Boolean Follow (String myUserId,String userId)

@@ -26,5 +26,6 @@
     <Compile Remove="Models\EmptyClass.cs" />
     <Compile Remove="Controllers\ValuesController.cs" />
     <Compile Remove="Profile\Post.cs" />
+    <Compile Remove="Controllers\testController.cs" />
   </ItemGroup>
 </Project>
