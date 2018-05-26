@@ -101,7 +101,7 @@ namespace projet.Controllers
             else return new BadRequestObjectResult("Erreur");
         }
 
-        [HttpPut("")]
+        [HttpGet("")]
         [Route("Instalite/GetAllComments")]
         public IActionResult GetAllComments(String UrlPhoto)
         {
@@ -117,7 +117,7 @@ namespace projet.Controllers
         }
 
 
-        // DELETE api/values/5
+
         [HttpDelete("")]
         [Route("Instalite/DeletePost")]
         public IActionResult DeletePost(String UrlPhoto)

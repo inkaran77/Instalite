@@ -28,7 +28,7 @@
     - [[#follow-sabonner-loading][Follow (s'abonner) (loading...)]]
     - [[#unfollow-se-désabonner-loading][Unfollow (se désabonner) (loading...)]]
     - [[#acceptfollower-accepter-une-demande-dabonnement-loading][AcceptFollower (accepter une demande d'abonnement) (loading...)]]
-    - [[#refusefollower-refuser--une-demande-dabonnement-loading][RefuseFollower (refuser  une demande d'abonnement) (loading...)]]
+    - [[#refusefollowrequest-refuser--une-demande-dabonnement-loading][RefuseFollowRequest (refuser  une demande d'abonnement) (loading...)]]
     - [[#deletefollower-supprimer-un-abonné-loading][DeleteFollower (supprimer un abonné) (loading...)]]
   - [[#notification][Notification]]
     - [[#notify][Notify]]
@@ -69,14 +69,15 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | GetMyNewsFeed        | Ganeistan    | Inkaran    |      |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
-| GetAllMyFollowers    | Mohamed      | Inkaran    |      |
-| GetAllMyFollowings   | Mohamed      | Inkaran    |      |
+| GetAllUsers          | Mohamed      | Inkaran    |      |
+| GetAllMyFollowers    | Mohamed      | Inkaran OK |      |
+| GetAllMyFollowings   | Mohamed      | Inkaran OK |      |
 | GetWaitingList       | Mohamed      | Inkaran OK |      |
 | Follow               | Mohamed      | Inkaran OK |      |
-| Unfollow             | Mohamed      | Inkaran    |      |
+| Unfollow             | Mohamed      | Inkaran OK |      |
 | AcceptFollower       | Mohamed      | Inkaran OK |      |
-| RefuseFollower       | Mohamed      | Inkaran    |      |
-| DeleteFollower       | Mohamed      | Inkaran    |      |
+| RefuseFollowRequest  | Mohamed      | Inkaran OK |      |
+| DeleteFollower       | Mohamed      | Inkaran OK |      |
 
 * Contrat d'accès
 ** Accès
@@ -277,15 +278,15 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
           {
             "Comments": [
                {
-                "Author":  "Inkaran"
+                "Author":  "Inkaran",
                 "Message": "Cool"
                },
                {
-                "Author":  "Inkaran"
+                "Author":  "Inkaran",
                 "Message": "Super"
                },
                {
-               "Author":  "Inkaran"
+               "Author":  "Inkaran",
                "Message": "Magnifique"
                }
             ]
@@ -314,10 +315,18 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
           =Bearer Token=
    - Success Response :
      - Code : =200=
-     - Content : =liste id et les photo de profils  au format json=
+     - Content :
+          {
+            "MyFollowers": [
+               {
+                "UserId":  "Inkaran",
+                "UrlPhoto": "www.instalite.fr/098098098098908/"
+               }
+            ]
+         }
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
-     - Content : =Erreur=
+     - Content : =Pas d'abonnés=
 *** GetAllMyFollowings (loading...)
    - Return : http code + tous les id et les photos de profil des followings
    - Url : [[http://localhost:5000/Instalite/GetAllMyFollowings]]
@@ -326,10 +335,18 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
           =Bearer Token=
    - Success Response :
      - Code : =200=
-     - Content : =liste id et les photo de profils  au format json=
+     - Content :
+          {
+            "MyFollowings": [
+               {
+                "UserId":  "Inkaran",
+                "UrlPhoto": "www.instalite.fr/098098098098908/"
+               }
+            ]
+         }
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
-     - Content : =Erreur=
+     - Content : =Pas d'abonnement=
 
 *** GetWaitingList (loading...)
  - Return : http code + tous les id et les photos de profil des utilisateurs de la WaitingList
@@ -405,13 +422,13 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
-*** RefuseFollower (refuser  une demande d'abonnement) (loading...)
+*** RefuseFollowRequest (refuser  une demande d'abonnement) (loading...)
   - Description : Lorsqu'utilisateur A clique sur refuser :
      - L'id de l'utilisateur B est envoyé
      - L'utilisateur B est retirer de la Waintinglist de l'utilisateur A
 
    - Return : http code
-   - Url : [[http://localhost:5000/Instalite/RefuseFollower]]
+   - Url : [[http://localhost:5000/Instalite/RefuseFollowRequest]]
    - Method : Delete
    - Required :
           =Bearer Token=

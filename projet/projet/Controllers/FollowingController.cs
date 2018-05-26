@@ -28,5 +28,37 @@ namespace projet.Controllers
 
             else return new BadRequestObjectResult("Erreur");
         }
+
+        [HttpDelete("")]
+        [Route("Instalite/UnFollow")]
+        public IActionResult UnFollow(String UserId)
+        {
+            // On récupere l'id de l'user du token
+            string myUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Following f = new Following();
+            if (f.UnFollow(myUserId, UserId) == true)
+            {
+                return new OkObjectResult("Vous êtes désabonner de "+ UserId);
+            }
+
+            else return new BadRequestObjectResult("Erreur");
+        }
+
+        [HttpGet("")]
+        [Route("Instalite/GetAllMyFollowings")]
+        public IActionResult GetAllMyFollowings()
+        {
+            // On récupere l'id de l'user du token
+            String myUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            User u = new User();
+
+            if (u.Followings.GetAllMyFollowings(myUserId) == null)
+            {
+                return new BadRequestObjectResult("Pas d'abonnements");
+            }
+
+            else return new OkObjectResult(u.Followings.GetAllMyFollowings(myUserId));
+
+        }
     }
 }
