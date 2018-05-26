@@ -20,16 +20,13 @@ namespace projet.Profile
 
         public DataAccess()
         {
-           // _client = new MongoClient("mongodb://localhost:27017");
-          //  _db = _client.GetDatabase("Instalite");
-          
-            // _client = new MongoClient("mongodb://instalite1_inkaran:abc@mongodb-instalite1.alwaysdata.net/instalite1_db");
-           // _db = _client.GetDatabase("instalite1_db");
+            _client = new MongoClient("mongodb://localhost:27017");
+            _db = _client.GetDatabase("Instalite");
 
-            var connectionString = @"mongodb://instalite1_inkaran:abc@mongodb-instalite1.alwaysdata.net/instalite1_db";
-            var mongoUrl = new MongoUrl(connectionString);
-            var dbname = mongoUrl.DatabaseName;
-             _db = new MongoClient(mongoUrl).GetDatabase(dbname);
+          //  var connectionString = @"mongodb://instalite1_inkaran:abc@mongodb-instalite1.alwaysdata.net/instalite1_db";
+          //  var mongoUrl = new MongoUrl(connectionString);
+          //  var dbname = mongoUrl.DatabaseName;
+          //   _db = new MongoClient(mongoUrl).GetDatabase(dbname);
         }
 
 
