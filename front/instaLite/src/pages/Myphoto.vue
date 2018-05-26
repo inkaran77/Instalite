@@ -9,10 +9,37 @@
           </md-card-header>
           <md-card-content>
             <div id="myphoto">
+              <modal :width="700"
+         :height="700" name="description" >
+
+                <div class="container">
+                <h1>{{titre}}</h1>
+                <div class="gallerie" >
+    <img :src='urlPhoto' style=" height:300px;"alt="" /></a>
+  </div>
+
+  <p>Description : {{description}}</p>
+              </div>
+              <div class="container2">
+                <div class="container-comments">
+                  <p><b>Commentaire:</b></p>
+                  <div class="comments" v-for="Com in commentsList">
+                    <p><b>{{Com.Author}}</b></p>
+                     <br>
+                     <p>{{Com.Message}}</p>
+                  </div>
+
+
+                </div>
+                    <button class="btn-danger" v-on:click="delet()">Effacer</button>
+              </div>
+
+
+              </modal>
               <div class="row">
 
   <div class="col-sm-4" v-for="Myphoto in Myphotos2">
-<img :src='Myphoto.Lien'>
+<img :src='Myphoto.Lien' class="zoom" style=" height:250px; margin-top:20px;" v-on:click="getUrl(Myphoto.Lien)">
 
   </div>
 
@@ -27,7 +54,13 @@
 <script>
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import test from '@/test.vue'
 export default{
+  components : {
+
+  'test':test
+
+},
   props: {
     dataBackgroundColor: {
       type: String,
@@ -38,13 +71,71 @@ export default{
   data () {
     return {
 
-       Myphotos2:null
+       urlPhoto:'',
+       Myphotos2:null,
+       titre:'titre de la photo',
+       commentsList:null,
+       description:'une description',
+       author:'autheur'
 }
   },
 
 
   methods:{
+    getUrl:function(url){
+      this.urlPhoto=url
+      this.getAllComments()
+      this.getPost()
+      this.$modal.show('description');
+      
+    },
 
+    getAllComments:function(){
+      this.$http.get('http://localhost:5000/Instalite/GetAllComments',{
+        UrlPhoto:this.urlPhoto
+      },{headers: {
+       'Authorization': 'Bearer '+ localStorage.token
+     }}).then(response => {
+       this.commentsList=response.data.Comments
+       console.log(response.data)
+
+
+        //console.log(this.MyPhotos.Lien)
+        })
+
+    },
+
+    getPost:function(){
+      this.$http.get('http://localhost:5000/Instalite/GetPost',{
+        UrlPhoto:this.urlPhoto
+      },{headers: {
+       'Authorization': 'Bearer '+ localStorage.token
+     }}).then(response => {
+       //this.commentsList=response.data.Comments
+       console.log(response.data)
+
+
+        //console.log(this.MyPhotos.Lien)
+        })
+    },
+
+    delet:function(){
+      this.$http.delete('http://localhost:5000/Instalite/DeletePost',{
+        UrlPhoto:this.urlPhoto
+      },{headers: {
+       'Authorization': 'Bearer '+ localStorage.token
+      }}).then(response => {
+       //this.commentsList=response.data.Comments
+       this.$modal.hide('description');
+
+       this.$router.push({
+           name: 'Myphoto'
+       });
+
+        //console.log(this.MyPhotos.Lien)
+        })
+
+    },
 
       },
 
@@ -62,3 +153,56 @@ export default{
 
 }
 </script>
+<style>
+img.resize {
+  width:200px;
+  height:40px;
+}
+.container{
+  width: 700px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+}
+.container2{
+  width: 700px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+}
+.gallerie {
+    width: 550px;
+height: 400px;
+overflow: hidden;
+}
+.gallerie img{
+
+position: relative;
+left: -10px;
+top: -10px;
+}
+.container-comments{
+  width: 550px;
+  height: 250px;
+  overflow: scroll;
+
+}
+.comments{
+
+  height: 80px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: red;
+  overflow: hidden;
+}
+.zoom:hover {
+    opacity: 0.9;
+
+}
+</style>

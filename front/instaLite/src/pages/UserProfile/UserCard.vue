@@ -47,13 +47,13 @@
         <div class="md-layout-item md-small-size-100 md-size-50">
           <md-field>
             <label>Nom</label>
-            <md-input v-model="First_name" type="text" v-validate="'required'"></md-input>
+            <md-input v-model="Last_name" type="text" v-validate="'required'"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100 md-size-50">
           <md-field>
             <label>Prénom</label>
-            <md-input v-model="Last_name" type="text" v-validate="'required'"></md-input>
+            <md-input v-model="First_name" type="text" v-validate="'required'"></md-input>
           </md-field>
         </div>
         <div class="md-layout-item md-small-size-100 md-size-100">
@@ -140,8 +140,6 @@ export default {
       },{headers: {
        'Authorization': 'Bearer '+ localStorage.token
      }}).then(response => {
-console.log(this.UrlPhoto)
-console.log(this.First_name)
        this.getAll()
 
           alert('Mise à jour effectuée')
