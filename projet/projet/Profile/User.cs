@@ -235,6 +235,14 @@ namespace projet.Profile
                 test = true;
             }
 
+            if (u.Password.Equals(modification.Password) == false)
+            {
+                var filter = Builders<User>.Filter.Eq("UserId", u.UserId);
+                var update = Builders<User>.Update.Set(x => x.Password, modification.Password);
+                var result2 = db._db.GetCollection<User>("user").UpdateOne(filter, update);
+                test = true;
+            }
+
             if (u.Email.Equals(modification.Email) == false)
             {
                 var filter = Builders<User>.Filter.Eq("UserId", u.UserId);
@@ -247,14 +255,6 @@ namespace projet.Profile
             {
                 var filter = Builders<User>.Filter.Eq("UserId", u.UserId);
                 var update = Builders<User>.Update.Set(x => x.UrlPhoto, modification.UrlPhoto);
-                var result2 = db._db.GetCollection<User>("user").UpdateOne(filter, update);
-                test = true;
-            }
-
-            if (u.Birth_date.Equals(modification.Birth_date) == false)
-            {
-                var filter = Builders<User>.Filter.Eq("UserId", u.UserId);
-                var update = Builders<User>.Update.Set(x => x.Birth_date, modification.Birth_date);
                 var result2 = db._db.GetCollection<User>("user").UpdateOne(filter, update);
                 test = true;
             }
@@ -279,7 +279,33 @@ namespace projet.Profile
             return test;
         }
 
-          
+        public String GetAllUsers(){
+            DataAccess db = new DataAccess();
+
+            //// On crée un json pr renvoyer dans le format voulu
+            JObject listUsers = JObject.Parse(@"{'ListUsers': []}");
+            JArray j = (JArray)listUsers["ListUsers"];
+
+            try{
+                // On parcours tte la collection d'user
+                var filter = Builders<User>.Filter.Empty;
+                foreach (User u in db._db.GetCollection<User>("user").Find(filter).ToListAsync().Result)
+                {                    
+                        JObject j1 = new JObject(new JProperty("First_Name", u.First_name));
+                        JProperty jp1 = new JProperty("Last_Name", u.Last_name);
+                        JProperty jp2 = new JProperty("UrlPhoto", u.UrlPhoto);
+                        j1.Add(jp1);
+                        j1.Add(jp2);
+                        j.Add(j1);
+                } 
+                return listUsers.ToString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+        }
     }
 
 

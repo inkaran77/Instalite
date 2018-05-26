@@ -22,6 +22,7 @@
     - [[#getallcomments-loading][GetAllComments (loading)]]
     - [[#getmynewsfeed-loading][GetMyNewsFeed (loading...)]]
   - [[#abonnéabonnements][Abonné/Abonnements]]
+    - [[#getallusers-loading][GetAllUsers (loading...)]]
     - [[#getallmyfollowers-loading][GetAllMyFollowers (loading...)]]
     - [[#getallmyfollowings-loading][GetAllMyFollowings (loading...)]]
     - [[#getwaitinglist-loading][GetWaitingList (loading...)]]
@@ -57,7 +58,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | *Accueil*            |              |            |      |
 | GetMyProfile         | Ganeistan OK | Inkaran OK | OK   |
 | GetMyPhotos          | Ganeistan OK | Inkaran OK | OK   |
-| ModifyMyProfile      | Ganeistan OK | Inkaran OK | KO   |
+| ModifyMyProfile      | Ganeistan OK | Inkaran OK | OK   |
 |----------------------+--------------+------------+------|
 | *Fil d'actualité*    |              |            |      |
 | PostPhoto            | Ganeistan OK | Inkaran OK | OK   |
@@ -67,9 +68,10 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | Comment              | Ganeistan    | Inkaran OK |      |
 | GetAllComments       | Ganeistan    | Inkaran OK |      |
 | GetMyNewsFeed        | Ganeistan    | Inkaran    |      |
+| GetUserProfile       | Ganeistan    | Inkaran    |      |
+| GetAllUsers          | Ganeistan    | Inkaran OK |      |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
-| GetAllUsers          | Mohamed      | Inkaran    |      |
 | GetAllMyFollowers    | Mohamed      | Inkaran OK |      |
 | GetAllMyFollowings   | Mohamed      | Inkaran OK |      |
 | GetWaitingList       | Mohamed      | Inkaran OK |      |
@@ -307,7 +309,29 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =Erreur=
 
 ** Abonné/Abonnements
+*** GetAllUsers (loading...)   
+   - Return : http code + tous les noms, prénoms et les photo de profil des utilisateurs de l'application
+   - Url : [[http://localhost:5000/Instalite/GetAllUsers]]
+   - Method : Get
+   - Required :
+          =Bearer Token=
+   - Success Response :
+     - Code : =200=
+     - Content :
+          {
+            "ListUsers": [
+               {
+                "First_Name": "Inkaran"
+                "Last_Name":  "Thuraiyappah",
+                "UrlPhoto": "www.instalite.fr/098098098098908/"
+               }
+            ]
+         }
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
 *** GetAllMyFollowers (loading...)
+
    - Return : http code + tous les id et les photo de profil des followers
    - Url : [[http://localhost:5000/Instalite/GetAllMyFollowers]]
    - Method : Get

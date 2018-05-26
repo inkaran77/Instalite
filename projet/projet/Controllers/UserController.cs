@@ -63,19 +63,19 @@ namespace projet.Controllers
         {
             // On récupere l'id de l'user du token
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-           
+
             // On recupére les informations contenu dans les champs
             User u = new User()
-                {
-                    First_name = user.First_name,
-                    Last_name = user.Last_name,
-                    Email = user.Email,
-                    UrlPhoto = user.UrlPhoto,
-                    Birth_date = user.Birth_date,
-                    City = user.City,
-                    Country = user.Country,
+            {
+                First_name = user.First_name,
+                Last_name = user.Last_name,
+                Password = user.Password,
+                Email = user.Email,
+                UrlPhoto = user.UrlPhoto,
+                City = user.City,
+                Country = user.Country,
                     
-                };
+            };
 
             if (u.ModifyMyProfile(u, userId) == true)
             {
@@ -85,6 +85,16 @@ namespace projet.Controllers
 
         }
 
-
+        [HttpGet("")]
+        [Route("Instalite/GetAllUsers")]
+        public IActionResult GetAllUsers()
+        {
+            User u = new User();
+            if (u.GetAllUsers() == null)
+            {
+                return new BadRequestObjectResult("Erreur");
+            }
+            else return new OkObjectResult(u.GetAllUsers());
+        }
     }
 }

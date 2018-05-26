@@ -44,6 +44,27 @@ namespace projet.Profile
             }
         }
 
+        // Test si l'id est déjà prit ou pas
+        public Boolean IsIdUsed(String Id)
+        {
+
+            var filter = Builders<User>.Filter.Eq("UserId", Id);
+            Boolean result = _db.GetCollection<User>("user").Find(filter).Any();
+            return result;
+        }
+
+        //Test si le mot de passe est valide
+        public Boolean ValidePassword(String Id, String Password)
+        {
+
+            var filterId = Builders<User>.Filter.Eq("UserId", Id);
+            var filterPassword = Builders<User>.Filter.Eq("Password", Password);
+            var filter = filterId & filterPassword;
+            Boolean result = _db.GetCollection<User>("user").Find(filter).Any();
+
+            return result;
+        }
+
 
         // ANCIEN //Inscrire un nouveau utilisateur
         //public void Inscription(User u)
@@ -78,27 +99,6 @@ namespace projet.Profile
         //}
 
 
-        // Test si l'id est déjà prit ou pas
-        public Boolean IsIdUsed(String Id)
-        {
-
-            var filter = Builders<User>.Filter.Eq("UserId", Id);
-            Boolean result = _db.GetCollection<User>("user").Find(filter).Any();
-            return result;
-        }
-
-        //Test si le mot de passe est valide
-        public Boolean ValidePassword(String Id, String Password)
-        {
-
-            var filterId = Builders<User>.Filter.Eq("UserId", Id);
-            var filterPassword = Builders<User>.Filter.Eq("Password", Password);
-            var filter = filterId & filterPassword;
-            Boolean result = _db.GetCollection<User>("user").Find(filter).Any();
-
-            return result;
-        }
-
         // ANCIEN
         // Ajoute photo et renvoie son id
         public String AddPhoto(String lien)
@@ -128,6 +128,7 @@ namespace projet.Profile
 
         }
 
+        //Ancien test
         // Test retour brute
         public List<User> GetAllUsers()
         {
@@ -144,6 +145,7 @@ namespace projet.Profile
             return allUsers;
         }
 
+        // Ancien test
         // Test retour simplifié
         public String GetAllUsers2()
         {
