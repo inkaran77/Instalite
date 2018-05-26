@@ -160,7 +160,7 @@ namespace projet.Profile
             // On crée un json pr renvoyer dans le format voulu
             JObject j = JObject.Parse(@"{'MyPhotos': []}");
             JArray photos = (JArray)j["MyPhotos"];
-           
+
             foreach(String post in u.List_post)
             {
                 DataAccess db = new DataAccess();
