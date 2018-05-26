@@ -128,6 +128,9 @@ export default{
   }}).then(response => {
 
        alert('Votre photo est en ligne')
+       this.$router.push({
+           name: 'Myphoto'
+       });
       // this.$emit('changeCompo','connexion')
        console.log(response.data);
      },(response) => {

@@ -1,86 +1,88 @@
 <template>
-  <div class="hello">
-    <picture-input
-      ref="pictureInput"
-      @change="onChange"
-      width="100"
-      height="200"
-      margin="16"
-      accept="image/jpeg,image/png"
-      size="10"
-      buttonClass="btn"
-      :customStrings="{
-        upload: '<h1>Bummer!</h1>',
-        drag: 'Drag a ðŸ˜º GIF or GTFO'
-      }">
-    </picture-input>
-     <input type="file" name="fichier" @change="onFileChanged">
-  </div>
+<p>dsdspllpplplp</p>
   </template>
 
   <script>
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
-  import PictureInput from 'vue-picture-input'
-  export default {
-    components: {
-        PictureInput
-      },
+  import test from '@/test.vue'
+  export default{
+    components : {
+
+    'test':test
+
+  },
+    props: {
+      dataBackgroundColor: {
+        type: String,
+        default: ''
+      }
+    },
     name: 'app',
     data () {
       return {
-        cloudinary: {
-     uploadPreset: 'nachrlb3',
-     apiKey: '157225663566444',
-     cloudName: 'dvejva95o'
-   },
-   thumb: {
-       url: ''
-     },
-     thumbs:[],
-        UserId: '',
-        Password:'',
-        My_photo:null
-      }
+
+         urlPhoto:'http://res.cloudinary.com/dvejva95o/image/upload/v1527154205/instaLite/wyn8yxonngrrbc4kxhv5.jpg',
+         Myphotos2:null,
+         titre:'titre de la photo',
+         commentsList:null,
+         description:'une description',
+         author:'autheur'
+  }
     },
-    computed: {
-        clUrl: function() {
-            return `https://api.cloudinary.com/v1_1/${this.cloudinary.cloudName}/upload`
-          },
-            },
+
+
     methods:{
+      getUrl:function(url){
+        this.urlPhoto=url
+        this.getAllComments()
+        this.getPost()
+        this.$modal.show('description');
 
-          onFileChanged (event) {
-            onChange(event)
-         this.My_photo = event.target.files[0]
-         console.log(event);
-       },
+      },
+
+      getAllComments:function(){
+        this.$http.get('http://localhost:5000/Instalite/GetAllComments',{
+          UrlPhoto:this.urlPhoto
+        },{headers: {
+         'Authorization': 'Bearer '+ localStorage.token
+       }}).then(response => {
+         this.commentsList=response.data.Comments
+         console.log(response.data)
 
 
-       onChanged(image){
-         this.image=image
-         this.My_photo=image
-       },
-       onChange (file) {
-         console.log('clikde')
-     const formData = new FormData()
-     formData.append('file', file);
-     formData.append('upload_preset', this.cloudinary.uploadPreset);
-     formData.append('tags', 'gs-vue,gs-vue-uploaded');
-     // For debug purpose only
-     // Inspects the content of formData
-     for(var pair of formData.entries()) {
-       console.log(pair[0]+', '+pair[1]);
-     }
-     this.$http.post(this.clUrl, formData).then(response => {
+          //console.log(this.MyPhotos.Lien)
+          })
 
-  response.data.secure_url;
+      },
 
-  }, response => {
-    // error callback
-  });
+      getPost:function(){
+        this.$http.get('http://localhost:5000/Instalite/GetPost',{
+          UrlPhoto:this.urlPhoto
+        },{headers: {
+         'Authorization': 'Bearer '+ localStorage.token
+       }}).then(response => {
+         //this.commentsList=response.data.Comments
+         console.log(response.data)
 
-   }
+
+          //console.log(this.MyPhotos.Lien)
+          })
+      }
+
         },
+
+        mounted:function() {
+          this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
+           'Authorization': 'Bearer '+ localStorage.token
+         }}).then(response => {
+
+           console.log(response.data.MyPhotos)
+        this.Myphotos2=response.data.MyPhotos
+this.getAllComments()
+            //console.log(this.MyPhotos.Lien)
+            })
+        },
+
   }
   </script>

@@ -60,7 +60,7 @@ export default {
                 Password:this.Password
               }}).then(response => {
 
-                  alert('Connexion reussi')
+                  alert('Connexion réussie')
                   var token=response.data.token
                   localStorage.setItem('token2',JSON.stringify(token))
                   console.log(localStorage.getItem('token2'));

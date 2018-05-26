@@ -4,7 +4,7 @@ import VueRessource from'vue-resource'
 import VeeValidate from 'vee-validate';
 import BootstrapVue from 'bootstrap-vue'
 import VueRouter from 'vue-router'
-
+import VModal from 'vue-js-modal'
 // router setup
 import routes from './routes/routes'
 // Plugins
@@ -22,7 +22,7 @@ const router = new VueRouter({
   routes, // short for routes: routes
   linkExactActiveClass: 'nav-item active'
 })
-
+Vue.use(VModal)
 Vue.use(VueRouter)
 Vue.use(MaterialDashboard)
 Vue.use(GlobalComponents)
