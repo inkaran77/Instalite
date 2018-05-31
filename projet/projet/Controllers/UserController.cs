@@ -96,5 +96,19 @@ namespace projet.Controllers
             }
             else return new OkObjectResult(u.GetAllUsers());
         }
+
+
+        [HttpGet("")]
+        [Route("Instalite/GetUserProfile")]
+        public IActionResult GetUserProfile(String UrlPhoto)
+        {
+            User u = new User();
+            if (u.GetUserProfile(UrlPhoto) == null)
+            {
+                return new BadRequestObjectResult("Erreur");
+            }
+            else return new OkObjectResult(u.GetUserProfile(UrlPhoto));
+
+        }
     }
 }

@@ -20,6 +20,7 @@
     - [[#getpost-loading][GetPost (loading...)]]
     - [[#like-loading][Like (loading...)]]
     - [[#getallcomments-loading][GetAllComments (loading)]]
+    - [[#getuserprofileloading][GetUserProfile(loading)]]
     - [[#getmynewsfeed-loading][GetMyNewsFeed (loading...)]]
   - [[#abonnéabonnements][Abonné/Abonnements]]
     - [[#getallusers-loading][GetAllUsers (loading...)]]
@@ -68,7 +69,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | Comment              | Ganeistan    | Inkaran OK |      |
 | GetAllComments       | Ganeistan OK | Inkaran OK | KO   |
 | GetMyNewsFeed        | Ganeistan    | Inkaran    |      |
-| GetUserProfile       | Ganeistan    | Inkaran    |      |
+| GetUserProfile       | Ganeistan    | Inkaran OK   |      |
 | GetAllUsers          | Ganeistan    | Inkaran OK |      |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
@@ -80,6 +81,10 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | AcceptFollower       | Mohamed      | Inkaran OK |      |
 | RefuseFollowRequest  | Mohamed      | Inkaran OK |      |
 | DeleteFollower       | Mohamed      | Inkaran OK |      |
+|----------------------+--------------+------------+------|
+| *Notification*       |              |            |      |
+| GetNotification      | Ganeistan    | Inkaran    |      |
+| DeleteNotification   | Ganeistan    | Inkaran    |      |
 
 * Contrat d'accès
 ** Accès
@@ -250,7 +255,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
-
+       
 *** Comment (loading...)
    - Return : http code
    - Url : [[http://localhost:5000/Instalite/Comment]]
@@ -296,6 +301,18 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =Pas de commentaire=
+*** GetUserProfile(loading)
+   - Return : http code + user data in json
+   - Url : [[http://localhost:5000/Instalite/GetUserProfile]]
+   - Method : Get
+   - Required :
+           =UrlPhoto=[String]=
+           =Bearer Token=
+   - Success Response :
+     - Code : =200=
+     - Content : =user=
+   - Error Response 1 :
+     - Code : =400 BadRequest=
 *** GetMyNewsFeed (loading...)
    - Return : http code + liste url des photos  des followings au format json (ensuite pour afficher un post il faut utiliser GetPost)
    - Url : [[http://localhost:5000/Instalite/GetMyNewsFeed]]
@@ -307,6 +324,8 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
+
+ 
 
 ** Abonné/Abonnements
 *** GetAllUsers (loading...)   

@@ -171,7 +171,6 @@ namespace projet.Profile
                 // list d'objets
                 JObject j1 = new JObject(new JProperty("Lien", p.UrlPhoto));
                 photos.Add(j1);
-
                 //photos.Add(p.UrlPhoto); // List de urls 
 
             }
@@ -305,6 +304,27 @@ namespace projet.Profile
                 Console.WriteLine(e);
                 return null;
             }
+        }
+
+        public String GetUserProfile(String urlPhoto)
+        {
+            DataAccess db = new DataAccess();
+
+            try
+            {
+                var filter = Builders<User>.Filter.Eq("UrlPhoto", urlPhoto);
+                var fieldsBuilder = Builders<User>.Projection;
+                var fields = fieldsBuilder.Exclude(d => d._id);
+
+                var result = db._db.GetCollection<User>("user").Find<User>(filter).Project(fields).FirstOrDefault();
+                return result.ToJson();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+
         }
     }
 
