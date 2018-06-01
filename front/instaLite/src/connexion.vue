@@ -1,12 +1,16 @@
 <template>
+  <div class="bg">
   <div class="main">
 		<div class="main2">
 			<div class="container-img">
 			<img src="./assets/icon.png">
 			</div>
-          <registration></registration>
+
+            <component v-bind:is="pageView" v-on:changePage="updateCompo($event)"></component>
+
         </div>
 	</div>
+</div>
 </template>
 
 <script>
@@ -29,7 +33,8 @@ export default {
   data () {
     return {
       UserId: '',
-      Password:''
+      Password:'',
+      pageView:'registration'
     }
   },
   mounted:function() {
@@ -41,6 +46,9 @@ export default {
       })
   },
   methods:{
+    updateCompo:function(nouvoCompo){
+      this.pageView=nouvoCompo;
+    },
     connexion:function(){
       this.$validator.validateAll().then((result) => {
             if (result) {
@@ -140,20 +148,39 @@ export default {
 </script>
 
 <style>
+body {
+    height: 100%;
+}
+.bg {
+    /* The image used */
+    background-image: url("./assets/bg3.jpg");
+
+    /* Full height */
+    height: 100%;
+    overflow: scroll;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .main{
 	display: flex;
 	justify-content: center;
+
 }
 .main2{
 	border-style: solid;
 	border-width: 1px;
-	border-color: black;
+	border-color: #A4A4A4;
 	min-height: 450px;
 	max-height: auto;
 	min-width: 200px;
 	max-width: 500px;
 	position: relative;
 	top: 60px;
+  background-color:white;
+
 }
 .container-img{
 	position: absolute;

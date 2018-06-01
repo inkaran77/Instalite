@@ -1,11 +1,14 @@
 <template>
-  <div>
+
+    <transition name="slide-fade">
+      <div>
   			<div class="connect">
+
   				<h4 style="margin-left: 200px; margin-right: 200px;">Connexion</h4>
-  				<input type="text" name="Login" placeholder="Login">
+          <input type="password" name="Kevin" placeholder="Mot de Passe">
   				<input type="password" name="Kevin" placeholder="Mot de Passe">
   			</div>
-  			<center><button class="btn-success" style="margin-bottom: 20px; margin-top: 20px;">Connexion</button></center>
+  			<center><button class="btn-success btn" style="margin-bottom: 20px; margin-top: 20px;">Connexion</button></center>
 
   			<div class="registre2">
   				--------------------- OU ---------------------
@@ -17,8 +20,9 @@
   				<input type="password" name="pass" placeholder="Mot de Passe">
   				<input type="password" name="Kevin" placeholder="Confirme Mot de Passe">	</div>
   			</div>
-  		<center><button class="btn-primary" style="margin-bottom: 20px; margin-top: 20px;">Suivant</button></center>
-  		</div>
+    	<center><button v-on:click="next()" class="btn-primary btn" style="margin-bottom: 20px; margin-top: 20px;">Suivant</button></center>
+</div>
+    </transition>
   </template>
 
   <script>
@@ -52,6 +56,10 @@
 
 
     methods:{
+
+      next:function(){
+        this.$emit('changePage','registration2')
+      },
       getUrl:function(url){
         this.urlPhoto=url
         this.getAllComments()
@@ -106,21 +114,16 @@ this.getAllComments()
   }
   </script>
   <style>
-  .main{
-  	display: flex;
-  	justify-content: center;
+  .slide-fade-enter-active {
+    transition: all .8s ease;
   }
-  .main2{
-  	border-style: solid;
-  	border-width: 1px;
-  	border-color: black;
-  	min-height: 450px;
-  	max-height: auto;
-  	min-width: 200px;
-  	max-width: 500px;
-  	position: relative;
-  	top: 60px;
+
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
   }
+
   .container-img{
   	position: absolute;
   	left: calc(50% - 90px);
