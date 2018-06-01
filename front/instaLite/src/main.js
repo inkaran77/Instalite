@@ -5,6 +5,7 @@ import VeeValidate from 'vee-validate';
 import BootstrapVue from 'bootstrap-vue'
 import VueRouter from 'vue-router'
 import VModal from 'vue-js-modal'
+
 // router setup
 import routes from './routes/routes'
 // Plugins
@@ -19,6 +20,7 @@ import Chartist from 'chartist'
 
 // configure router
 const router = new VueRouter({
+  mode:'history',
   routes, // short for routes: routes
   linkExactActiveClass: 'nav-item active'
 })
@@ -31,6 +33,7 @@ Vue.use(Notifications)
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
 Vue.use(VueRessource);
+
 // global library setup
 Object.defineProperty(Vue.prototype, '$Chartist', {
   get () {

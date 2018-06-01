@@ -9,7 +9,14 @@
           </md-card-header>
           <md-card-content>
             <div id="newsfeed">
+              <div class="row">
 
+  <div class="col-sm-4" v-for="Myphoto in Myphotos2">
+<img :src='Myphoto.Lien' class="zoom" style=" height:250px; margin-top:20px;" v-on:click="getUrl(Myphoto.Lien)">
+
+  </div>
+
+</div>
             </div>
            </md-card-content>
          </md-card>
@@ -38,6 +45,13 @@ export default{
     this.getAll()
   },
   methods:{
+    getUrl:function(url){
+      this.urlPhoto=url
+      this.getAllComments()
+      this.getPost()
+    //  this.$modal.show('description');
+
+    },
     getAll:function () {
       this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
        'Authorization': 'Bearer '+ localStorage.token

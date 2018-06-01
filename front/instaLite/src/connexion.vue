@@ -1,37 +1,30 @@
 <template>
-    <body class="body">
-      <form @submit.prevent="">
-      <div class="bander signflex ">
-        <div class="icon"></div>
-        <h3>Bienvenue sur InstaLite</h3>
-        <div class="md-layout-item md-small-size-100 md-size-33">
-          <md-field>
-            <label>Identifiant</label>
-            <md-input v-model="UserId"v-validate="'required|alpha'" required="" type="text"></md-input>
-          </md-field>
+  <div class="main">
+		<div class="main2">
+			<div class="container-img">
+			<img src="./assets/icon.png">
+			</div>
+          <registration></registration>
         </div>
-        <div class="md-layout-item md-small-size-100 md-size-33">
-          <md-field>
-            <label>Mot de passe </label>
-            <md-input v-model="Password" required="" type="password"></md-input>
-          </md-field>
-        </div>
-              <a href="#" v-on:click="getPassword()">Mot de passe oublié</a>
-              <button  v-on:click="connexion()" class="btn btn-success btn-touch">Connexion</button>
-              <button  v-on:click="signUp()" class="btn btn-primary btn-touch">Inscription</button>
-
-
-      </div>
-</form>
-  </body>
-
+	</div>
 </template>
 
 <script>
+import registration2 from './registration2.vue'
+import registration3 from './registration3.vue'
+import registration from './registration.vue'
+import test from './test.vue'
+import home from './home.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 export default {
-
+  components : {
+    'registration3':registration3,
+  'registration2':registration2,
+  'registration':registration,
+  'test':test,
+  'home':home
+},
   name: 'app',
   data () {
     return {
@@ -52,15 +45,24 @@ export default {
       this.$validator.validateAll().then((result) => {
             if (result) {
             //  console.log("click")
+            var md5 = require('js-md5');
+            var hachPass=md5(this.Password)
 
               this.$http.get('http://localhost:5000/Instalite/Connexion',{params:{
 
 
                 UserId:this.UserId,
-                Password:this.Password
+                Password:hachPass
               }}).then(response => {
+                this.$notify(
+                  {
+                    message: 'Connexion réussie',
+                    icon: 'add_alert',
+                    horizontalAlign: 'right',
+                    verticalAlign: 'bottom',
+                    type: 'success'
+                  })
 
-                  alert('Connexion réussie')
                   var token=response.data.token
                   localStorage.setItem('token2',JSON.stringify(token))
                   console.log(localStorage.getItem('token2'));
@@ -125,7 +127,9 @@ export default {
   },
 
   signUp:function(){
-    this.$emit('changeCompo','registration')
+    this.$router.push({
+        name: 'Registration'
+    });
   },
 
 
@@ -136,57 +140,24 @@ export default {
 </script>
 
 <style>
-.body{
-  display: flex;
-  justify-content: center;
+.main{
+	display: flex;
+	justify-content: center;
 }
-
-body {
-  height: 100%;
-  background: url('./assets/background17.jpg')rgb(255, 255, 255);
-  background-repeat: repeat, repeat;
-  background-size: cover, cover;
-  background-position: left top, left top;
-  background-attachment: scroll, scroll;
-  font: 400 1em/1.38 Helvetica;
-
-
+.main2{
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	min-height: 450px;
+	max-height: auto;
+	min-width: 200px;
+	max-width: 500px;
+	position: relative;
+	top: 60px;
 }
-.bander{
-  display: block;
-  min-width: 500px;
-  min-height: 550px;
-  max-width: 600px;
-  max-height: 600px;
-  background-color: rgba(0,0,0,0.4);
-
-  position: relative;
-  top: 50px;
-  border-radius: 25px;
-
+.container-img{
+	position: absolute;
+	left: calc(50% - 90px);
+	top : -80px;
 }
-.signflex{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.sizenput{
-  margin-bottom: 20px;
-}
-.icon{
-  height: 200px;
-  width: 200px;
-  background-image: url(assets/icon.png);
-  background-repeat: no-repeat;
-
-
-}
-button{
-  margin-bottom: 10px;
-}
-a:only-of-type{
-  margin-bottom: 10px;
-}
-
 </style>

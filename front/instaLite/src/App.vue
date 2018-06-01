@@ -20,7 +20,7 @@ export default {
   name: 'app',
   data () {
     return {
-      pageView:'connexion'
+      pageView:'home'
     }
   },
   methods: {

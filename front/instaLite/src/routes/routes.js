@@ -10,10 +10,11 @@ import Following from '@/pages/Following.vue'
 import Post from '@/pages/Post.vue'
 import Myphoto from '@/pages/Myphoto.vue'
 import Connexion from '@/connexion.vue'
+import Registration from '@/registration.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/acceuil',
     component: DashboardLayout,
     redirect: '/newsfeed',
     children: [
@@ -22,11 +23,6 @@ const routes = [
         path: 'user',
         name: 'Mon Profil',
         component: UserProfile
-      },
-      {
-        path: 'connexion',
-        name: 'Connexion',
-        component: Connexion
       },
 
 
@@ -68,7 +64,20 @@ const routes = [
         component: Notifications
       }
     ]
+  },
+  {
+    path: '/',
+    component: Connexion,
+    name: 'Connexion',
+
+  },
+  {
+    path: '/inscription',
+    component: Registration,
+    name: 'Registration',
+
   }
+
 ]
 
 export default routes
