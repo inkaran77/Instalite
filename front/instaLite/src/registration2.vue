@@ -5,17 +5,17 @@
     <div class="registre">
       <h4 style="margin-left: 110px; margin-right: 110px;">Vos données personnelles</h4>
       <div class="barre"></div><div class="barre" ></div><div class="barre" style="background-color:#A4A4A4;"></div>
-      <input v-validate="'required|alpha'" required v-model="Last_name" type="text" placeholder="Nom">
-      <input v-validate="'required|alpha'" required v-model="First_name" type="text" placeholder="Prenom">
-      <input  v-validate="'required'" required v-model="Birth_date" style="height: 30px; width:180px;"type="date"  placeholder="Date de naissance">
+      <input v-validate="'required|alpha'" required v-model="User2.Last_name" type="text" placeholder="Nom">
+      <input v-validate="'required|alpha'" required v-model="User2.First_name" type="text" placeholder="Prenom">
+      <input  v-validate="'required'" required v-model="User2.Birth_date" style="height: 30px; width:180px;"type="date"  placeholder="Date de naissance">
       <div>
-      <select placeholder="Sexe" v-validate="'required'"  required v-model="Gender" id="sexe">
+      <select placeholder="Sexe" v-validate="'required'"  required v-model="User2.Gender" id="sexe">
         <option value="F" >Femme</option>
         <option value="H" >Homme</option>
         </select><br>
       </div>
-      <input v-validate="'required|alpha'"  required v-model="Country" type="text" placeholder="Pays">
-      <input v-validate="'required|alpha'"  required v-model="City" type="text"  placeholder="Ville">
+      <input v-validate="'required|alpha'"  required v-model="User2.Country" type="text" placeholder="Pays">
+      <input v-validate="'required|alpha'"  required v-model="User2.City" type="text"  placeholder="Ville">
     </div>
     <div class="registre" style="margin-top: 0;">
     <button v-on:click="back()" class="btn-danger btn btn-reg">Retour</button>
@@ -41,9 +41,7 @@
         type: String,
         default: ''
       },
-      Login:{
-        type:String
-      }
+
     },
     name: 'app',
     data () {
@@ -55,13 +53,14 @@
          commentsList:null,
          description:'une description',
          author:'autheur',
+         User2:{
          Last_name:'',
          First_name:'',
          Birth_date:'',
          Gender:'',
          Country:'',
          City:''
-
+}
   }
     },
 
@@ -72,8 +71,11 @@
         this.$emit('changePage','registration')
       },
       next:function(){
+
         this.$validator.validateAll().then((result) => {
               if (result) {
+                
+        this.$emit('call2',this.User2)
         this.$emit('changePage','registration3')
         }});
       },
@@ -117,7 +119,7 @@
         },
 
         mounted:function() {
-          console.log(this.Login)
+
           this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
            'Authorization': 'Bearer '+ localStorage.token
          }}).then(response => {

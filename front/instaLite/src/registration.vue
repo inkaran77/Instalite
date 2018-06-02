@@ -18,10 +18,10 @@
   				<h4 style="margin-left: 200px; margin-right: 200px;">Inscription</h4>
           <div class="barre"></div><div class="barre" style="background-color:#A4A4A4;"></div><div class="barre" style="background-color:#A4A4A4;"></div>
 
-  				<input required v-validate="'required|alpha'"  v-model="Login2" style="width: 375px;" type="text" placeholder="Login">
-  				<input required v-validate="'required|alpha'"  v-model="Email"style="width: 375px;"type="text" placeholder="Mail">
+  				<input required v-validate="'required|alpha'"  v-model="User1.Login2" style="width: 375px;" type="text" placeholder="Login">
+  				<input required v-validate="'required|alpha'"  v-model="User1.Email"style="width: 375px;"type="text" placeholder="Mail">
   				<div class="st-pss">
-  				<input required name="ps1" v-validate="'required'"  v-model="Password2" type="password"  placeholder="Mot de Passe">
+  				<input required name="ps1" v-validate="'required'"  v-model="User1.Password2" type="password"  placeholder="Mot de Passe">
           <input required name="ps2" v-validate="'required|confirmed:ps1'"  type="password"  placeholder="Confirme Mot de Passe">	</div>
           <span v-show="errors.has('ps2')" style="color:red;font-size:10px;" class="help ">Mot de passe de confirmation différent</span>
 
@@ -52,23 +52,40 @@
     name: 'app',
     data () {
       return {
+        User1:{
+          Login2:'',
+          Email:'',
+          Password2:''
 
+        },
+        Login:'',
+        Password:'',
          urlPhoto:'http://res.cloudinary.com/dvejva95o/image/upload/v1527154205/instaLite/wyn8yxonngrrbc4kxhv5.jpg',
          Myphotos2:null,
          titre:'titre de la photo',
          commentsList:null,
          description:'une description',
-         author:'autheur',
-         Login2:'',
-         Email:'',
-         Password2:'',
-         Login:'',
-         Password:''
+         author:'autheur'
+
   }
     },
 
 
     methods:{
+      getAll:function () {
+        this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
+         'Authorization': 'Bearer '+ localStorage.token
+       }}).then(response => {
+
+
+            var user=response.data
+            localStorage.setItem('user2',JSON.stringify(user))
+
+
+          },(response) => {
+        alert('une erreur est survenu')
+      })
+    },
       connexion:function(){
 
               if (this.Login !='' && this.Password!='') {
@@ -92,12 +109,13 @@
                     })
 
                     var token=response.data.token
-                    localStorage.setItem('token2',JSON.stringify(token))
-                    console.log(localStorage.getItem('token2'));
+
                     localStorage.token = response.data.token
                     this.getAll()
                     this.error = false
-                    this.$emit('changeCompo','home')
+                    this.$router.push({
+                        name: 'Fil d actualité'
+                    });
 
                   },(response) => {
                   if(response.status==400){
@@ -119,7 +137,7 @@
       next:function(){
         this.$validator.validateAll().then((result) => {
               if (result) {
-                this.$emit('call1',this.Login2,this.Email,this.Password2)
+                this.$emit('call1',this.User1)
         this.$emit('changePage','registration2')
       }});
 
@@ -164,6 +182,15 @@
         },
 
         mounted:function() {
+          this.$notify(
+            {
+              message: 'Connexion réussie',
+              icon: 'add_alert',
+              horizontalAlign: 'right',
+              verticalAlign: 'bottom',
+              type: 'success'
+            })
+
           this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
            'Authorization': 'Bearer '+ localStorage.token
          }}).then(response => {

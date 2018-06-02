@@ -34,14 +34,22 @@
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
   import PictureInput from 'vue-picture-input'
-  import test from '@/test.vue'
+
   export default{
     components : {
-PictureInput,
-    'test':test
+PictureInput
 
   },
     props: {
+      Login:{},
+      Email:{},
+      Pass:{},
+      Ln:{},
+      Fn:{},
+      Bd:{},
+      Ge:{},
+      Co:{},
+      Ci:{},
       dataBackgroundColor: {
         type: String,
         default: ''
@@ -50,72 +58,92 @@ PictureInput,
     name: 'app',
     data () {
       return {
-
-         urlPhoto:'http://res.cloudinary.com/dvejva95o/image/upload/v1527154205/instaLite/wyn8yxonngrrbc4kxhv5.jpg',
-         Myphotos2:null,
-         titre:'titre de la photo',
-         commentsList:null,
-         description:'une description',
-         author:'autheur'
-  }
-    },
-
+        cloudinary: {
+        uploadPreset: 'nachrlb3',
+        apiKey: '157225663566444',
+        cloudName: 'dvejva95o'
+        },
+        thumb: {
+        url: ''
+        },
+        My_photo:null,
+        UrlPhoto:''
+        }
+        },
+        computed: {
+        clUrl: function() {
+            return `https://api.cloudinary.com/v1_1/${this.cloudinary.cloudName}/upload`
+          },
+            },
 
     methods:{
+      onChanged(image){
+        this.image=image
+        this.My_photo=image
+    const formData = new FormData()
+    formData.append('file', this.My_photo);
+    formData.append('upload_preset', this.cloudinary.uploadPreset);
+    formData.append('tags', 'gs-vue,gs-vue-uploaded');
+    // For debug purpose only
+    // Inspects the content of formData
+    for(var pair of formData.entries()) {
+      console.log(pair[0]+', '+pair[1]);
+    }
+    this.$http.post(this.clUrl, formData).then(response => {
 
+      this.UrlPhoto=response.data.secure_url;
+      console.log(this.UrlPhoto)
+
+  }, response => {
+   // error callback
+   if(response.status==400){
+
+   }
+   else{alert('verifier votre connexion internet et réessayer')}
+   return false;
+  });
+
+      },
       back:function(){
         this.$emit('changePage','registration2')
       },
 
-      getUrl:function(url){
-        this.urlPhoto=url
-        this.getAllComments()
-        this.getPost()
-        this.$modal.show('description');
-
-      },
-
-      getAllComments:function(){
-        this.$http.get('http://localhost:5000/Instalite/GetAllComments',{
-          UrlPhoto:this.urlPhoto
-        },{headers: {
-         'Authorization': 'Bearer '+ localStorage.token
-       }}).then(response => {
-         this.commentsList=response.data.Comments
-         console.log(response.data)
 
 
-          //console.log(this.MyPhotos.Lien)
+      signup:function(){
+        if(this.UrlPhoto!=''){
+ var md5 = require('js-md5');
+ var hachPass=md5(this.Pass)
+            this.$http.post('http://localhost:5000/Instalite/Inscription',{
+
+              UserId:this.Login,
+              First_Name:this.Fn,
+              Last_Name:this.Ln,
+               Birth_date:this.Bd,
+               Gender:this.Ge,
+                Email:this.Email,
+                Password:hachPass,
+              UrlPhoto:this.UrlPhoto,
+              City:this.Ci,
+              Country:this.Co
+            }).then(response => {
+              alert('ok à changer ')
+              this.$emit('changePage','registration')
+              },(response) => {
+              if(response.status==400){
+                alert('Login déja utilisé, veuillez choisir un autre Login')
+              }
+             else{ alert('échec inscription, veuillez réessayer')}
           })
+            return;
+          }
 
-      },
-
-      getPost:function(){
-        this.$http.get('http://localhost:5000/Instalite/GetPost',{
-          UrlPhoto:this.urlPhoto
-        },{headers: {
-         'Authorization': 'Bearer '+ localStorage.token
-       }}).then(response => {
-         //this.commentsList=response.data.Comments
-         console.log(response.data)
-
-
-          //console.log(this.MyPhotos.Lien)
-          })
-      }
+}
 
         },
 
         mounted:function() {
-          this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
-           'Authorization': 'Bearer '+ localStorage.token
-         }}).then(response => {
 
-           console.log(response.data.MyPhotos)
-        this.Myphotos2=response.data.MyPhotos
-this.getAllComments()
-            //console.log(this.MyPhotos.Lien)
-            })
         },
 
   }

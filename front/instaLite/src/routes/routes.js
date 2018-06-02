@@ -17,6 +17,7 @@ const routes = [
     path: '/acceuil',
     component: DashboardLayout,
     redirect: '/newsfeed',
+    name:'acceuil',
     children: [
 
       {
