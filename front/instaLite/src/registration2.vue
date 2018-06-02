@@ -1,27 +1,28 @@
 <template>
     <transition name="slide-fade">
+      <form @submit.prevent="">
   <div>
     <div class="registre">
       <h4 style="margin-left: 110px; margin-right: 110px;">Vos données personnelles</h4>
       <div class="barre"></div><div class="barre" ></div><div class="barre" style="background-color:#A4A4A4;"></div>
-      <input type="text" name="name" placeholder="Nom">
-      <input type="text" name="frist-name" placeholder="Prenom">
-      <input style="height: 30px; width:180px;"type="date" name="birth-date" placeholder="Date de naissance">
+      <input v-validate="'required|alpha'" required v-model="Last_name" type="text" placeholder="Nom">
+      <input v-validate="'required|alpha'" required v-model="First_name" type="text" placeholder="Prenom">
+      <input  v-validate="'required'" required v-model="Birth_date" style="height: 30px; width:180px;"type="date"  placeholder="Date de naissance">
       <div>
-      <select id="sexe">
-    <option value="" name="sexe">Sexe</option>
-        <option value="F" name="sexe">Femme</option>
-        <option value="H" name="sexe">Homme</option>
+      <select placeholder="Sexe" v-validate="'required'"  required v-model="Gender" id="sexe">
+        <option value="F" >Femme</option>
+        <option value="H" >Homme</option>
         </select><br>
       </div>
-      <input type="text" name="country" placeholder="Pays">
-      <input type="text" name="city" placeholder="Ville">
+      <input v-validate="'required|alpha'"  required v-model="Country" type="text" placeholder="Pays">
+      <input v-validate="'required|alpha'"  required v-model="City" type="text"  placeholder="Ville">
     </div>
     <div class="registre" style="margin-top: 0;">
     <button v-on:click="back()" class="btn-danger btn btn-reg">Retour</button>
     <button v-on:click="next()" class="btn-primary btn btn-reg">Suivant</button>
       </div>
   </div>
+</form>
 </transition>
   </template>
   <script>
@@ -34,10 +35,14 @@
     'test':test
 
   },
-    props: {
+    props:{
+
       dataBackgroundColor: {
         type: String,
         default: ''
+      },
+      Login:{
+        type:String
       }
     },
     name: 'app',
@@ -49,7 +54,14 @@
          titre:'titre de la photo',
          commentsList:null,
          description:'une description',
-         author:'autheur'
+         author:'autheur',
+         Last_name:'',
+         First_name:'',
+         Birth_date:'',
+         Gender:'',
+         Country:'',
+         City:''
+
   }
     },
 
@@ -60,7 +72,10 @@
         this.$emit('changePage','registration')
       },
       next:function(){
+        this.$validator.validateAll().then((result) => {
+              if (result) {
         this.$emit('changePage','registration3')
+        }});
       },
       getUrl:function(url){
         this.urlPhoto=url
@@ -102,6 +117,7 @@
         },
 
         mounted:function() {
+          console.log(this.Login)
           this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
            'Authorization': 'Bearer '+ localStorage.token
          }}).then(response => {

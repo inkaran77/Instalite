@@ -6,7 +6,7 @@
 			<img src="./assets/icon.png">
 			</div>
 
-            <component v-bind:is="pageView" v-on:changePage="updateCompo($event)"></component>
+            <component v-bind="User" v-bind:is="pageView" v-on:call2="callTwo($event)" v-on:call1="callOne($event)" v-on:changePage="updateCompo($event)"></component>
 
         </div>
 	</div>
@@ -32,8 +32,18 @@ export default {
   name: 'app',
   data () {
     return {
-      UserId: '',
-      Password:'',
+      User:{
+            Login2:'',
+            First_name: '',
+            Last_name:'',
+            Birth_date: '',
+            Gender:'',
+            Email: '',
+            Password2:'',
+            City: '',
+            Country:'',
+
+    },
       pageView:'registration'
     }
   },
@@ -46,6 +56,22 @@ export default {
       })
   },
   methods:{
+
+    callOne:function(l,e,m){
+      this.Login2=l
+      this.Email=e
+      this.Password2=m
+
+    },
+    callTwo:function(l,f,d,g,co,ci){
+      this.Last_name=l,
+      this.First_name=f,
+      this.Birth_date=d,
+      this.Gender=g,
+      this.Country=co,
+      this.City=ci
+
+    },
     updateCompo:function(nouvoCompo){
       this.pageView=nouvoCompo;
     },

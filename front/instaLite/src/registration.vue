@@ -2,26 +2,34 @@
 
     <transition name="slide-fade">
       <div>
+        <form @submit.prevent="">
   			<div class="connect">
 
   				<h4 style="margin-left: 200px; margin-right: 200px;">Connexion</h4>
-          <input type="password" name="Kevin" placeholder="Mot de Passe">
-  				<input type="password" name="Kevin" placeholder="Mot de Passe">
+          <input  required v-model="Login"type="text" placeholder="Login">
+  				<input  required v-model="Password" type="password" placeholder="Mot de Passe">
   			</div>
-  			<center><button class="btn-success btn" style="margin-bottom: 20px; margin-top: 20px;">Connexion</button></center>
 
+  			<center><button v-on:click="connexion()" class="btn-success btn" style="margin-bottom: 20px; margin-top: 20px;">Connexion</button></center>
+</form>
+<form @submit.prevent="">
   			<div class="registre2">
   				--------------------- OU ---------------------
   				<h4 style="margin-left: 200px; margin-right: 200px;">Inscription</h4>
           <div class="barre"></div><div class="barre" style="background-color:#A4A4A4;"></div><div class="barre" style="background-color:#A4A4A4;"></div>
-  				<input style="width: 375px;" type="text" name="Login" placeholder="Login">
-  				<input  style="width: 375px;"type="text" name="Mail" placeholder="Mail">
+
+  				<input required v-validate="'required|alpha'"  v-model="Login2" style="width: 375px;" type="text" placeholder="Login">
+  				<input required v-validate="'required|alpha'"  v-model="Email"style="width: 375px;"type="text" placeholder="Mail">
   				<div class="st-pss">
-  				<input type="password" name="pass" placeholder="Mot de Passe">
-  				<input type="password" name="Kevin" placeholder="Confirme Mot de Passe">	</div>
-  			</div>
+  				<input required name="ps1" v-validate="'required'"  v-model="Password2" type="password"  placeholder="Mot de Passe">
+          <input required name="ps2" v-validate="'required|confirmed:ps1'"  type="password"  placeholder="Confirme Mot de Passe">	</div>
+          <span v-show="errors.has('ps2')" style="color:red;font-size:10px;" class="help ">Mot de passe de confirmation différent</span>
+
+        </div>
     	<center><button v-on:click="next()" class="btn-primary btn" style="margin-bottom: 20px; margin-top: 20px;">Suivant</button></center>
-</div>
+      </form>
+    </div>
+
     </transition>
   </template>
 
@@ -50,16 +58,72 @@
          titre:'titre de la photo',
          commentsList:null,
          description:'une description',
-         author:'autheur'
+         author:'autheur',
+         Login2:'',
+         Email:'',
+         Password2:'',
+         Login:'',
+         Password:''
   }
     },
 
 
     methods:{
+      connexion:function(){
 
+              if (this.Login !='' && this.Password!='') {
+              //  console.log("click")
+              var md5 = require('js-md5');
+              var hachPass=md5(this.Password)
+
+                this.$http.get('http://localhost:5000/Instalite/Connexion',{params:{
+
+
+                  UserId:this.Login,
+                  Password:hachPass
+                }}).then(response => {
+                  this.$notify(
+                    {
+                      message: 'Connexion réussie',
+                      icon: 'add_alert',
+                      horizontalAlign: 'right',
+                      verticalAlign: 'bottom',
+                      type: 'success'
+                    })
+
+                    var token=response.data.token
+                    localStorage.setItem('token2',JSON.stringify(token))
+                    console.log(localStorage.getItem('token2'));
+                    localStorage.token = response.data.token
+                    this.getAll()
+                    this.error = false
+                    this.$emit('changeCompo','home')
+
+                  },(response) => {
+                  if(response.status==400){
+                    alert('Mot de pass erroné')
+                  }
+                  else if(response.status==404){
+                  alert('L utilisateur existe pas')
+                }
+                else{alert('Vérifier votre login/mot de passe')}
+              })
+
+
+                return;
+              }
+
+
+
+          },
       next:function(){
+        this.$validator.validateAll().then((result) => {
+              if (result) {
+                this.$emit('call1',this.Login2,this.Email,this.Password2)
         this.$emit('changePage','registration2')
-      },
+      }});
+
+  },
       getUrl:function(url){
         this.urlPhoto=url
         this.getAllComments()
