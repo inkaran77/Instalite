@@ -63,24 +63,25 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 |----------------------+--------------+------------+------|
 | *Fil d'actualité*    |              |            |      |
 | PostPhoto            | Ganeistan OK | Inkaran OK | OK   |
-| DeletePost           | Ganeistan OK | Inkaran OK | KO   |
+| DeletePost           | Ganeistan OK | Inkaran    | KO   |
 | GetPost              | Ganeistan OK | Inkaran OK | KO   |
 | Like                 | Ganeistan    | Inkaran    |      |
 | Comment              | Ganeistan    | Inkaran OK |      |
-| GetAllComments       | Ganeistan OK | Inkaran OK | KO   |
+| GetAllComments       | Ganeistan OK | Inkaran    | KO   |
 | GetMyNewsFeed        | Ganeistan    | Inkaran OK |      |
 | GetUserProfile       | Ganeistan    | Inkaran OK |      |
-| GetAllUsers          | Ganeistan    | Inkaran OK |      |
+| GetAllUsers          | Ganeistan    | Inkaran    |      |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
-| GetAllMyFollowers    | Mohamed      | Inkaran OK |      |
-| GetAllMyFollowings   | Mohamed      | Inkaran OK |      |
-| GetWaitingList       | Mohamed      | Inkaran OK |      |
-| Follow               | Mohamed      | Inkaran OK |      |
-| Unfollow             | Mohamed      | Inkaran OK |      |
-| AcceptFollower       | Mohamed      | Inkaran OK |      |
-| RefuseFollowRequest  | Mohamed      | Inkaran OK |      |
-| DeleteFollower       | Mohamed      | Inkaran OK |      |
+| GetAllMyFollowers    | Ganeistan    | Inkaran OK |      |
+| GetAllMyFollowings   | Ganeistan    | Inkaran OK |      |
+| GetWaitingList       | Ganeistan    | Inkaran OK |      |
+| Follow               | Ganeistan    | Inkaran OK |      |
+| Unfollow             | Ganeistan    | Inkaran OK |      |
+| AcceptFollower       | Ganeistan    | Inkaran OK |      |
+| RefuseFollowRequest  | Ganeistan    | Inkaran OK |      |
+| DeleteFollower       | Ganeistan    | Inkaran Ok |      |
+| Discovery            | Mohamed      | Inkaran    |      |
 |----------------------+--------------+------------+------|
 | *Notification*       |              |            |      |
 | GetNotification      | Ganeistan    | Inkaran    |      |
