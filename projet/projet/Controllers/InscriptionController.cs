@@ -6,6 +6,7 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using projet.Profile;
+using projet.Wall;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -47,7 +48,9 @@ namespace projet.Controllers
                     List_post = new List<string>(),
                     Waiting_List = new List<string>(),
                     Followers = new Follower(),
-                    Followings = new Following()
+                    Followings = new Following(),
+                    NewsFeed = new NewsFeed()
+                        
                 }; 
                 // db.Inscription(user); // ANCIEN
                 Boolean b=db.Insert(u, "user");

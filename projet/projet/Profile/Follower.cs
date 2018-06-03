@@ -62,8 +62,8 @@ namespace projet.Profile
                 // On récupère le follower
                 User newFollower = new User();
                 var result3 = me.GetMyProfile(newFollowerId);
-                newFollower = JsonConvert.DeserializeObject<User>(result);
-
+                newFollower = JsonConvert.DeserializeObject<User>(result3);
+                //Console.WriteLine(result);
                 // On ajoute l'id de l'utlisateur à la liste des abonnements du nouveau abonné
                 if (newFollower.Followings.ListUsers.Contains(myUserId) == true) return false;
                 else

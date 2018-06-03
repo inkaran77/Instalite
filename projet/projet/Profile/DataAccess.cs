@@ -9,6 +9,7 @@ using System.Net;
 using projet.Wall;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using MongoDB.Driver.GridFS;
 
 namespace projet.Profile
 {
@@ -18,10 +19,13 @@ namespace projet.Profile
 
         public IMongoDatabase _db { get; set; }
 
+     
+
         public DataAccess()
         {
             _client = new MongoClient("mongodb://localhost:27017");
             _db = _client.GetDatabase("Instalite");
+           
 
           //  var connectionString = @"mongodb://instalite1_inkaran:abc@mongodb-instalite1.alwaysdata.net/instalite1_db";
           //  var mongoUrl = new MongoUrl(connectionString);
