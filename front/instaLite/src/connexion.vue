@@ -1,66 +1,103 @@
 <template>
-    <body class="body">
-      <form @submit.prevent="">
-      <div class="bander signflex ">
-        <div class="icon"></div>
-        <h3>Bienvenue sur InstaLite</h3>
-        <div class="md-layout-item md-small-size-100 md-size-33">
-          <md-field>
-            <label>Identifiant</label>
-            <md-input v-model="UserId"v-validate="'required|alpha'" required="" type="text"></md-input>
-          </md-field>
+
+  <div class="bg">
+    <notifications></notifications>
+  <div class="main">
+		<div class="main2">
+			<div v-on:click="load()" class="container-img">
+			<img src="./assets/icon.png">
+			</div>
+
+            <component  :Login="Login2":Email="Email":Pass="Password2":Ln="Last_name":Fn="First_name" :Bd="Birth_date" :Ge="Gender" :Co="Country" :Ci="City" v-bind:is="pageView" v-on:call2="callTwo($event)" v-on:call1="callOne($event)" v-on:changePage="updateCompo($event)"></component>
+
         </div>
-        <div class="md-layout-item md-small-size-100 md-size-33">
-          <md-field>
-            <label>Mot de passe </label>
-            <md-input v-model="Password" required="" type="password"></md-input>
-          </md-field>
-        </div>
-              <a href="#" v-on:click="getPassword()">Mot de passe oublié</a>
-              <button  v-on:click="connexion()" class="btn btn-success btn-touch">Connexion</button>
-              <button  v-on:click="signUp()" class="btn btn-primary btn-touch">Inscription</button>
-
-
-      </div>
-</form>
-  </body>
-
+	</div>
+</div>
 </template>
 
 <script>
+import registration2 from './registration2.vue'
+import registration3 from './registration3.vue'
+import registration from './registration.vue'
+import test from './test.vue'
+import home from './home.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 export default {
-
+  components : {
+    'registration3':registration3,
+  'registration2':registration2,
+  'registration':registration,
+  'test':test,
+  'home':home
+},
   name: 'app',
   data () {
     return {
-      UserId: '',
-      Password:''
+
+            Login2:'',
+            First_name:'',
+            Last_name:'',
+            Birth_date:'',
+            Gender:'',
+            Email:'',
+            Password2:'',
+            City:'',
+            Country:'',
+
+
+      pageView:'registration'
     }
   },
   mounted:function() {
-    this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
-     'Authorization': 'Bearer '+ localStorage.token
-   }}).then(response => {
-     this.$emit('changeCompo','home')
-      //console.log(this.MyPhotos.Lien)
-      })
+
   },
   methods:{
+    load:function(){
+      document.location.reload(true);
+    },
+    callOne:function(l){
+
+      this.Login2=l.Login2
+      this.Email=l.Email
+      this.Password2=l.Password2
+      console.log(l.Email)
+
+    },
+    callTwo:function(l){
+      this.Last_name=l.Last_name
+      this.First_name=l.First_name
+      this.Birth_date=l.Birth_date
+      this.Gender=l.Gender
+      this.Country=l.Country
+      this.City=l.City
+
+    },
+    updateCompo:function(nouvoCompo){
+      this.pageView=nouvoCompo;
+    },
     connexion:function(){
       this.$validator.validateAll().then((result) => {
             if (result) {
-            //  console.log("click")
+
+            var md5 = require('js-md5');
+            var hachPass=md5(this.Password)
 
               this.$http.get('http://localhost:5000/Instalite/Connexion',{params:{
 
 
                 UserId:this.UserId,
-                Password:this.Password
+                Password:hachPass
               }}).then(response => {
+                this.$notify(
+                  {
+                    message: 'Connexion réussie',
+                    icon: 'add_alert',
+                    horizontalAlign: 'right',
+                    verticalAlign: 'bottom',
+                    type: 'success'
+                  })
 
-                  alert('Connexion réussie')
                   var token=response.data.token
                   localStorage.setItem('token2',JSON.stringify(token))
                   console.log(localStorage.getItem('token2'));
@@ -95,8 +132,7 @@ export default {
 
               var user=response.data
               localStorage.setItem('user2',JSON.stringify(user))
-              console.log(localStorage.getItem('user2'));
-              localStorage.user = response.data
+
 
             },(response) => {
           alert('une erreur est survenu')
@@ -124,9 +160,6 @@ export default {
 
   },
 
-  signUp:function(){
-    this.$emit('changeCompo','registration')
-  },
 
 
       },
@@ -136,57 +169,43 @@ export default {
 </script>
 
 <style>
-.body{
-  display: flex;
-  justify-content: center;
+body,html {
+    height: 100%;
+}
+.bg {
+    /* The image used */
+    background-image: url("./assets/bg3.jpg");
+
+    /* Full height */
+    height: 100%;
+    overflow: scroll;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-body {
-  height: 100%;
-  background: url('./assets/background17.jpg')rgb(255, 255, 255);
-  background-repeat: repeat, repeat;
-  background-size: cover, cover;
-  background-position: left top, left top;
-  background-attachment: scroll, scroll;
-  font: 400 1em/1.38 Helvetica;
-
+.main{
+	display: flex;
+	justify-content: center;
 
 }
-.bander{
-  display: block;
-  min-width: 500px;
-  min-height: 550px;
-  max-width: 600px;
-  max-height: 600px;
-  background-color: rgba(0,0,0,0.4);
-
-  position: relative;
-  top: 50px;
-  border-radius: 25px;
-
-}
-.signflex{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.sizenput{
-  margin-bottom: 20px;
-}
-.icon{
-  height: 200px;
-  width: 200px;
-  background-image: url(assets/icon.png);
-  background-repeat: no-repeat;
-
+.main2{
+	border-style: solid;
+	border-width: 1px;
+	border-color: #A4A4A4;
+	min-height: 450px;
+	max-height: auto;
+	min-width: 200px;
+	max-width: 500px;
+	position: relative;
+	top: 60px;
+  background-color:white;
 
 }
-button{
-  margin-bottom: 10px;
+.container-img{
+	position: absolute;
+	left: calc(50% - 90px);
+	top : -80px;
 }
-a:only-of-type{
-  margin-bottom: 10px;
-}
-
 </style>

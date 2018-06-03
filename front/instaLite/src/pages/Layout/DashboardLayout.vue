@@ -1,36 +1,37 @@
 <template>
+
   <div class="wrapper">
     <notifications></notifications>
 
     <side-bar>
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/newsfeed">
+      <sidebar-link to="/acceuil/newsfeed">
         <md-icon>bubble_chart</md-icon>
         <p>Fil d'actualité</p>
       </sidebar-link>
-      <sidebar-link to="/user">
+      <sidebar-link to="/acceuil/user">
         <md-icon>person</md-icon>
         <p>Mon Profil</p>
       </sidebar-link>
-      <sidebar-link to="/myphoto">
+      <sidebar-link to="/acceuil/myphoto">
         <md-icon>person</md-icon>
         <p>Mes Photos</p>
       </sidebar-link>
-      <sidebar-link to="/post">
+      <sidebar-link to="/acceuil/post">
         <md-icon>content_paste</md-icon>
         <p>Poster</p>
       </sidebar-link>
-      <sidebar-link to="/followers">
+      <sidebar-link to="/acceuil/followers">
         <md-icon>content_paste</md-icon>
         <p>Mes abonnés</p>
       </sidebar-link>
-      <sidebar-link to="/following">
+      <sidebar-link to="/acceuil/following">
         <md-icon>library_books</md-icon>
         <p>Mes abonnements</p>
       </sidebar-link>
 
 
-      <sidebar-link to="/notifications">
+      <sidebar-link to="/acceuil/notifications">
         <md-icon>notifications</md-icon>
         <p>Notifications</p>
       </sidebar-link>
@@ -46,6 +47,7 @@
       <content-footer v-if="!$route.meta.hideFooter"></content-footer>
     </div>
   </div>
+
 </template>
 <style lang="scss">
 

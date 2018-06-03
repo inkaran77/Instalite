@@ -129,11 +129,16 @@ export default {
 
       this.$validator.validateAll().then((result) => {
             if (result) {
+              if(this.Password=='Changer votre mot de pass ici'){
+                this.Password=this.profile.Password
+              }
+              var md5 = require('js-md5');
+              var hachPass=md5(this.Password)
       this.$http.put('http://localhost:5000/Instalite/ModifyMyProfile',{
         First_name:this.First_name,
         Last_name:this.Last_name,
           Email:this.Email,
-          Password:this.Password,
+          Password:hachPass,
         UrlPhoto:this.UrlPhoto,
         City:this.City,
         Country:this.Country
@@ -142,12 +147,26 @@ export default {
      }}).then(response => {
        this.getAll()
 
-          alert('Mise à jour effectuée')
+       this.$notify(
+         {
+           message: 'Mise à jour effectuer',
+           icon: 'add_alert',
+           horizontalAlign: 'right',
+           verticalAlign: 'bottom',
+           type: 'success'
+         })
 
 
         },(response) => {
 
-       alert('échec de la mise à jour')
+          this.$notify(
+            {
+              message: 'échec mise à jour',
+              icon: 'add_alert',
+              horizontalAlign: 'right',
+              verticalAlign: 'bottom',
+              type: 'danger'
+            })
     })
   }
 
@@ -168,20 +187,27 @@ for(var pair of formData.entries()) {
 this.$http.post(this.clUrl, formData).then(response => {
 
   this.UrlPhoto=response.data.secure_url;
-  console.log(this.UrlPhoto)
+
 
 }, response => {
 // error callback
 if(response.status==400){
  alert('Ajouter une photo')
 }
-else{alert('verifier votre connexion internet et réessayer')}
+else{this.$notify(
+    {
+      message: 'Vérifier votre connexion internet et réessayer',
+      icon: 'add_alert',
+      horizontalAlign: 'right',
+      verticalAlign: 'bottom',
+      type: 'danger'
+    })}
 return false;
 });
 
   },
   setprofil:function(){
-    this.Password=this.profile.Password,
+    this.Password='Changer votre mot de pass ici',
     this.UserId=this.profile.UserId,
     this.Email=this.profile.Email,
     this.Last_name=this.profile.Last_name,
