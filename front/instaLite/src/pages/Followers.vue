@@ -15,7 +15,7 @@
             <div id="followers">
 
             <!-- waiting list -->
-              <li class="follower-id" v-for="follower in waitinglist">
+              <li class="follower-id" v-for="(follower, index) in waitinglist">
                 <div class="Picture">
                   <avatar :image='follower.UrlPhoto' size ="100"></avatar>
                 </div>
@@ -38,7 +38,7 @@
               </li>
 
               <!-- list of followers -->
-              <li class="follower-id" v-for="follower in followerlist">
+              <li class="follower-id" v-for="(follower, index) in followerlist">
                 <div class="Picture">
                   <avatar :image='follower.UrlPhoto' size ="100"></avatar>
                 </div>
