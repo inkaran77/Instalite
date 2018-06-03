@@ -11,11 +11,11 @@
     - [[#inscription][Inscription]]
     - [[#getmypassword-loading][GetMyPassword (loading...)]]
   - [[#accueil][Accueil]]
-    - [[#getmyprofile-loading][GetMyProfile (loading...)]]
-    - [[#getmyphotos-loading][GetMyPhotos (loading...)]]
-    - [[#modifymyprofile-loading][ModifyMyProfile (loading...)]]
+    - [[#getmyprofile][GetMyProfile]]
+    - [[#getmyphotos][GetMyPhotos]]
+    - [[#modifymyprofile][ModifyMyProfile]]
   - [[#file-dactualité][File d'actualité]]
-    - [[#postphoto-loading][PostPhoto (loading...)]]
+    - [[#postphoto][PostPhoto]]
     - [[#deletepost-loading][DeletePost (loading...)]]
     - [[#getpost-loading][GetPost (loading...)]]
     - [[#like-loading][Like (loading...)]]
@@ -69,7 +69,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | Comment              | Ganeistan    | Inkaran OK |      |
 | GetAllComments       | Ganeistan OK | Inkaran OK | KO   |
 | GetMyNewsFeed        | Ganeistan    | Inkaran    |      |
-| GetUserProfile       | Ganeistan    | Inkaran OK   |      |
+| GetUserProfile       | Ganeistan    | Inkaran OK |      |
 | GetAllUsers          | Ganeistan    | Inkaran OK |      |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
@@ -137,7 +137,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =404 NOT FOUND=
      - Content : =L'utilisateur n'existe pas=
 ** Accueil
-*** GetMyProfile (loading...)
+*** GetMyProfile 
    - Return : http code + user data in json
    - Url : [[http://localhost:5000/Instalite/GetMyProfile]]
    - Method : Get
@@ -150,7 +150,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =401 Unauthorized=
 
 
-*** GetMyPhotos (loading...)
+*** GetMyPhotos 
    - Return : http code + liste des photos
    - Url : [[http://localhost:5000/Instalite/GetMyPhotos]]
    - Method : Get
@@ -173,7 +173,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
           ]
        }
 
-*** ModifyMyProfile (loading...)
+*** ModifyMyProfile 
    - Return : http code + liste des photos
    - Url : [[http://localhost:5000/Instalite/ModifyMyProfile]]
    - Method : Put
@@ -194,7 +194,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =Aucune modification effectué=
 
 ** File d'actualité
-*** PostPhoto (loading...)
+*** PostPhoto 
    - Description : Pour back end, ajout du post dans la collection post + ajoute dans la liste de posts de l'utilisateur
    - Return : http code
    - Url : [[http://localhost:5000/Instalite/PostPhoto]]
@@ -320,7 +320,20 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Required : =Bearer Token=
    - Success Response :
      - Code : =200=
-     - Content : =liste des urls au format json=
+     - Content : 
+      {
+          "NewsFeed": [
+            {
+              "Lien": "www.instalite.fr/1"
+            },
+            {
+              "Lien": "www.instalite.fr/2"
+            },
+            {
+              "Lien": "www.instalite.fr/3"
+            }
+          ]
+       }
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=

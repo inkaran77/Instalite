@@ -65,9 +65,12 @@ namespace projet.Profile
         [BsonElement("Followings")]
         public Following Followings { get; set; }
 
+        [BsonElement("NewsFeed")]
+        public NewsFeed NewsFeed { get; set; }
+
         public User()
         {
-            _id = ObjectId.GenerateNewId().ToString();   
+            _id = ObjectId.GenerateNewId().ToString();
         }
 
         public Boolean PostPhoto(Post p,String userId)
@@ -104,20 +107,31 @@ namespace projet.Profile
 
         public Boolean DeletePost(String urlphoto,String userId)
         {
-            Boolean test = false;
             DataAccess db = new DataAccess();
 
             // On recupere l'id du post correspondant à l'urlphoto
             var filter = Builders<Post>.Filter.Eq("UrlPhoto", urlphoto);
             var result = db._db.GetCollection<Post>("post").Find(filter).FirstOrDefault();
-            if (result == null) return test; // si le post n'existe pas
-            Post p = JsonConvert.DeserializeObject<Post>(result.ToJson());
+            if (result == null)
+            {
+                Console.WriteLine("1");
+                return false; // si le post n'existe pas
+            } 
 
+            Post p = JsonConvert.DeserializeObject<Post>(result.ToJson());
+            Console.WriteLine(result.ToJson());
             // On va supprimer le post dans la liste de post de l'utilisateur
             var result2 = GetMyProfile(userId);
             User u = JsonConvert.DeserializeObject<User>(result2);
 
+            Console.WriteLine(u.List_post);
+            Console.WriteLine("id "+p._id);
+            Console.WriteLine("id " + p.UrlPhoto);
+            Console.WriteLine(u.List_post.Contains(p._id) == true);
+
+
             if(u.List_post.Contains(p._id)==true){
+                Console.WriteLine("2");
                 u.List_post.Remove(p._id);
 
                 // On fait la mise à jour au niveau de l'utilisateur
@@ -129,11 +143,10 @@ namespace projet.Profile
                 var filter3 = Builders<Post>.Filter.Eq("UrlPhoto", urlphoto);
                 var result4 = db._db.GetCollection<Post>("post").DeleteOne(filter3);
 
-                test = true;
-                return test;
+                return true;
             }
 
-            else return test;
+            else return false;
         }
 
         public String GetMyProfile(String userId)
@@ -141,10 +154,8 @@ namespace projet.Profile
             DataAccess db = new DataAccess();
             var filter = Builders<User>.Filter.Eq("UserId", userId);
 
-            var fieldsBuilder = Builders<User>.Projection;
-            var fields = fieldsBuilder.Exclude(d => d._id);
 
-            var result = db._db.GetCollection<User>("user").Find<User>(filter).Project(fields).FirstOrDefault();
+            var result = db._db.GetCollection<User>("user").Find<User>(filter).FirstOrDefault();
             return result.ToJson();
            
         }
@@ -314,7 +325,7 @@ namespace projet.Profile
             {
                 var filter = Builders<User>.Filter.Eq("UrlPhoto", urlPhoto);
                 var fieldsBuilder = Builders<User>.Projection;
-                var fields = fieldsBuilder.Exclude(d => d._id);
+                var fields = fieldsBuilder.Exclude(d => d.Password);
 
                 var result = db._db.GetCollection<User>("user").Find<User>(filter).Project(fields).FirstOrDefault();
                 return result.ToJson();
