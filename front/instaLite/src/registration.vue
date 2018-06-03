@@ -18,8 +18,8 @@
   				<h4 style="margin-left: 200px; margin-right: 200px;">Inscription</h4>
           <div class="barre"></div><div class="barre" style="background-color:#A4A4A4;"></div><div class="barre" style="background-color:#A4A4A4;"></div>
 
-  				<input required v-validate="'required|alpha'"  v-model="User1.Login2" style="width: 375px;" type="text" placeholder="Login">
-  				<input required v-validate="'required|alpha'"  v-model="User1.Email"style="width: 375px;"type="text" placeholder="Mail">
+  				<input required v-validate="'required'"  v-model="User1.Login2" style="width: 375px;" type="text" placeholder="Login">
+  				<input required v-validate="'required|email'"  v-model="User1.Email"style="width: 375px;"type="email" placeholder="Mail">
   				<div class="st-pss">
   				<input required name="ps1" v-validate="'required'"  v-model="User1.Password2" type="password"  placeholder="Mot de Passe">
           <input required name="ps2" v-validate="'required|confirmed:ps1'"  type="password"  placeholder="Confirme Mot de Passe">	</div>
@@ -59,33 +59,15 @@
 
         },
         Login:'',
-        Password:'',
-         urlPhoto:'http://res.cloudinary.com/dvejva95o/image/upload/v1527154205/instaLite/wyn8yxonngrrbc4kxhv5.jpg',
-         Myphotos2:null,
-         titre:'titre de la photo',
-         commentsList:null,
-         description:'une description',
-         author:'autheur'
+        Password:''
+
 
   }
     },
 
 
     methods:{
-      getAll:function () {
-        this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
-         'Authorization': 'Bearer '+ localStorage.token
-       }}).then(response => {
 
-
-            var user=response.data
-            localStorage.setItem('user2',JSON.stringify(user))
-
-
-          },(response) => {
-        alert('une erreur est survenu')
-      })
-    },
       connexion:function(){
 
               if (this.Login !='' && this.Password!='') {
@@ -99,19 +81,11 @@
                   UserId:this.Login,
                   Password:hachPass
                 }}).then(response => {
-                  this.$notify(
-                    {
-                      message: 'Connexion réussie',
-                      icon: 'add_alert',
-                      horizontalAlign: 'right',
-                      verticalAlign: 'bottom',
-                      type: 'success'
-                    })
 
                     var token=response.data.token
 
                     localStorage.token = response.data.token
-                    this.getAll()
+
                     this.error = false
                     this.$router.push({
                         name: 'Fil d actualité'
@@ -119,12 +93,33 @@
 
                   },(response) => {
                   if(response.status==400){
-                    alert('Mot de pass erroné')
+                    this.$notify(
+                      {
+                        message: 'Mot de passe erroné',
+                        icon: 'add_alert',
+                        horizontalAlign: 'right',
+                        verticalAlign: 'bottom',
+                        type: 'danger'
+                      })
                   }
                   else if(response.status==404){
-                  alert('L utilisateur existe pas')
+                    this.$notify(
+                      {
+                        message: 'Login incorrect',
+                        icon: 'add_alert',
+                        horizontalAlign: 'right',
+                        verticalAlign: 'bottom',
+                        type: 'danger'
+                      })
                 }
-                else{alert('Vérifier votre login/mot de passe')}
+                else{  this.$notify(
+                    {
+                      message: 'Vérifier votre Login/Mot de passe',
+                      icon: 'add_alert',
+                      horizontalAlign: 'right',
+                      verticalAlign: 'bottom',
+                      type: 'danger'
+                    })}
               })
 
 
@@ -134,6 +129,7 @@
 
 
           },
+
       next:function(){
         this.$validator.validateAll().then((result) => {
               if (result) {
@@ -142,64 +138,12 @@
       }});
 
   },
-      getUrl:function(url){
-        this.urlPhoto=url
-        this.getAllComments()
-        this.getPost()
-        this.$modal.show('description');
 
-      },
-
-      getAllComments:function(){
-        this.$http.get('http://localhost:5000/Instalite/GetAllComments',{
-          UrlPhoto:this.urlPhoto
-        },{headers: {
-         'Authorization': 'Bearer '+ localStorage.token
-       }}).then(response => {
-         this.commentsList=response.data.Comments
-         console.log(response.data)
-
-
-          //console.log(this.MyPhotos.Lien)
-          })
-
-      },
-
-      getPost:function(){
-        this.$http.get('http://localhost:5000/Instalite/GetPost',{
-          UrlPhoto:this.urlPhoto
-        },{headers: {
-         'Authorization': 'Bearer '+ localStorage.token
-       }}).then(response => {
-         //this.commentsList=response.data.Comments
-         console.log(response.data)
-
-
-          //console.log(this.MyPhotos.Lien)
-          })
-      }
 
         },
 
         mounted:function() {
-          this.$notify(
-            {
-              message: 'Connexion réussie',
-              icon: 'add_alert',
-              horizontalAlign: 'right',
-              verticalAlign: 'bottom',
-              type: 'success'
-            })
 
-          this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
-           'Authorization': 'Bearer '+ localStorage.token
-         }}).then(response => {
-
-           console.log(response.data.MyPhotos)
-        this.Myphotos2=response.data.MyPhotos
-this.getAllComments()
-            //console.log(this.MyPhotos.Lien)
-            })
         },
 
   }

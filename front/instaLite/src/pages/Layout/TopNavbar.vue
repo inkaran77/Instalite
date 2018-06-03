@@ -21,7 +21,7 @@
                   <span class="notification">5</span>
                   <p class="hidden-lg hidden-md">Notifications</p>
                 </a>
-                
+
               </drop-down>
             </md-list-item>
 
@@ -64,7 +64,9 @@ export default{
     },
     signOut:function(){
       localStorage.clear();
-      document.location.reload(true);
+      this.$router.push({
+          name: 'Connexion'
+      });
     }
   }
 }

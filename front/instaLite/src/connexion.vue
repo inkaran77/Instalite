@@ -1,8 +1,10 @@
 <template>
+
   <div class="bg">
+    <notifications></notifications>
   <div class="main">
 		<div class="main2">
-			<div class="container-img">
+			<div v-on:click="load()" class="container-img">
 			<img src="./assets/icon.png">
 			</div>
 
@@ -48,15 +50,12 @@ export default {
     }
   },
   mounted:function() {
-    this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
-     'Authorization': 'Bearer '+ localStorage.token
-   }}).then(response => {
-     this.$emit('changeCompo','home')
-      //console.log(this.MyPhotos.Lien)
-      })
+
   },
   methods:{
-
+    load:function(){
+      document.location.reload(true);
+    },
     callOne:function(l){
 
       this.Login2=l.Login2
@@ -67,7 +66,7 @@ export default {
     },
     callTwo:function(l){
       this.Last_name=l.Last_name
-      this.First_name=l.First_Name
+      this.First_name=l.First_name
       this.Birth_date=l.Birth_date
       this.Gender=l.Gender
       this.Country=l.Country
@@ -80,7 +79,7 @@ export default {
     connexion:function(){
       this.$validator.validateAll().then((result) => {
             if (result) {
-            //  console.log("click")
+
             var md5 = require('js-md5');
             var hachPass=md5(this.Password)
 
@@ -161,11 +160,6 @@ export default {
 
   },
 
-  signUp:function(){
-    this.$router.push({
-        name: 'Registration'
-    });
-  },
 
 
       },

@@ -99,7 +99,14 @@ PictureInput
    if(response.status==400){
 
    }
-   else{alert('verifier votre connexion internet et réessayer')}
+   else{  this.$notify(
+       {
+         message: 'Vérifier votre connexion internet et réessayer',
+         icon: 'add_alert',
+         horizontalAlign: 'right',
+         verticalAlign: 'bottom',
+         type: 'danger'
+       })}
    return false;
   });
 
@@ -127,16 +134,45 @@ PictureInput
               City:this.Ci,
               Country:this.Co
             }).then(response => {
-              alert('ok à changer ')
+              this.$notify(
+                {
+                  message: 'Inscription reussie',
+                  icon: 'add_alert',
+                  horizontalAlign: 'right',
+                  verticalAlign: 'bottom',
+                  type: 'success'
+                })
               this.$emit('changePage','registration')
               },(response) => {
               if(response.status==400){
-                alert('Login déja utilisé, veuillez choisir un autre Login')
+                this.$notify(
+                    {
+                      message: 'Login déja utilisé veuillez choisir un autre login',
+                      icon: 'add_alert',
+                      horizontalAlign: 'right',
+                      verticalAlign: 'bottom',
+                      type: 'danger'
+                    })
               }
-             else{ alert('échec inscription, veuillez réessayer')}
+             else{ this.$notify(
+                 {
+                   message: 'échec inscription,veuillez réessayer',
+                   icon: 'add_alert',
+                   horizontalAlign: 'right',
+                   verticalAlign: 'bottom',
+                   type: 'danger'
+                 })}
           })
             return;
           }
+          else {this.$notify(
+              {
+                message: 'Ajouter une Photos',
+                icon: 'add_alert',
+                horizontalAlign: 'right',
+                verticalAlign: 'bottom',
+                type: 'danger'
+              })}
 
 }
 
