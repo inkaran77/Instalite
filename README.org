@@ -9,7 +9,6 @@
   - [[#accès][Accès]]
     - [[#connexion][Connexion]]
     - [[#inscription][Inscription]]
-    - [[#getmypassword-loading][GetMyPassword (loading...)]]
   - [[#accueil][Accueil]]
     - [[#getmyprofile][GetMyProfile]]
     - [[#getmyphotos][GetMyPhotos]]
@@ -37,6 +36,8 @@
       - [[#followerrequest--loading][FollowerRequest  (loading...)]]
       - [[#newpost-loading][NewPost (loading...)]]
     - [[#deletenotification][DeleteNotification]]
+  - [[#À-venir][À venir]]
+    - [[#getmypassword-loading][GetMyPassword (loading...)]]
 
 * Team
 - Ganeistan
@@ -54,7 +55,6 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | *Accès*              |              |            |      |
 | Connexion            | Ganeistan OK | Inkaran OK | OK   |
 | Inscription          | Ganeistan OK | Inkaran OK | OK   |
-| GetMyPassword        | Ganeistan OK | Inkaran    |      |
 |----------------------+--------------+------------+------|
 | *Accueil*            |              |            |      |
 | GetMyProfile         | Ganeistan OK | Inkaran OK | OK   |
@@ -68,7 +68,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | Like                 | Ganeistan    | Inkaran    |      |
 | Comment              | Ganeistan    | Inkaran OK |      |
 | GetAllComments       | Ganeistan OK | Inkaran OK | KO   |
-| GetMyNewsFeed        | Ganeistan    | Inkaran    |      |
+| GetMyNewsFeed        | Ganeistan    | Inkaran OK |      |
 | GetUserProfile       | Ganeistan    | Inkaran OK |      |
 | GetAllUsers          | Ganeistan    | Inkaran OK |      |
 |----------------------+--------------+------------+------|
@@ -85,6 +85,9 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | *Notification*       |              |            |      |
 | GetNotification      | Ganeistan    | Inkaran    |      |
 | DeleteNotification   | Ganeistan    | Inkaran    |      |
+|----------------------+--------------+------------+------|
+| À venir              |              |            |      |
+| GetMyPassword        | Ganeistan    | Inkaran    |      |
 
 * Contrat d'accès
 ** Accès
@@ -125,17 +128,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : =ID déja utilisé=
 
-*** GetMyPassword (loading...)
-  - Return : String
-   - Url :[[http://localhost:5000/Instalite/GetMyPassword]]
-   - Method : =GET=
-   - Required : =Id=[String]=
-   - Success Response :
-     - Code : =200=
-     - Content : =Votre mot de passe à été envoyer par mail=
-   - Error Response :
-     - Code : =404 NOT FOUND=
-     - Content : =L'utilisateur n'existe pas=
+
 ** Accueil
 *** GetMyProfile 
    - Return : http code + user data in json
@@ -518,6 +511,21 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 **** FollowerRequest  (loading...)
 **** NewPost (loading...)
 *** DeleteNotification
+
+** À venir
+*** GetMyPassword (loading...)
+  - Return : String
+   - Url :[[http://localhost:5000/Instalite/GetMyPassword]]
+   - Method : =GET=
+   - Required : =Id=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Votre mot de passe à été envoyer par mail=
+   - Error Response :
+     - Code : =404 NOT FOUND=
+     - Content : =L'utilisateur n'existe pas=
+
+
 ** COMMENT Ajout de photo profil Inscription (loading...)
  - Return : String du ObjectID de la photo à mettre dans My_Photo
    - Url : [[http://localhost:5000/Instalite/Photo]]
