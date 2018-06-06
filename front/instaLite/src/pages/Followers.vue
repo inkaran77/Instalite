@@ -148,7 +148,7 @@ mounted:function(){
 
        this.followerlist = data[0].MyFollowers
        this.waitinglist = data[1].MyWaitingList
-        console.log(response.status)
+        console.log(response.data)
   });
 
 
@@ -185,7 +185,7 @@ mounted:function(){
   .profile_name{
     display: inline-block;
     margin-left: 1%;
-    margin-right: 69%;
+    width: 76%;
     margin-bottom: 1%;
     color:black;
   }

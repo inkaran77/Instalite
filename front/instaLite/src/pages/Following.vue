@@ -10,7 +10,7 @@
           </md-card-header>
           <md-card-content>
 
-            <div id="followers">
+            <div id="following">
 
 
               <!-- list of followings -->
@@ -92,7 +92,7 @@ mounted:function(){
         }).then(response => {
 
        this.followinglist = response.data.MyFollowings
-        console.log(response.status)
+        console.log(response.data)
   })
 
 
@@ -129,7 +129,7 @@ mounted:function(){
   .profile_name{
     display: inline-block;
     margin-left: 1%;
-    margin-right: 69%;
+    width: 76%;
     margin-bottom: 1%;
     color:black;
   }
