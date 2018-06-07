@@ -21,6 +21,10 @@
         <md-icon>content_paste</md-icon>
         <p>Poster</p>
       </sidebar-link>
+       <sidebar-link to="/acceuil/discovery">
+        <md-icon>person</md-icon>
+        <p>Discovery</p>
+      </sidebar-link>
       <sidebar-link to="/acceuil/followers">
         <md-icon>content_paste</md-icon>
         <p>Mes abonnés</p>
