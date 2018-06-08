@@ -13,7 +13,7 @@
          :height="600" name="description" >
 
                 <div class="containers">
-                <h1>{{titre}}</h1>
+                <h2>{{titre}}</h2>
 
                   <div class="container-photo">
     <img style="height:100%; width:auto;":src='urlPhoto'alt="" /></a>
@@ -97,11 +97,11 @@ export default{
 
     getAllComments:function(url){
 
-      this.$http.get('http://localhost:5000/Instalite/GetAllComments',{
-        UrlPhoto:url,
-      },{headers: {
+      this.$http.get('http://localhost:5000/Instalite/GetAllComments',{headers: {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
-     }}).then(response => {
+     },params:{
+        UrlPhoto:url
+      }}).then(response => {
        this.commentsList=response.data.Comments
        console.log(response.data)
 
@@ -114,11 +114,11 @@ export default{
     },
 
     getPost:function(){
-      this.$http.get('http://localhost:5000/Instalite/GetPost',{
-        UrlPhoto:this.urlPhoto
-      },{headers: {
+      this.$http.get('http://localhost:5000/Instalite/GetPost',{headers: {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
-     }}).then(response => {
+     },params:{
+        UrlPhoto:this.urlPhoto,
+      }}).then(response => {
        //à coder format?
        this.description=response.data.Description
        this.titre=response.data.Title
@@ -129,10 +129,10 @@ export default{
     },
 
     delet:function(){
-      this.$http.delete('http://localhost:5000/Instalite/DeletePost',{
-        UrlPhoto:this.urlPhoto
-      },{headers: {
+      this.$http.delete('http://localhost:5000/Instalite/DeletePost',{headers: {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
+     },params:{
+        UrlPhoto:this.urlPhoto
       }}).then(response => {
         this.$notify(
           {
@@ -142,27 +142,30 @@ export default{
             verticalAlign: 'bottom',
             type: 'success'
           })
-       this.$router.push({
-           name: 'Myphoto'
-       });
+          this.$modal.hide('description')
+          this.getMyphoto()
 
         //console.log(this.MyPhotos.Lien)
         })
 
     },
 
+    getMyphoto:function(){
+      this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
+     }}).then(response => {
+
+       console.log(response.data.MyPhotos)
+    this.Myphotos2=response.data.MyPhotos
+
+        //console.log(this.MyPhotos.Lien)
+        })
+    }
+
       },
 
       mounted:function() {
-        this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
-         'Authorization': 'Bearer '+ this.$cookies.get("token")
-       }}).then(response => {
-
-         console.log(response.data.MyPhotos)
-      this.Myphotos2=response.data.MyPhotos
-
-          //console.log(this.MyPhotos.Lien)
-          })
+          this.getMyphoto()
       },
 
 }

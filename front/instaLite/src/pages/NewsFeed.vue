@@ -33,7 +33,7 @@
                 </div>
 
                 <b-form-textarea
-                v-model="comments"
+                v-model="comment"
                 placeholder="Votre commentaire ici"
 
                 style="height:190px; width:80%;"
@@ -41,7 +41,7 @@
               </b-form-textarea>
               <div class="row">
                     <button class="btn-success btn" style="margin-right:15px;margin-top:5px;margin-bottom:5px;"v-on:click="comments()">Commenter</button>
-                      <button class="btn-primary btn"style="margin-top:5px;margin-bottom:5px;" v-on:click="like()">Like</button>
+                      <button v-bind:disabled="alreadlike ==true" class="btn-primary btn"style="margin-top:5px;margin-bottom:5px;" v-on:click="like()">Like</button>
               </div>
             </div>
 
@@ -85,14 +85,15 @@ export default{
       commentsList:null,
       description:'une description',
       author:'autheur',
-      comments:'',
-      like_counter:null
+      comment:'',
+      like_counter:null,
+      alreadlike:true
     }
   },
   mounted:function() {
-    this.getAll()
+
     this.getNews()
-  
+
 
   },
   methods:{
@@ -118,10 +119,10 @@ export default{
   },
     comments:function(){
       if(this.comments!=''){
-      this.$http.put('http://localhost:5000/Instalite/Comment',{
+      this.$http.put('http://localhost:5000/Instalite/Comment',{params:{
         UrlPhoto:this.urlPhoto,
-        Message:this.comments
-      },{headers: {
+        Message:this.comment
+      },headers: {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
 
@@ -153,8 +154,19 @@ else(this.$notify(
       this.urlPhoto=url
       this.getAllComments(url)
       this.getPost()
+      this.alreadyLike()
      this.$modal.show('descriptionFeed');
 
+    },
+
+    alreadyLike:function(){
+      this.$http.get('http://localhost:5000/Instalite/AlreadyLiked',{headers: {
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
+     }}).then(response => {
+       this.alreadlike=false
+        },(response) => {
+
+    })
     },
     getNews:function(){
       this.$http.get('http://localhost:5000/Instalite/GetMyNewsFeed',{headers: {
@@ -170,9 +182,9 @@ else(this.$notify(
   },
   getAllComments:function(url){
 
-    this.$http.get('http://localhost:5000/Instalite/GetAllComments',{
+    this.$http.get('http://localhost:5000/Instalite/GetAllComments',{params:{
       UrlPhoto:url,
-    },{headers: {
+    },headers: {
      'Authorization': 'Bearer '+ this.$cookies.get("token")
    }}).then(response => {
      this.commentsList=response.data.Comments
@@ -185,9 +197,9 @@ else(this.$notify(
   },
 
   getPost:function(){
-    this.$http.get('http://localhost:5000/Instalite/GetPost',{
+    this.$http.get('http://localhost:5000/Instalite/GetPost',{params:{
       UrlPhoto:this.urlPhoto
-    },{headers: {
+    },headers: {
      'Authorization': 'Bearer '+ this.$cookies.get("token")
    }}).then(response => {
      this.description=response.data.Description
@@ -197,21 +209,7 @@ else(this.$notify(
 
       })
   },
-    getAll:function () {
-      this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
-       'Authorization': 'Bearer '+ this.$cookies.get("token")
-     }}).then(response => {
 
-
-          var user=response.data
-          localStorage.setItem('user2',JSON.stringify(user))
-          console.log(localStorage.getItem('user2'));
-
-
-        },(response) => {
-      alert('une erreur est survenu')
-    })
-    }
 
   },
 
