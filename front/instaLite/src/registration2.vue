@@ -94,7 +94,7 @@
   opacity: 0;
 }
 
-.container-img{
+.containers-imgs{
 	position: absolute;
 	left: calc(50% - 90px);
 	top : -80px;

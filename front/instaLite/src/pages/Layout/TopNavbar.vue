@@ -64,6 +64,7 @@ export default{
     },
     signOut:function(){
       localStorage.clear();
+      this.$cookies.remove("token");
       this.$router.push({
           name: 'Connexion'
       });

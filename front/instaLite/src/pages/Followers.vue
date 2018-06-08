@@ -9,9 +9,6 @@
           </md-card-header>
           <md-card-content>
             <div id="followers">
-
-
-
             </div>
            </md-card-content>
          </md-card>

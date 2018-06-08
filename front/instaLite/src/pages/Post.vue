@@ -10,7 +10,7 @@
           <md-card-content>
             <div id="post">
 
-                <div>
+
                   <picture-input
                     ref="pictureInput"
                     @change="onChanged"
@@ -26,18 +26,20 @@
                     }">
                   </picture-input>
                   <div class="flexcenter">
-                    <input class="flexcenter" type="text" placeholder="Titre" v-model="title" required="" />
+                    <input  type="text" placeholder="Titre" v-model="title" required="" />
                     <b-form-textarea id="textarea1"
                     v-model="description"
                     placeholder="Description"
                     :rows="6"
-
-                    :max-rows="6">
+                    style="height:100px;margin-top:15px;"
+                    :min-rows="6">
                   </b-form-textarea>
-                  <button  v-on:click="vPost()" class="btn btn-success btn-touch ">Poster</button>
+                  <div class="flexcenter2">
+                  <button style="width:50%;"  v-on:click="vPost()" class="btn btn-success  ">Poster</button>
 
                   </div>
-              </div>
+                </div>
+
             </div>
            </md-card-content>
          </md-card>
@@ -124,12 +126,12 @@ export default{
      Date:new Date()
 
    }, {headers: {
-    'Authorization': 'Bearer '+ localStorage.token
+    'Authorization': 'Bearer '+ this.$cookies.get("token")
   }}).then(response => {
 
        alert('Votre photo est en ligne')
        this.$router.push({
-           name: 'Myphoto'
+           name: 'Mes Photos'
        });
       // this.$emit('changeCompo','connexion')
        console.log(response.data);
@@ -140,7 +142,6 @@ export default{
 },
 updated () {
 
-console.log('fff')
 }
 
 
@@ -151,14 +152,13 @@ console.log('fff')
 <style>
 .flexcenter{
   display: flex;
-  align-content: center;
   flex-direction : column;
+  align-content: center;
 }
-button:nth-of-type(n){
-  position: relative;
-  margin: 20px;
+.flexcenter2{
   display: flex;
   justify-content: center;
-
+  margin-top: 15px;
 }
+
 </style>

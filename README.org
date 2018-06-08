@@ -65,6 +65,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 |----------------------+--------------+------------+------|
 | *Fil d'actualité*    |              |            |      |
 | PostPhoto            | Ganeistan OK | Inkaran OK | OK   |
+<<<<<<< HEAD
 | DeletePost           | Ganeistan OK | Inkaran OK |      |
 | GetPost              | Ganeistan OK | Inkaran OK |      |
 | Like                 | Ganeistan    | Inkaran OK |      |
@@ -72,6 +73,14 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | Comment              | Ganeistan    | Inkaran OK |      |
 | GetAllComments       | Ganeistan OK | Inkaran OK |      |
 | GetMyNewsFeed        | Ganeistan    | Inkaran OK |      |
+=======
+| DeletePost           | Ganeistan OK | Inkaran    | KO   |
+| GetPost              | Ganeistan OK | Inkaran OK | KO   |
+| Like                 | Ganeistan OK | Inkaran    |      |
+| Comment              | Ganeistan OK | Inkaran OK | KO   |
+| GetAllComments       | Ganeistan OK | Inkaran    | KO   |
+| GetMyNewsFeed        | Ganeistan OK | Inkaran OK | OK   |
+>>>>>>> af1a07d3658338ecbeddbc83d0e8b642696ee391
 | GetUserProfile       | Ganeistan    | Inkaran OK |      |
 | GetAllUsers          | Ganeistan    | Inkaran OK |      |
 |----------------------+--------------+------------+------|
@@ -79,12 +88,20 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | GetAllMyFollowers    | Mohamed OK   | Inkaran OK |      |
 | GetAllMyFollowings   | Mohamed OK   | Inkaran OK |      |
 | GetWaitingList       | Mohamed OK   | Inkaran OK |      |
+<<<<<<< HEAD
 | Follow               | Mohamed OK   | Inkaran OK |      |
+=======
+| Follow               | Mohamed      | Inkaran OK |      |
+>>>>>>> af1a07d3658338ecbeddbc83d0e8b642696ee391
 | Unfollow             | Mohamed OK   | Inkaran OK |      |
 | AcceptFollower       | Mohamed OK   | Inkaran OK |      |
 | RefuseFollowRequest  | Mohamed OK   | Inkaran OK |      |
 | DeleteFollower       | Mohamed OK   | Inkaran Ok |      |
+<<<<<<< HEAD
 | GetAvailableUsers    | Mohamed      | Inkaran OK |      |
+=======
+| Discovery            | Mohamed      | Inkaran    |      |
+>>>>>>> af1a07d3658338ecbeddbc83d0e8b642696ee391
 |----------------------+--------------+------------+------|
 | *Notification*       |              |            |      |
 | GetNotification      | Ganeistan    | Inkaran    |      |
@@ -134,7 +151,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 
 
 ** Accueil
-*** GetMyProfile 
+*** GetMyProfile
    - Return : http code + user data in json
    - Url : [[http://localhost:5000/Instalite/GetMyProfile]]
    - Method : Get
@@ -147,7 +164,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =401 Unauthorized=
 
 
-*** GetMyPhotos 
+*** GetMyPhotos
    - Return : http code + liste des photos
    - Url : [[http://localhost:5000/Instalite/GetMyPhotos]]
    - Method : Get
@@ -170,7 +187,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
           ]
        }
 
-*** ModifyMyProfile 
+*** ModifyMyProfile
    - Return : http code + liste des photos
    - Url : [[http://localhost:5000/Instalite/ModifyMyProfile]]
    - Method : Put
@@ -191,7 +208,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Content : =Aucune modification effectué=
 
 ** File d'actualité
-*** PostPhoto 
+*** PostPhoto
    - Description : Pour back end, ajout du post dans la collection post + ajoute dans la liste de posts de l'utilisateur
    - Return : http code
    - Url : [[http://localhost:5000/Instalite/PostPhoto]]
@@ -253,6 +270,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
 
+<<<<<<< HEAD
 *** AlreadyLiked (loading...)
    - Return : http code
    - Url : http://localhost:5000/Instalite/AlreadyLiked
@@ -266,6 +284,8 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =Post déja liké=
+=======
+>>>>>>> af1a07d3658338ecbeddbc83d0e8b642696ee391
 *** Comment (loading...)
    - Return : http code
    - Url : [[http://localhost:5000/Instalite/Comment]]
@@ -330,7 +350,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Required : =Bearer Token=
    - Success Response :
      - Code : =200=
-     - Content : 
+     - Content :
       {
           "NewsFeed": [
             {
@@ -348,10 +368,10 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
 
- 
+
 
 ** Abonné/Abonnements
-*** GetAllUsers (loading...)   
+*** GetAllUsers (loading...)
    - Return : http code + tous les noms, prénoms et les photo de profil des utilisateurs de l'application
    - Url : [[http://localhost:5000/Instalite/GetAllUsers]]
    - Method : Get
