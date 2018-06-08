@@ -65,43 +65,25 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 |----------------------+--------------+------------+------|
 | *Fil d'actualité*    |              |            |      |
 | PostPhoto            | Ganeistan OK | Inkaran OK | OK   |
-<<<<<<< HEAD
 | DeletePost           | Ganeistan OK | Inkaran OK |      |
 | GetPost              | Ganeistan OK | Inkaran OK |      |
-| Like                 | Ganeistan    | Inkaran OK |      |
+| Like                 | Ganeistan OK | Inkaran OK |      |
 | AlreadyLiked         | Ganeistan    | Inkaran OK |      |
-| Comment              | Ganeistan    | Inkaran OK |      |
+| Comment              | Ganeistan OK | Inkaran OK |      |
 | GetAllComments       | Ganeistan OK | Inkaran OK |      |
-| GetMyNewsFeed        | Ganeistan    | Inkaran OK |      |
-=======
-| DeletePost           | Ganeistan OK | Inkaran    | KO   |
-| GetPost              | Ganeistan OK | Inkaran OK | KO   |
-| Like                 | Ganeistan OK | Inkaran    |      |
-| Comment              | Ganeistan OK | Inkaran OK | KO   |
-| GetAllComments       | Ganeistan OK | Inkaran    | KO   |
 | GetMyNewsFeed        | Ganeistan OK | Inkaran OK | OK   |
->>>>>>> af1a07d3658338ecbeddbc83d0e8b642696ee391
 | GetUserProfile       | Ganeistan    | Inkaran OK |      |
-| GetAllUsers          | Ganeistan    | Inkaran OK |      |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
 | GetAllMyFollowers    | Mohamed OK   | Inkaran OK |      |
 | GetAllMyFollowings   | Mohamed OK   | Inkaran OK |      |
 | GetWaitingList       | Mohamed OK   | Inkaran OK |      |
-<<<<<<< HEAD
 | Follow               | Mohamed OK   | Inkaran OK |      |
-=======
-| Follow               | Mohamed      | Inkaran OK |      |
->>>>>>> af1a07d3658338ecbeddbc83d0e8b642696ee391
 | Unfollow             | Mohamed OK   | Inkaran OK |      |
 | AcceptFollower       | Mohamed OK   | Inkaran OK |      |
 | RefuseFollowRequest  | Mohamed OK   | Inkaran OK |      |
 | DeleteFollower       | Mohamed OK   | Inkaran Ok |      |
-<<<<<<< HEAD
 | GetAvailableUsers    | Mohamed      | Inkaran OK |      |
-=======
-| Discovery            | Mohamed      | Inkaran    |      |
->>>>>>> af1a07d3658338ecbeddbc83d0e8b642696ee391
 |----------------------+--------------+------------+------|
 | *Notification*       |              |            |      |
 | GetNotification      | Ganeistan    | Inkaran    |      |
