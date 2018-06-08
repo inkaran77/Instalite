@@ -114,25 +114,26 @@ namespace projet.Profile
             var result = db._db.GetCollection<Post>("post").Find(filter).FirstOrDefault();
             if (result == null)
             {
-                Console.WriteLine("1");
                 return false; // si le post n'existe pas
-            } 
+            }
+
+            // Correction bug dû au Id dont le parsing est pas le meême
+            JObject obj = JObject.Parse(result.ToJson());
+            var postId = obj.SelectToken("_id").ToString();
+            Console.WriteLine(postId);
 
             Post p = JsonConvert.DeserializeObject<Post>(result.ToJson());
             Console.WriteLine(result.ToJson());
+            //
+
+
+
             // On va supprimer le post dans la liste de post de l'utilisateur
             var result2 = GetMyProfile(userId);
             User u = JsonConvert.DeserializeObject<User>(result2);
 
-            Console.WriteLine(u.List_post);
-            Console.WriteLine("id "+p._id);
-            Console.WriteLine("id " + p.UrlPhoto);
-            Console.WriteLine(u.List_post.Contains(p._id) == true);
-
-
-            if(u.List_post.Contains(p._id)==true){
-                Console.WriteLine("2");
-                u.List_post.Remove(p._id);
+            if(u.List_post.Contains(postId)==true){
+                u.List_post.Remove(postId);
 
                 // On fait la mise à jour au niveau de l'utilisateur
                 var filter2 = Builders<User>.Filter.Eq("UserId", u.UserId);
