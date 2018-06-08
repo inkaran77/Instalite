@@ -30,7 +30,7 @@
                   </div>
                   <div class="form-group">
                    <label for="comment">Votre nouveau commentaire:</label>
-                   <textarea class="form-control" v-model="this.comments" rows="5" id="comment"></textarea>
+                   <textarea class="form-control" v-model="this.comments" rows="3" id="comment"></textarea>
                  </div>
 
                 </div>
@@ -95,7 +95,7 @@ export default{
       },{headers: {
        'Authorization': 'Bearer '+ localStorage.token
      }}).then(response => {
-       this.getAllComments(this.urlPhoto)
+
        this.$notify(
          {
            message: 'Commentaire est en ligne',
@@ -223,7 +223,7 @@ top: -10px;
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
-  background-color: red;
+  background-color: #CEE3F6;
   overflow: hidden;
 
 

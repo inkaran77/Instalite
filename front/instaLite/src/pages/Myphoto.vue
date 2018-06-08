@@ -119,7 +119,7 @@ export default{
        //à coder format?
        this.description=response.data.Description
        this.titre=response.data.Title
-       
+
        console.log(response.data)
 
         })
@@ -131,9 +131,14 @@ export default{
       },{headers: {
        'Authorization': 'Bearer '+ localStorage.token
       }}).then(response => {
-       //this.commentsList=response.data.Comments
-       this.$modal.hide('description');
-
+        this.$notify(
+          {
+            message: 'Le post est supprimé',
+            icon: 'add_alert',
+            horizontalAlign: 'right',
+            verticalAlign: 'bottom',
+            type: 'success'
+          })
        this.$router.push({
            name: 'Myphoto'
        });
@@ -195,7 +200,7 @@ top: -10px;
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
-  background-color: red;
+  background-color: #CEE3F6;
   overflow: hidden;
 
 
