@@ -10,28 +10,28 @@
           <md-card-content>
             <div id="myphoto">
               <modal :width="700"
-         :height="700" name="description" >
+         :height="600" name="description" >
 
-                <div class="container">
+                <div class="containers">
                 <h1>{{titre}}</h1>
-                <div class="gallerie" >
-    <img :src='urlPhoto' style=" height:300px;"alt="" /></a>
+
+                  <div class="container-photo">
+    <img style="height:100%; width:auto;":src='urlPhoto'alt="" /></a>
   </div>
 
+
   <p>Description : {{description}}</p>
-              </div>
-              <div class="container2">
+
+
                 <div class="container-comments">
                   <p><b>Commentaire:</b></p>
                   <div class="comments" v-for="Com in commentsList">
-                    <p><b>{{Com.Author}}</b></p>
-                     <br>
-                     <p>{{Com.Message}}</p>
+                    <p><b>{{Com.Author}} : </b>{{Com.Message}}</p>
                   </div>
 
 
                 </div>
-                    <button class="btn-danger" v-on:click="delet()">Effacer</button>
+                    <button class="btn-danger btn" v-on:click="delet()">Effacer</button>
               </div>
 
 
@@ -39,7 +39,9 @@
               <div class="row">
 
   <div class="col-sm-4" v-for="Myphoto in Myphotos2">
-<img :src='Myphoto.Lien' class="zoom" style=" height:250px; margin-top:20px;" v-on:click="getUrl(Myphoto.Lien)">
+    <div class="container-img">
+<img :src='Myphoto.Lien' v-on:click="getUrl(Myphoto.Lien)">
+</div>
 
   </div>
 
@@ -84,15 +86,16 @@ export default{
   methods:{
     getUrl:function(url){
       this.urlPhoto=url
-      this.getAllComments()
+      this.getAllComments(url)
       this.getPost()
-      this.$modal.show('description');
-      
+      this.$modal.show('description')
+
     },
 
-    getAllComments:function(){
+    getAllComments:function(url){
+
       this.$http.get('http://localhost:5000/Instalite/GetAllComments',{
-        UrlPhoto:this.urlPhoto
+        UrlPhoto:url,
       },{headers: {
        'Authorization': 'Bearer '+ localStorage.token
      }}).then(response => {
@@ -101,7 +104,9 @@ export default{
 
 
         //console.log(this.MyPhotos.Lien)
-        })
+        },(response) => {
+
+    })
 
     },
 
@@ -111,11 +116,12 @@ export default{
       },{headers: {
        'Authorization': 'Bearer '+ localStorage.token
      }}).then(response => {
-       //this.commentsList=response.data.Comments
+       //à coder format?
+       this.description=response.data.Description
+       this.titre=response.data.Title
+       
        console.log(response.data)
 
-
-        //console.log(this.MyPhotos.Lien)
         })
     },
 
@@ -154,26 +160,17 @@ export default{
 }
 </script>
 <style>
-img.resize {
-  width:200px;
-  height:40px;
-}
-.container{
+
+.containers{
   width: 700px;
-  height: 400px;
+  height: 600px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  overflow: scroll;
 
 }
-.container2{
-  width: 700px;
-  height: 300px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 
-}
 .gallerie {
     width: 550px;
 height: 400px;
@@ -187,22 +184,40 @@ top: -10px;
 }
 .container-comments{
   width: 550px;
-  height: 250px;
+  min-height: 200px;
   overflow: scroll;
 
 }
 .comments{
 
-  height: 80px;
+  height: auto;
   margin-bottom: 10px;
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
   background-color: red;
   overflow: hidden;
+
+
 }
 .zoom:hover {
     opacity: 0.9;
+
+}
+.container-img{
+  max-width: 350px;
+  height: 200px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.container-photo{
+  width: 700px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
 
 }
 </style>

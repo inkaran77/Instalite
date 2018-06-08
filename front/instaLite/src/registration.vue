@@ -7,7 +7,7 @@
 
   				<h4 style="margin-left: 200px; margin-right: 200px;">Connexion</h4>
           <input  required v-model="Login"type="text" placeholder="Login">
-  				<input  required v-model="Password" type="password" placeholder="Mot de Passe">
+  				<input  required v-model="Password" type="password" placeholder="Mot de passe">
   			</div>
 
   			<center><button v-on:click="connexion()" class="btn-success btn" style="margin-bottom: 20px; margin-top: 20px;">Connexion</button></center>
@@ -19,10 +19,10 @@
           <div class="barre"></div><div class="barre" style="background-color:#A4A4A4;"></div><div class="barre" style="background-color:#A4A4A4;"></div>
 
   				<input required v-validate="'required'"  v-model="User1.Login2" style="width: 375px;" type="text" placeholder="Login">
-  				<input required v-validate="'required|email'"  v-model="User1.Email"style="width: 375px;"type="email" placeholder="Mail">
+  				<input required v-validate="'required|email'"  v-model="User1.Email"style="width: 375px;"type="email" placeholder="email">
   				<div class="st-pss">
-  				<input required name="ps1" v-validate="'required'"  v-model="User1.Password2" type="password"  placeholder="Mot de Passe">
-          <input required name="ps2" v-validate="'required|confirmed:ps1'"  type="password"  placeholder="Confirme Mot de Passe">	</div>
+  				<input required name="ps1" v-validate="'required'"  v-model="User1.Password2" type="password"  placeholder="Mot de passe">
+          <input required name="ps2" v-validate="'required|confirmed:ps1'"  type="password"  placeholder="Confirmation Mot de passe">	</div>
           <span v-show="errors.has('ps2')" style="color:red;font-size:10px;" class="help ">Mot de passe de confirmation différent</span>
 
         </div>
@@ -159,7 +159,7 @@
     opacity: 0;
   }
 
-  .container-img{
+  .containers-imgs{
   	position: absolute;
   	left: calc(50% - 90px);
   	top : -80px;

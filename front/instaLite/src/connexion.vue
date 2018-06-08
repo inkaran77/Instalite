@@ -1,10 +1,10 @@
 <template>
 
-  <div class="bg">
+  <div class="bo">
     <notifications></notifications>
-  <div class="main">
+  <div class="main1">
 		<div class="main2">
-			<div v-on:click="load()" class="container-img">
+			<div v-on:click="load()" class="containers-imgs">
 			<img src="./assets/icon.png">
 			</div>
 
@@ -172,7 +172,7 @@ export default {
 body,html {
     height: 100%;
 }
-.bg {
+.bo {
     /* The image used */
     background-image: url("./assets/bg3.jpg");
 
@@ -185,7 +185,7 @@ body,html {
     background-size: cover;
 }
 
-.main{
+.main1{
 	display: flex;
 	justify-content: center;
 
@@ -203,7 +203,7 @@ body,html {
   background-color:white;
 
 }
-.container-img{
+.containers-imgs{
 	position: absolute;
 	left: calc(50% - 90px);
 	top : -80px;
