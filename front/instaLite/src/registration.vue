@@ -67,6 +67,13 @@
 
 
     methods:{
+      autoRedi:function(){
+        if(this.$cookies.isKey("token")){
+          this.$router.push({
+              name: 'Fil d actualité'
+          });
+        }
+      },
 
       connexion:function(){
 
@@ -82,11 +89,9 @@
                   Password:hachPass
                 }}).then(response => {
 
-                    var token=response.data.token
 
-                    localStorage.token = response.data.token
-
-                    this.error = false
+                    this.$cookies.set("token",response.data.token,60*60*3)
+                  
                     this.$router.push({
                         name: 'Fil d actualité'
                     });
@@ -143,7 +148,7 @@
         },
 
         mounted:function() {
-
+  this.autoRedi()
         },
 
   }

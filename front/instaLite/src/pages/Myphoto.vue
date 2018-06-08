@@ -99,7 +99,7 @@ export default{
       this.$http.get('http://localhost:5000/Instalite/GetAllComments',{
         UrlPhoto:url,
       },{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
        this.commentsList=response.data.Comments
        console.log(response.data)
@@ -116,7 +116,7 @@ export default{
       this.$http.get('http://localhost:5000/Instalite/GetPost',{
         UrlPhoto:this.urlPhoto
       },{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
        //à coder format?
        this.description=response.data.Description
@@ -131,7 +131,7 @@ export default{
       this.$http.delete('http://localhost:5000/Instalite/DeletePost',{
         UrlPhoto:this.urlPhoto
       },{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
       }}).then(response => {
         this.$notify(
           {
@@ -154,7 +154,7 @@ export default{
 
       mounted:function() {
         this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
-         'Authorization': 'Bearer '+ localStorage.token
+         'Authorization': 'Bearer '+ this.$cookies.get("token")
        }}).then(response => {
 
          console.log(response.data.MyPhotos)

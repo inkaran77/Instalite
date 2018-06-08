@@ -124,7 +124,7 @@ export default{
      Date:new Date()
 
    }, {headers: {
-    'Authorization': 'Bearer '+ localStorage.token
+    'Authorization': 'Bearer '+ this.$cookies.get("token")
   }}).then(response => {
 
        alert('Votre photo est en ligne')

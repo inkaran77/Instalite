@@ -53,6 +53,7 @@ export default {
 
   },
   methods:{
+
     load:function(){
       document.location.reload(true);
     },
@@ -76,69 +77,7 @@ export default {
     updateCompo:function(nouvoCompo){
       this.pageView=nouvoCompo;
     },
-    connexion:function(){
-      this.$validator.validateAll().then((result) => {
-            if (result) {
-
-            var md5 = require('js-md5');
-            var hachPass=md5(this.Password)
-
-              this.$http.get('http://localhost:5000/Instalite/Connexion',{params:{
-
-
-                UserId:this.UserId,
-                Password:hachPass
-              }}).then(response => {
-                this.$notify(
-                  {
-                    message: 'Connexion réussie',
-                    icon: 'add_alert',
-                    horizontalAlign: 'right',
-                    verticalAlign: 'bottom',
-                    type: 'success'
-                  })
-
-                  var token=response.data.token
-                  localStorage.setItem('token2',JSON.stringify(token))
-                  console.log(localStorage.getItem('token2'));
-                  localStorage.token = response.data.token
-                  this.getAll()
-                  this.error = false
-                  this.$emit('changeCompo','home')
-
-                },(response) => {
-                if(response.status==400){
-                  alert('Mot de pass erroné')
-                }
-                else if(response.status==404){
-                alert('L utilisateur existe pas')
-              }
-              else{alert('Vérifier votre login/mot de passe')}
-            })
-
-
-              return;
-            }
-
-
-          });
-        },
-
-        getAll:function () {
-          this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
-           'Authorization': 'Bearer '+ localStorage.token
-         }}).then(response => {
-
-
-              var user=response.data
-              localStorage.setItem('user2',JSON.stringify(user))
-
-
-            },(response) => {
-          alert('une erreur est survenu')
-        })
-      },
-
+  
     getPassword:function(){
 // document.location.reload(true); a changer de place
       this.$validator.validateAll().then((result) => {

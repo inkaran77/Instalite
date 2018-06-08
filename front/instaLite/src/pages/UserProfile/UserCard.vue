@@ -143,7 +143,7 @@ export default {
         City:this.City,
         Country:this.Country
       },{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
        this.getAll()
 
@@ -220,7 +220,7 @@ return false;
 
   getAll:function () {
     this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
-     'Authorization': 'Bearer '+ localStorage.token
+     'Authorization': 'Bearer '+ this.$cookies.get("token")
    }}).then(response => {
 
 

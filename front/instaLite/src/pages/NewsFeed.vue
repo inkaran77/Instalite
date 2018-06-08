@@ -92,7 +92,7 @@ export default{
       this.$http.put('http://localhost:5000/Instalite/Like',{
         UrlPhoto:this.urlPhoto
       },{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
 
        this.$notify(
@@ -114,7 +114,7 @@ export default{
         UrlPhoto:this.urlPhoto,
         Message:this.comments
       },{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
 
        this.$notify(
@@ -150,7 +150,7 @@ else(this.$notify(
     },
     getNews:function(){
       this.$http.get('http://localhost:5000/Instalite/GetMyNewsFeed',{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
        console.log(response.data.NewsFeed)
     this.MyFeed=response.data.NewsFeed
@@ -165,7 +165,7 @@ else(this.$notify(
     this.$http.get('http://localhost:5000/Instalite/GetAllComments',{
       UrlPhoto:url,
     },{headers: {
-     'Authorization': 'Bearer '+ localStorage.token
+     'Authorization': 'Bearer '+ this.$cookies.get("token")
    }}).then(response => {
      this.commentsList=response.data.Comments
      console.log(response.data)
@@ -180,7 +180,7 @@ else(this.$notify(
     this.$http.get('http://localhost:5000/Instalite/GetPost',{
       UrlPhoto:this.urlPhoto
     },{headers: {
-     'Authorization': 'Bearer '+ localStorage.token
+     'Authorization': 'Bearer '+ this.$cookies.get("token")
    }}).then(response => {
      this.description=response.data.Description
      this.titre=response.data.Title
@@ -191,7 +191,7 @@ else(this.$notify(
   },
     getAll:function () {
       this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
 
 
