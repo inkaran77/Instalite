@@ -11,8 +11,8 @@ namespace projet.Wall
         [BsonId]
         public String _id { get;private set; }
 
-        [BsonElement("Author")]
-        public String Author { get; set; }
+        [BsonElement("Like_Author")]
+        public String Like_Author { get; set; }
     
         public Like()
         {

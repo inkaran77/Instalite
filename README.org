@@ -18,6 +18,7 @@
     - [[#deletepost-loading][DeletePost (loading...)]]
     - [[#getpost-loading][GetPost (loading...)]]
     - [[#like-loading][Like (loading...)]]
+    - [[#alreadyliked-loading][AlreadyLiked (loading...)]]
     - [[#getallcomments-loading][GetAllComments (loading)]]
     - [[#getuserprofileloading][GetUserProfile(loading)]]
     - [[#getmynewsfeed-loading][GetMyNewsFeed (loading...)]]
@@ -64,11 +65,12 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 |----------------------+--------------+------------+------|
 | *Fil d'actualité*    |              |            |      |
 | PostPhoto            | Ganeistan OK | Inkaran OK | OK   |
-| DeletePost           | Ganeistan OK | Inkaran    | KO   |
-| GetPost              | Ganeistan OK | Inkaran OK | KO   |
-| Like                 | Ganeistan    | Inkaran    |      |
+| DeletePost           | Ganeistan OK | Inkaran OK |      |
+| GetPost              | Ganeistan OK | Inkaran OK |      |
+| Like                 | Ganeistan    | Inkaran OK |      |
+| AlreadyLiked         | Ganeistan    | Inkaran OK |      |
 | Comment              | Ganeistan    | Inkaran OK |      |
-| GetAllComments       | Ganeistan OK | Inkaran    | KO   |
+| GetAllComments       | Ganeistan OK | Inkaran OK |      |
 | GetMyNewsFeed        | Ganeistan    | Inkaran OK |      |
 | GetUserProfile       | Ganeistan    | Inkaran OK |      |
 | GetAllUsers          | Ganeistan    | Inkaran OK |      |
@@ -250,7 +252,20 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
-       
+
+*** AlreadyLiked (loading...)
+   - Return : http code
+   - Url : http://localhost:5000/Instalite/AlreadyLiked
+   - Method : Get
+   - Required :
+          =Bearer Token=
+          =UrlPhoto=[String]=
+   - Success Response :
+     - Code : =200=
+     - Content : =Post n'a pas encore était liké=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Post déja liké=
 *** Comment (loading...)
    - Return : http code
    - Url : [[http://localhost:5000/Instalite/Comment]]

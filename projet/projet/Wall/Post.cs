@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using projet.Profile;
@@ -56,34 +57,23 @@ namespace projet.Wall
                 var filter = Builders<Post>.Filter.Eq("UrlPhoto", urlPhoto);
                 var result = db._db.GetCollection<Post>("post").Find(filter).FirstOrDefault();
                 Post p = JsonConvert.DeserializeObject<Post>(result.ToJson());
-                Console.WriteLine(result.ToJson());
+
+                // On test si la photo n'a pas déjà était liké
+                if(AlreadyLiked(urlPhoto,l)==true)
+                {
+                    return false;
+                }
 
                 // On ajoute le like à la liste de like + on incrémente le compteur
                 p.Like_counter++;
-
-                // BUG probleme lorsqu'on deserialize pour p.liste_like est vide
-
-
-
-                // BUG list_like pas instancié ???
-                Console.WriteLine(p.List_like.ToJson());
-                if (p.List_like == null)
-                {
-                    p.List_like = new List<Like>();
-                    Console.WriteLine("instancié");
-                    Console.WriteLine(p.List_like.ToJson());
-
-                }
-
-
-                p.List_like.Add(l);
 
                 // On fait la mise à jour du like counter au niveau du post
                 var update = Builders<Post>.Update.Set(x => x.Like_counter, p.Like_counter);
                 var result2 = db._db.GetCollection<Post>("post").UpdateOne(filter, update);
 
                 // On fait la mise à jour du liste like  au niveau du post
-                var update2 = Builders<Post>.Update.Set(x => x.List_like, p.List_like);
+                //var update2 = Builders<Post>.Update.Set(x => x.List_like, p.List_like);
+                var update2 = Builders<Post>.Update.AddToSet(x => x.List_like, l);
                 var result3 = db._db.GetCollection<Post>("post").UpdateOne(filter, update2);
                 return true;
             }
@@ -94,6 +84,26 @@ namespace projet.Wall
                 return false;
             }
 
+        }
+
+        public Boolean AlreadyLiked(String urlPhoto, Like l)
+        {
+            DataAccess db = new DataAccess();
+
+            // on cherche pour ce post si l'utilisateur à déja like
+            var test= db._db.GetCollection<Post>("post").AsQueryable()
+                     .Where(x => x.UrlPhoto == urlPhoto)
+                     .SelectMany(x => x.List_like)
+                     .Where(x => x.Like_Author == l.Like_Author)
+                     .Any();
+            
+        
+            if (test==false)
+            {
+                return false;
+            }
+
+            else return true;
         }
 
         public Boolean Comment(String urlPhoto, Comment c)

@@ -75,13 +75,31 @@ namespace projet.Controllers
 
             Post p = new Post();
             Like l = new Like();
-            l.Author = userId;
+            l.Like_Author = userId;
             if(p.Like(UrlPhoto,l)==true)
             {
                 return new OkObjectResult("Post liké");
             } 
 
             else return new BadRequestObjectResult("Erreur");
+        }
+
+        [HttpGet("")]
+        [Route("Instalite/AlreadyLiked")]
+        public IActionResult AlreadyLiked(String UrlPhoto)
+        {
+            // On récupere l'id de l'user du token
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            Post p = new Post();
+            Like l = new Like();
+            l.Like_Author = userId;
+            if (p.AlreadyLiked(UrlPhoto, l) == false)
+            {
+                return new OkObjectResult("Post pas encore liké");
+            }
+
+            else return new BadRequestObjectResult("Post déja liké");
         }
 
         [HttpPut("")]
