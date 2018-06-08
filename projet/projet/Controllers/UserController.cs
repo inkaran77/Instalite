@@ -52,7 +52,7 @@ namespace projet.Controllers
                 return new BadRequestObjectResult("Pas de demande d'abonnement");
             }
 
-            else return new OkObjectResult(u.GetWaitingList(userId));
+            else return new OkObjectResult(u.GetWaitingList(userId).ToString());
 
         }
 
@@ -94,9 +94,23 @@ namespace projet.Controllers
             {
                 return new BadRequestObjectResult("Erreur");
             }
-            else return new OkObjectResult(u.GetAllUsers());
+            else return new OkObjectResult(u.GetAllUsers().ToString());
         }
 
+
+        [HttpGet("")]
+        [Route("Instalite/GetAvailableUsers")]
+        public IActionResult GetAvailableUsers()
+        {
+            // On récupere l'id de l'user du token
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            User u = new User();
+            if (u.GetAllUsers() == null)
+            {
+                return new BadRequestObjectResult("Erreur");
+            }
+            else return new OkObjectResult(u.GetAvailableUsers(userId).ToString());
+        }
 
         [HttpGet("")]
         [Route("Instalite/GetUserProfile")]

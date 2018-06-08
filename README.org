@@ -31,6 +31,7 @@
     - [[#acceptfollower-accepter-une-demande-dabonnement-loading][AcceptFollower (accepter une demande d'abonnement) (loading...)]]
     - [[#refusefollowrequest-refuser--une-demande-dabonnement-loading][RefuseFollowRequest (refuser  une demande d'abonnement) (loading...)]]
     - [[#deletefollower-supprimer-un-abonné-loading][DeleteFollower (supprimer un abonné) (loading...)]]
+    - [[#getavailableusers-loading-][GetAvailableUsers (loading) ...]]
   - [[#notification][Notification]]
     - [[#notify][Notify]]
       - [[#followerrequest--loading][FollowerRequest  (loading...)]]
@@ -70,18 +71,18 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | GetAllComments       | Ganeistan OK | Inkaran    | KO   |
 | GetMyNewsFeed        | Ganeistan    | Inkaran OK |      |
 | GetUserProfile       | Ganeistan    | Inkaran OK |      |
-| GetAllUsers          | Ganeistan    | Inkaran    |      |
+| GetAllUsers          | Ganeistan    | Inkaran OK |      |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
-| GetAllMyFollowers    | Ganeistan    | Inkaran OK |      |
-| GetAllMyFollowings   | Ganeistan    | Inkaran OK |      |
-| GetWaitingList       | Ganeistan    | Inkaran OK |      |
-| Follow               | Ganeistan    | Inkaran OK |      |
-| Unfollow             | Ganeistan    | Inkaran OK |      |
-| AcceptFollower       | Ganeistan    | Inkaran OK |      |
-| RefuseFollowRequest  | Ganeistan    | Inkaran OK |      |
-| DeleteFollower       | Ganeistan    | Inkaran Ok |      |
-| Discovery            | Mohamed      | Inkaran    |      |
+| GetAllMyFollowers    | Mohamed      | Inkaran OK |      |
+| GetAllMyFollowings   | Mohamed      | Inkaran OK |      |
+| GetWaitingList       | Mohamed      | Inkaran OK |      |
+| Follow               | Mohamed      | Inkaran OK |      |
+| Unfollow             | Mohamed      | Inkaran OK |      |
+| AcceptFollower       | Mohamed      | Inkaran OK |      |
+| RefuseFollowRequest  | Mohamed      | Inkaran OK |      |
+| DeleteFollower       | Mohamed      | Inkaran Ok |      |
+| GetAvailableUsers    | Mohamed      | Inkaran OK |      |
 |----------------------+--------------+------------+------|
 | *Notification*       |              |            |      |
 | GetNotification      | Ganeistan    | Inkaran    |      |
@@ -504,6 +505,29 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Success Response :
      - Code : =200=
      - Content : =Abonné supprimé=
+   - Error Response 1 :
+     - Code : =400 BAD REQUEST=
+     - Content : =Erreur=
+*** GetAvailableUsers (loading) ...
+   - Return : http code + tous les users éligible à une demande d'abonnements
+   - Url : [[http://localhost:5000/Instalite/GetAvailableUsers]]
+   - Method : Get
+   - Required :
+          =Bearer Token=
+   - Success Response :
+     - Code : =200=
+     - Content :
+          {
+            "ListUsers": [
+               {
+                "First_Name": "Inkaran"
+                "Last_Name":  "Thuraiyappah",
+                "UrlPhoto": "www.instalite.fr/098098098098908/",
+                "UserId": "Inkaran"
+                
+               }
+            ]
+         }
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=

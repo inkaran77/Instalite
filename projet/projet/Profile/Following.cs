@@ -16,10 +16,14 @@ namespace projet.Profile
         [BsonElement("ListUsers")]
         public List<String> ListUsers { get; set; }
 
+        [BsonElement("RequestSendList")]
+        public List<String> RequestSendList { get; set; }
+
         public Following()
         {
             _id = ObjectId.GenerateNewId().ToString();
             ListUsers = new List<String>();
+            RequestSendList = new List<String>();
         }
     
         public Boolean Follow (String myUserId,String userId)
@@ -34,12 +38,22 @@ namespace projet.Profile
                 u = JsonConvert.DeserializeObject<User>(result);
                 if (u.Waiting_List.Contains(myUserId)) return false; // si la demande a déja était faite
                 u.Waiting_List.Add(myUserId);
+                u.Followings.RequestSendList.Add(userId); // ajout à la liste de demande envoyé
 
                 // mise  à jour au niveau de la base de données
                 DataAccess db = new DataAccess();
+               
+
+                // Maj Waitinglist 
                 var filter = Builders<User>.Filter.Eq("UserId", u.UserId);
                 var update = Builders<User>.Update.Set(x => x.Waiting_List, u.Waiting_List);
                 var result2 = db._db.GetCollection<User>("user").UpdateOne(filter, update);
+
+                // Maj RequestSendList
+                var filter2 = Builders<User>.Filter.Eq("UserId", myUserId);
+                var update2 = Builders<User>.Update.Set(x => x.Followings.RequestSendList, u.Followings.RequestSendList);
+                var result3 = db._db.GetCollection<User>("user").UpdateOne(filter2, update2);
+
                 return true;
             }
 
@@ -98,7 +112,7 @@ namespace projet.Profile
             }
         }
 
-        public String GetAllMyFollowings(String userId)
+        public JObject GetAllMyFollowings(String userId)
         {
             DataAccess db = new DataAccess();
             var filter = Builders<User>.Filter.Eq("UserId", userId);
@@ -125,7 +139,7 @@ namespace projet.Profile
 
             }
 
-            return myfollowings.ToString();
+            return myfollowings;
 
         }
 

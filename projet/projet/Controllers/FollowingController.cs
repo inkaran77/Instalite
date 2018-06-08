@@ -57,7 +57,7 @@ namespace projet.Controllers
                 return new BadRequestObjectResult("Pas d'abonnements");
             }
 
-            else return new OkObjectResult(u.Followings.GetAllMyFollowings(myUserId));
+            else return new OkObjectResult(u.Followings.GetAllMyFollowings(myUserId).ToString());
 
         }
     }
