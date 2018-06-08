@@ -21,6 +21,7 @@
 
 
   <p>Description : {{description}}</p>
+  <p>Like : {{like_counter}}</p>
 
 
                 <div class="container-comments">
@@ -78,7 +79,8 @@ export default{
        titre:'titre de la photo',
        commentsList:null,
        description:'une description',
-       author:'autheur'
+       author:'autheur',
+       like_counter:null
 }
   },
 
@@ -119,7 +121,7 @@ export default{
        //à coder format?
        this.description=response.data.Description
        this.titre=response.data.Title
-
+       this.like_counter=response.data.Like_counter
        console.log(response.data)
 
         })

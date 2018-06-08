@@ -21,7 +21,7 @@
 
 
               <p>Description : {{description}}</p>
-
+              <p>Like : {{like_counter}}</p>
 
                 <div class="container-comments">
                   <p><b>Commentaire:</b></p>
@@ -34,7 +34,8 @@
                  </div>
 
                 </div>
-                    <button class="btn-primary btn" v-on:click="comments()">Commenter</button>
+                    <button class="btn-success btn" v-on:click="comments()">Commenter</button>
+                      <button class="btn-primary btn" v-on:click="like()">Like</button>
               </div>
 
 
@@ -78,6 +79,7 @@ export default{
       description:'une description',
       author:'autheur',
       comments:'',
+      like_counter:null
     }
   },
   mounted:function() {
@@ -86,7 +88,26 @@ export default{
 
   },
   methods:{
+    like:function(){
+      this.$http.put('http://localhost:5000/Instalite/Like',{
+        UrlPhoto:this.urlPhoto
+      },{headers: {
+       'Authorization': 'Bearer '+ localStorage.token
+     }}).then(response => {
 
+       this.$notify(
+         {
+           message: 'Like pris en compte',
+           icon: 'add_alert',
+           horizontalAlign: 'right',
+           verticalAlign: 'bottom',
+           type: 'success'
+         })
+         this.getPost()
+        },(response) => {
+
+    })
+  },
     comments:function(){
       if(this.comments!=''){
       this.$http.put('http://localhost:5000/Instalite/Comment',{
@@ -163,6 +184,7 @@ else(this.$notify(
    }}).then(response => {
      this.description=response.data.Description
      this.titre=response.data.Title
+     this.like_counter=response.data.Like_counter
      console.log(response.data)
 
       })
