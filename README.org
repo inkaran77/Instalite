@@ -65,7 +65,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | PostPhoto            | Ganeistan OK | Inkaran OK | OK   |
 | DeletePost           | Ganeistan OK | Inkaran    | KO   |
 | GetPost              | Ganeistan OK | Inkaran OK | KO   |
-| Like                 | Ganeistan    | Inkaran    |      |
+| Like                 | Ganeistan OK | Inkaran    |      |
 | Comment              | Ganeistan OK | Inkaran OK | KO   |
 | GetAllComments       | Ganeistan OK | Inkaran    | KO   |
 | GetMyNewsFeed        | Ganeistan OK | Inkaran OK | OK   |
