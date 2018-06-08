@@ -28,15 +28,22 @@
                   <div class="comments" v-for="Com in commentsList">
                     <p><b>{{Com.Author}} : </b>{{Com.Message}}</p>
                   </div>
-                  <div class="form-group">
-                   <label for="comment">Votre nouveau commentaire:</label>
-                   <textarea class="form-control" v-model="this.comments" rows="3" id="comment"></textarea>
-                 </div>
+
 
                 </div>
-                    <button class="btn-success btn" v-on:click="comments()">Commenter</button>
-                      <button class="btn-primary btn" v-on:click="like()">Like</button>
+
+                <b-form-textarea
+                v-model="comments"
+                placeholder="Votre commentaire ici"
+
+                style="height:190px; width:80%;"
+                >
+              </b-form-textarea>
+              <div class="row">
+                    <button class="btn-success btn" style="margin-right:15px;margin-top:5px;margin-bottom:5px;"v-on:click="comments()">Commenter</button>
+                      <button class="btn-primary btn"style="margin-top:5px;margin-bottom:5px;" v-on:click="like()">Like</button>
               </div>
+            </div>
 
 
               </modal>
@@ -85,6 +92,7 @@ export default{
   mounted:function() {
     this.getAll()
     this.getNews()
+  
 
   },
   methods:{

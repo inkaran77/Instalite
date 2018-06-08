@@ -32,7 +32,8 @@
 
 
                 </div>
-                    <button class="btn-danger btn" v-on:click="delet()">Effacer</button>
+                    <button style="margin-top:5px;margin-bottom:5px;"class="btn-danger btn" v-on:click="delet()">Effacer</button>
+
               </div>
 
 
@@ -175,6 +176,7 @@ export default{
   align-items: center;
   flex-direction: column;
   overflow: scroll;
+
 
 }
 
