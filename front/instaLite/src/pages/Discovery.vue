@@ -19,18 +19,17 @@
               <!-- list of all users -->
               <li class="users-id" v-for="(user, index) in userslist">
                 <div class="Picture">
-                  <avatar :image='user.UrlPhoto' size ="100"></avatar>
+                  <avatar :image='user.UrlPhoto' :size ="100"></avatar>
                 </div>
 
                  <div class="profile_name" >
-                   <h3>{{user.First_Name}} {{user.Last_Name}}</h3>
+                   <a v-on:click="getUserInfo(user.UrlPhoto)" href="#" style="color:#000000"><h3>{{user | fullNAme}}</h3></a>
                  </div>
 
                 <div class="drop_container">
                   <div class="dropdown1">
                     <button class="buttonload" v-on:click="follow(user.UserId)">
                         Follow
-
                     </button>
                   </div>
                 </div>
@@ -63,23 +62,45 @@ export default{
   data () {
     return {
       userslist:null,
+      urlphoto :'',
+      UserId:''
 
     }
+  },
+
+  filters: {
+    fullNAme(data){
+      return `${data.First_Name} ${data.Last_Name}`;
+    }
+
   },
 
   methods:{
 
 
     follow : function(Id){
-
+      this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/Follow',{
-        Id : this.UserId
-      },{
         headers: {
           'Authorization': 'Bearer '+ localStorage.token
-        }}).then(response =>{
+        }},{
+        UserId : this.UserId
+      }).then(response =>{
         this.userslist.slice(index, 1)
         console.log(response.status)
+        })
+    },
+
+    getUserInfo(urlphoto){
+      this.urlphoto = urlphoto
+      this.$http.get('http://localhost:5000/Instalite/GetUserProfile',{
+        headers: {
+          'Authorization': 'Bearer '+ localStorage.token
+        }},{
+        UrlPhoto : urlphoto
+      }).then(response =>{
+
+        console.log(response.data)
         })
     }
 
@@ -87,7 +108,7 @@ export default{
 
 mounted:function(){
 
-    this.$http.get('http://localhost:5000/Instalite/GetAllUsers',{ headers: {
+        this.$http.get('http://localhost:5000/Instalite/GetAllUsers',{ headers: {
           'Authorization': 'Bearer '+ localStorage.token
         }
         }).then(response=> {
@@ -101,7 +122,7 @@ mounted:function(){
       },
 }
 </script>
-<style>
+<style >
   .buttonload {
     border-radius: 5px;
     color : black;
