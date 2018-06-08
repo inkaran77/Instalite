@@ -129,7 +129,7 @@ export default {
 
       this.$validator.validateAll().then((result) => {
             if (result) {
-              if(this.Password=='Changer votre mot de pass ici'){
+              if(this.Password=='Changer votre mot de passe ici'){
                 this.Password=this.profile.Password
               }
               var md5 = require('js-md5');
@@ -207,7 +207,7 @@ return false;
 
   },
   setprofil:function(){
-    this.Password='Changer votre mot de pass ici',
+    this.Password='Changer votre mot de passe ici',
     this.UserId=this.profile.UserId,
     this.Email=this.profile.Email,
     this.Last_name=this.profile.Last_name,
