@@ -82,7 +82,7 @@ export default{
       this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/Follow',{
         headers: {
-          'Authorization': 'Bearer '+ localStorage.token
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
         }},{
         UserId : this.UserId
       }).then(response =>{
@@ -95,7 +95,7 @@ export default{
       this.urlphoto = urlphoto
       this.$http.get('http://localhost:5000/Instalite/GetUserProfile',{
         headers: {
-          'Authorization': 'Bearer '+ localStorage.token
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
         }},{
         UrlPhoto : urlphoto
       }).then(response =>{
@@ -109,7 +109,7 @@ export default{
 mounted:function(){
 
         this.$http.get('http://localhost:5000/Instalite/GetAllUsers',{ headers: {
-          'Authorization': 'Bearer '+ localStorage.token
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
         }
         }).then(response=> {
 

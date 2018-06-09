@@ -97,7 +97,7 @@ export default{
       this.UserId = Id
       this.$http.put('http://localhost:5000/Instalite/AcceptFollower',{
         headers: {
-          'Authorization': 'Bearer '+ localStorage.token
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
         }},{
         UserId : this.UserId
       }).then(response =>{
@@ -110,7 +110,7 @@ export default{
       this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/RefuseFollowRequest',{
         headers: {
-          'Authorization': 'Bearer '+ localStorage.token
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
         }},{
         UserId : this.UserId
       }).then(response =>{
@@ -123,7 +123,7 @@ export default{
         this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/DeleteFollower',{
         headers: {
-          'Authorization': 'Bearer '+ localStorage.token
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
         }},{
         UserId : this.UserId
       }).then(response =>{
@@ -138,11 +138,11 @@ mounted:function(){
 
     Promise.all([
     this.$http.get('http://localhost:5000/Instalite/GetAllMyFollowers',{ headers: {
-          'Authorization': 'Bearer '+ localStorage.token
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
         }
         }),
     this.$http.get('http://localhost:5000/Instalite/GetWaitingList',{ headers: {
-          'Authorization': 'Bearer '+ localStorage.token
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
         }
         })]
         ).then(function(data) {

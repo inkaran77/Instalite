@@ -73,7 +73,7 @@ export default{
       this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/UnFollow',{
         headers: {
-          'Authorization': 'Bearer '+ localStorage.token
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
         }},{
         UserId : this.UserId
       }).then(response =>{
@@ -88,7 +88,7 @@ mounted:function(){
 
       this.$http.get('http://localhost:5000/Instalite/GetAllMyFollowings',{
         headers: {
-          'Authorization': 'Bearer '+ localStorage.token
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
         }
         }).then(response => {
 
