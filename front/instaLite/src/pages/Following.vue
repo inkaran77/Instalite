@@ -72,13 +72,11 @@ export default{
     unfollow : function(Id){
       this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/UnFollow',{
-        headers: {
-          'Authorization': 'Bearer '+ this.$cookies.get("token")
-        }},{
         UserId : this.UserId
-      }).then(response =>{
+       ,headers: {
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
+        }}).then(response =>{
           this.followinglist.slice(index, 1)
-        console.log(response.status)
         })
     }
 

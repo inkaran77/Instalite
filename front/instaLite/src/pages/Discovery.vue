@@ -81,27 +81,26 @@ export default{
     follow : function(Id){
       this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/Follow',{
-        headers: {
-          'Authorization': 'Bearer '+ this.$cookies.get("token")
-        }},{
         UserId : this.UserId
-      }).then(response =>{
+      ,headers: {
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
+        }}).then(response =>{
         this.userslist.slice(index, 1)
         console.log(response.status)
         })
     },
 
     getUserInfo(urlphoto){
+
       this.urlphoto = urlphoto
-      this.$http.get('http://localhost:5000/Instalite/GetUserProfile',{
-        headers: {
-          'Authorization': 'Bearer '+ this.$cookies.get("token")
-        }},{
-        UrlPhoto : urlphoto
-      }).then(response =>{
+
+      this.$http.get('http://localhost:5000/Instalite/GetUserProfile',{ params:{ UrlPhoto : this.urlphoto }
+        ,
+        headers: {'Authorization': 'Bearer '+ this.$cookies.get("token")}
+        }).then(response =>{
 
         console.log(response.data)
-        })
+      })
     }
 
       },

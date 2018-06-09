@@ -96,11 +96,10 @@ export default{
     acceptF : function(Id){
       this.UserId = Id
       this.$http.put('http://localhost:5000/Instalite/AcceptFollower',{
-        headers: {
-          'Authorization': 'Bearer '+ this.$cookies.get("token")
-        }},{
         UserId : this.UserId
-      }).then(response =>{
+       ,headers: {
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
+        }}).then(response =>{
         console.log(response.status)
         })
 
@@ -109,11 +108,10 @@ export default{
     ignoreF : function(Id){
       this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/RefuseFollowRequest',{
-        headers: {
-          'Authorization': 'Bearer '+ this.$cookies.get("token")
-        }},{
         UserId : this.UserId
-      }).then(response =>{
+       ,headers: {
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
+        }}).then(response =>{
           this.waitinglist.slice(index, 1)
         console.log(response.status)
         })
@@ -122,11 +120,10 @@ export default{
     deleteF : function(Id){
         this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/DeleteFollower',{
-        headers: {
-          'Authorization': 'Bearer '+ this.$cookies.get("token")
-        }},{
         UserId : this.UserId
-      }).then(response =>{
+       ,headers: {
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
+        }}).then(response =>{
           this.followerlist.slice(index, 1)
         console.log(response.status)
         })
