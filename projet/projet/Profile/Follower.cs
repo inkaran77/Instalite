@@ -177,7 +177,7 @@ namespace projet.Profile
             }
         }
 
-        public String GetAllMyFollowers(String userId)
+        public JObject GetAllMyFollowers(String userId)
         {
             DataAccess db = new DataAccess();
             var filter = Builders<User>.Filter.Eq("UserId", userId);
@@ -204,7 +204,7 @@ namespace projet.Profile
 
             }
 
-            return myfollowers.ToString();
+            return myfollowers;
 
         }
     }

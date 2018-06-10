@@ -51,13 +51,15 @@ namespace projet.Controllers
             // On récupere l'id de l'user du token
             String myUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             User u = new User();
+            u.Followings = new Following();
 
             if (u.Followings.GetAllMyFollowings(myUserId) == null)
             {
                 return new BadRequestObjectResult("Pas d'abonnements");
             }
 
-            else return new OkObjectResult(u.Followings.GetAllMyFollowings(myUserId).ToString());
+            else 
+                return new OkObjectResult(u.Followings.GetAllMyFollowings(myUserId).ToString());
 
         }
     }
