@@ -5,7 +5,7 @@
       <div class="md-layout-item">
         <md-card>
           <md-card-header data-background-color="blue">
-            <h4 class="title">Mes Abonnés</h4>
+            <h4 class="title">Mes Abonnements</h4>
             <p class="category"></p>
           </md-card-header>
           <md-card-content>
@@ -72,7 +72,7 @@ export default{
     unfollow : function(Id){
       this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/UnFollow',{
-        UserId : this.UserId
+        params:{UserId : this.UserId}
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{

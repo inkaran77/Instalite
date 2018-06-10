@@ -80,8 +80,8 @@ export default{
 
     follow : function(Id){
       this.UserId = Id
-       this.$http.delete('http://localhost:5000/Instalite/Follow',{
-        UserId : this.UserId
+       this.$http.get('http://localhost:5000/Instalite/Follow',{
+        params:{UserId : this.UserId}
       ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
