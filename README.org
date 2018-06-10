@@ -252,7 +252,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
      - Code : =400 BAD REQUEST=
      - Content : =Erreur=
 
-<<<<<<< HEAD
+
 *** AlreadyLiked (loading...)
    - Return : http code
    - Url : http://localhost:5000/Instalite/AlreadyLiked
@@ -266,8 +266,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
    - Error Response 1 :
      - Code : =400 BAD REQUEST=
      - Content : =Post déja liké=
-=======
->>>>>>> af1a07d3658338ecbeddbc83d0e8b642696ee391
+
 *** Comment (loading...)
    - Return : http code
    - Url : [[http://localhost:5000/Instalite/Comment]]

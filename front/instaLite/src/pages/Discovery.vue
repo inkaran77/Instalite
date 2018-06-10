@@ -5,32 +5,32 @@
       <div class="md-layout-item">
         <md-card>
           <md-card-header data-background-color="blue">
-            <h4 class="title">Mes Abonnés</h4>
+            <h4 class="title">Discovery</h4>
             <p class="category"></p>
           </md-card-header>
           <md-card-content>
 
-            <div id="following">
+             <!-- Add icon library -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+            <div id="discovery">
 
 
-              <!-- list of followings -->
-              <li class="following-id" v-for="(following, index) in followinglist">
+              <!-- list of all users -->
+              <li class="users-id" v-for="(user, index) in userslist">
                 <div class="Picture">
-                  <avatar :image='following.UrlPhoto' :size ="100"></avatar>
+                  <avatar :image='user.UrlPhoto' :size ="100"></avatar>
                 </div>
 
                  <div class="profile_name" >
-                   <h3>{{following.UserId}}</h3>
+                   <a v-on:click="getUserInfo(user.UrlPhoto)" href="#" style="color:#000000"><h3>{{user | fullNAme}}</h3></a>
                  </div>
 
                 <div class="drop_container">
                   <div class="dropdown1">
-                    <button class="buttonload">
-                        Following
+                    <button class="buttonload" v-on:click="follow(user.UserId)">
+                        Follow
                     </button>
-                  <div>
-                    <a v-on:click="unfollow(following.UserId)" href="#" style="color:#333333">Unfollow</a>
-                  </div>
                   </div>
                 </div>
               </li>
@@ -61,45 +61,67 @@ export default{
   name: 'app',
   data () {
     return {
-      followinglist:null,
+      userslist:null,
+      urlphoto :'',
       UserId:''
+
     }
+  },
+
+  filters: {
+    fullNAme(data){
+      return `${data.First_Name} ${data.Last_Name}`;
+    }
+
   },
 
   methods:{
 
 
-    unfollow : function(Id){
+    follow : function(Id){
       this.UserId = Id
-       this.$http.delete('http://localhost:5000/Instalite/UnFollow',{
+       this.$http.delete('http://localhost:5000/Instalite/Follow',{
         UserId : this.UserId
-       ,headers: {
+      ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
-          this.followinglist.slice(index, 1)
+        this.userslist.slice(index, 1)
+        console.log(response.status)
         })
+    },
+
+    getUserInfo(urlphoto){
+
+      this.urlphoto = urlphoto
+
+      this.$http.get('http://localhost:5000/Instalite/GetUserProfile',{ params:{ UrlPhoto : this.urlphoto }
+        ,
+        headers: {'Authorization': 'Bearer '+ this.$cookies.get("token")}
+        }).then(response =>{
+
+        console.log(response.data)
+      })
     }
 
       },
 
 mounted:function(){
 
-      this.$http.get('http://localhost:5000/Instalite/GetAllMyFollowings',{
-        headers: {
+        this.$http.get('http://localhost:5000/Instalite/GetAllUsers',{ headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }
-        }).then(response => {
+        }).then(response=> {
 
-       this.followinglist = response.data.MyFollowings
+       this.userslist = response.data.ListUsers
         console.log(response.data)
-  })
+  });
 
 
 
       },
 }
 </script>
-<style>
+<style >
   .buttonload {
     border-radius: 5px;
     color : black;
@@ -109,12 +131,13 @@ mounted:function(){
     }
 
 
-  .following-id{
+  .users-id{
     background:#FFFFFF;
     border:2px solid #CCCCCC;
     font-weight:bold;
     color:#FFFFFF;
     margin:auto;
+
   }
   .Picture{
     display: inline-block;
@@ -128,14 +151,16 @@ mounted:function(){
   .profile_name{
     display: inline-block;
     margin-left: 1%;
-    width: 76%;
     margin-bottom: 1%;
     color:black;
+    width: 76%;
+    margin:0;
   }
 
  .drop_container{
     display: inline-block;
     position:relative;
+
   }
 
   .dropdown1 button{
@@ -147,6 +172,7 @@ mounted:function(){
     cursor:pointer;
     display:inline-block;
     position:relative;
+
 
   }
 
@@ -165,22 +191,5 @@ mounted:function(){
     transition:.3s;
   }
 
-  .dropdown1:hover div{
-    visibility:visible;
-    opacity:1;
-  }
-
-  .dropdown1 div a{
-    display:block;
-    padding:8px;
-    color:#000000;
-    transition:.1s;
-    white-space:nowrap;
-  }
-
-  .dropdown1 div a:hover{
-    background-color:#DDDDDD;
-    color:#333333;
-  }
 
 </style>

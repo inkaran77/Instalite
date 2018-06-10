@@ -11,6 +11,7 @@ import Post from '@/pages/Post.vue'
 import Myphoto from '@/pages/Myphoto.vue'
 import Connexion from '@/connexion.vue'
 import Registration from '@/registration.vue'
+import Discovery from '@/pages/Discovery'
 
 const routes = [
   {
@@ -57,7 +58,11 @@ const routes = [
         name: 'Mes Photos',
         component: Myphoto
       },
-
+      {
+        path: 'discovery',
+        name: 'Discovery',
+        component: Discovery
+      },
 
       {
         path: 'notifications',
