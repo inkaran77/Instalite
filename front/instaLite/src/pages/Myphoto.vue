@@ -10,28 +10,30 @@
           <md-card-content>
             <div id="myphoto">
               <modal :width="700"
-         :height="700" name="description" >
+         :height="600" name="description" >
 
-                <div class="container">
-                <h1>{{titre}}</h1>
-                <div class="gallerie" >
-    <img :src='urlPhoto' style=" height:300px;"alt="" /></a>
+                <div class="containers">
+                <h2>{{titre}}</h2>
+
+                  <div class="container-photo">
+    <img style="height:100%; width:auto;":src='urlPhoto'alt="" /></a>
   </div>
 
+
   <p>Description : {{description}}</p>
-              </div>
-              <div class="container2">
+  <p>Like : {{like_counter}}</p>
+
+
                 <div class="container-comments">
                   <p><b>Commentaire:</b></p>
                   <div class="comments" v-for="Com in commentsList">
-                    <p><b>{{Com.Author}}</b></p>
-                     <br>
-                     <p>{{Com.Message}}</p>
+                    <p><b>{{Com.Author}} : </b>{{Com.Message}}</p>
                   </div>
 
 
                 </div>
-                    <button class="btn-danger" v-on:click="delet()">Effacer</button>
+                    <button style="margin-top:5px;margin-bottom:5px;"class="btn-danger btn" v-on:click="delet()">Effacer</button>
+
               </div>
 
 
@@ -39,7 +41,9 @@
               <div class="row">
 
   <div class="col-sm-4" v-for="Myphoto in Myphotos2">
-<img :src='Myphoto.Lien' class="zoom" style=" height:250px; margin-top:20px;" v-on:click="getUrl(Myphoto.Lien)">
+    <div class="container-img">
+<img :src='Myphoto.Lien' v-on:click="getUrl(Myphoto.Lien)">
+</div>
 
   </div>
 
@@ -76,7 +80,8 @@ export default{
        titre:'titre de la photo',
        commentsList:null,
        description:'une description',
-       author:'autheur'
+       author:'autheur',
+       like_counter:null
 }
   },
 
@@ -84,96 +89,100 @@ export default{
   methods:{
     getUrl:function(url){
       this.urlPhoto=url
-      this.getAllComments()
+      this.getAllComments(url)
       this.getPost()
-      this.$modal.show('description');
-      
+      this.$modal.show('description')
+
     },
 
-    getAllComments:function(){
-      this.$http.get('http://localhost:5000/Instalite/GetAllComments',{
-        UrlPhoto:this.urlPhoto
-      },{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
-     }}).then(response => {
+    getAllComments:function(url){
+
+      this.$http.get('http://localhost:5000/Instalite/GetAllComments',{headers: {
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
+     },params:{
+        UrlPhoto:url
+      }}).then(response => {
        this.commentsList=response.data.Comments
        console.log(response.data)
 
 
         //console.log(this.MyPhotos.Lien)
-        })
+        },(response) => {
+
+    })
 
     },
 
     getPost:function(){
-      this.$http.get('http://localhost:5000/Instalite/GetPost',{
-        UrlPhoto:this.urlPhoto
-      },{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
-     }}).then(response => {
-       //this.commentsList=response.data.Comments
+      this.$http.get('http://localhost:5000/Instalite/GetPost',{headers: {
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
+     },params:{
+        UrlPhoto:this.urlPhoto,
+      }}).then(response => {
+       //à coder format?
+       this.description=response.data.Description
+       this.titre=response.data.Title
+       this.like_counter=response.data.Like_counter
        console.log(response.data)
 
-
-        //console.log(this.MyPhotos.Lien)
         })
     },
 
     delet:function(){
-      this.$http.delete('http://localhost:5000/Instalite/DeletePost',{
+      this.$http.delete('http://localhost:5000/Instalite/DeletePost',{headers: {
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
+     },params:{
         UrlPhoto:this.urlPhoto
-      },{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
       }}).then(response => {
-       //this.commentsList=response.data.Comments
-       this.$modal.hide('description');
-
-       this.$router.push({
-           name: 'Myphoto'
-       });
+        this.$notify(
+          {
+            message: 'Le post est supprimé',
+            icon: 'add_alert',
+            horizontalAlign: 'right',
+            verticalAlign: 'bottom',
+            type: 'success'
+          })
+          this.$modal.hide('description')
+          this.getMyphoto()
 
         //console.log(this.MyPhotos.Lien)
         })
 
     },
 
+    getMyphoto:function(){
+      this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
+     }}).then(response => {
+
+       console.log(response.data.MyPhotos)
+    this.Myphotos2=response.data.MyPhotos
+
+        //console.log(this.MyPhotos.Lien)
+        })
+    }
+
       },
 
       mounted:function() {
-        this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
-         'Authorization': 'Bearer '+ localStorage.token
-       }}).then(response => {
-
-         console.log(response.data.MyPhotos)
-      this.Myphotos2=response.data.MyPhotos
-
-          //console.log(this.MyPhotos.Lien)
-          })
+          this.getMyphoto()
       },
 
 }
 </script>
 <style>
-img.resize {
-  width:200px;
-  height:40px;
-}
-.container{
+
+.containers{
   width: 700px;
-  height: 400px;
+  height: 600px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  overflow: scroll;
+
 
 }
-.container2{
-  width: 700px;
-  height: 300px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 
-}
 .gallerie {
     width: 550px;
 height: 400px;
@@ -187,22 +196,40 @@ top: -10px;
 }
 .container-comments{
   width: 550px;
-  height: 250px;
+  min-height: 200px;
   overflow: scroll;
 
 }
 .comments{
 
-  height: 80px;
+  height: auto;
   margin-bottom: 10px;
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
-  background-color: red;
+  background-color: #CEE3F6;
   overflow: hidden;
+
+
 }
 .zoom:hover {
     opacity: 0.9;
+
+}
+.container-img{
+  max-width: 350px;
+  height: 200px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.container-photo{
+  width: 700px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
 
 }
 </style>

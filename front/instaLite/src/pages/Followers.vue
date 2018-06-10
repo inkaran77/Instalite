@@ -14,6 +14,7 @@
 
             <div id="followers">
 
+
             <!-- waiting list -->
               <li class="follower-id" v-for="(follower, index) in waitinglist">
                 <div class="Picture">

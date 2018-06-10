@@ -114,25 +114,26 @@ namespace projet.Profile
             var result = db._db.GetCollection<Post>("post").Find(filter).FirstOrDefault();
             if (result == null)
             {
-                Console.WriteLine("1");
                 return false; // si le post n'existe pas
-            } 
+            }
+
+            // Correction bug dû au Id dont le parsing est pas le meême
+            JObject obj = JObject.Parse(result.ToJson());
+            var postId = obj.SelectToken("_id").ToString();
+            Console.WriteLine(postId);
 
             Post p = JsonConvert.DeserializeObject<Post>(result.ToJson());
             Console.WriteLine(result.ToJson());
+            //
+
+
+
             // On va supprimer le post dans la liste de post de l'utilisateur
             var result2 = GetMyProfile(userId);
             User u = JsonConvert.DeserializeObject<User>(result2);
 
-            Console.WriteLine(u.List_post);
-            Console.WriteLine("id "+p._id);
-            Console.WriteLine("id " + p.UrlPhoto);
-            Console.WriteLine(u.List_post.Contains(p._id) == true);
-
-
-            if(u.List_post.Contains(p._id)==true){
-                Console.WriteLine("2");
-                u.List_post.Remove(p._id);
+            if(u.List_post.Contains(postId)==true){
+                u.List_post.Remove(postId);
 
                 // On fait la mise à jour au niveau de l'utilisateur
                 var filter2 = Builders<User>.Filter.Eq("UserId", u.UserId);
@@ -188,7 +189,7 @@ namespace projet.Profile
             return j.ToString();
         }
 
-        public String GetWaitingList(String userId)
+        public JObject GetWaitingList(String userId)
         {
             var result = GetMyProfile(userId);
 
@@ -217,7 +218,7 @@ namespace projet.Profile
 
             }
 
-            return waitingList.ToString();
+            return waitingList;
 
         }
 
@@ -289,7 +290,7 @@ namespace projet.Profile
             return test;
         }
 
-        public String GetAllUsers(){
+        public JObject GetAllUsers(){
             DataAccess db = new DataAccess();
 
             //// On crée un json pr renvoyer dans le format voulu
@@ -304,17 +305,73 @@ namespace projet.Profile
                         JObject j1 = new JObject(new JProperty("First_Name", u.First_name));
                         JProperty jp1 = new JProperty("Last_Name", u.Last_name);
                         JProperty jp2 = new JProperty("UrlPhoto", u.UrlPhoto);
+                        JProperty jp3 = new JProperty("UserId", u.UserId);
                         j1.Add(jp1);
                         j1.Add(jp2);
+                        j1.Add(jp3);
                         j.Add(j1);
                 } 
-                return listUsers.ToString();
+                return listUsers;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 return null;
             }
+        }
+
+
+        public JObject GetAvailableUsers(String myUserId){
+            DataAccess db = new DataAccess();
+            var result = GetMyProfile(myUserId);
+
+            // On crée un objet user pour pouvoir récupérer les infors qu'on a bessoin
+            User u = JsonConvert.DeserializeObject<User>(result);
+
+            // On crée une liste avec  les personnes de demande envoyé et mes abonnements
+            List<String> unavailableUsers = new List<String>();
+            foreach (String user in u.Followings.RequestSendList)
+            {
+                unavailableUsers.Add(user);
+            }
+
+            foreach(String user in u.Followings.ListUsers)
+            {
+                unavailableUsers.Add(user);
+            }
+
+            //// On crée un json pr renvoyer dans le format voulu
+            JObject listUsers = JObject.Parse(@"{'ListUsers': []}");
+            JArray j = (JArray)listUsers["ListUsers"];
+
+            try
+            {
+                // On parcours tte la collection d'user
+                var filter = Builders<User>.Filter.Empty;
+                foreach (User u1 in db._db.GetCollection<User>("user").Find(filter).ToListAsync().Result)
+                {
+                    // Si un des users est déja présent on l'ajoute pas et on ajoute pas l'utisateur lui même
+                    if (unavailableUsers.Contains(u1.UserId) == false && u1.UserId != myUserId)
+                    {
+                        JObject j1 = new JObject(new JProperty("First_Name", u1.First_name));
+                        JProperty jp1 = new JProperty("Last_Name", u1.Last_name);
+                        JProperty jp2 = new JProperty("UrlPhoto", u1.UrlPhoto);
+                        JProperty jp3 = new JProperty("UserId", u1.UserId);
+                        j1.Add(jp1);
+                        j1.Add(jp2);
+                        j1.Add(jp3);
+                        j.Add(j1);
+                    }
+                }
+                return listUsers;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+
+
         }
 
         public String GetUserProfile(String urlPhoto)

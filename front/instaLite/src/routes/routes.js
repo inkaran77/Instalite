@@ -55,7 +55,7 @@ const routes = [
       },
       {
         path: 'myphoto',
-        name: 'Myphoto',
+        name: 'Mes Photos',
         component: Myphoto
       },
       {
