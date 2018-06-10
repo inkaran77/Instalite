@@ -48,7 +48,7 @@ namespace projet.Controllers
         }    
     
         [HttpDelete("")]
-        [Route("Instalite/RefuseFollowRequest")]
+        [Route("Instalite/DeleteFollower")]
         public IActionResult DeleteFollower(String UserId)
         {
             // On récupere l'id de l'user du token

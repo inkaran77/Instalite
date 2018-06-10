@@ -71,6 +71,8 @@ namespace projet.Profile
         public User()
         {
             _id = ObjectId.GenerateNewId().ToString();
+            Followings = new Following();
+            Followers = new Follower();
         }
 
         public Boolean PostPhoto(Post p,String userId)

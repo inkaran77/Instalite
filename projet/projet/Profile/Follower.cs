@@ -138,11 +138,14 @@ namespace projet.Profile
                 // On recupére la waiting de l'user à qui on fait une demande d'abonnement
                 User me = new User();
                 var result = me.GetMyProfile(myUserId);
-
+                me = JsonConvert.DeserializeObject<User>(result);
 
                 // On supprime l'abonné de la liste d'abonnés(followers)
-                if (me.Followers.ListUsers.Contains(followerId)==false) return false;
-
+                if (me.Followers.ListUsers.Contains(followerId) == false)
+                {
+                    Console.WriteLine("test");
+                    return false;
+                }
                 else
                 {
                     me.Followers.ListUsers.Remove(followerId);
