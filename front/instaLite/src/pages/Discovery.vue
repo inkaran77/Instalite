@@ -76,11 +76,11 @@ export default{
   },
 
   methods:{
+ //commentaire
 
-
-    follow : function(userId){
-      this.userId = userId
-      this.$http.put('http://localhost:5000/Instalite/Follow',{ params:{UserId : this.userId},
+    follow : function(Id){
+      this.userId = Id
+      this.$http.get('http://localhost:5000/Instalite/Follow',{ params:{UserId : this.userId},
       headers: {'Authorization': 'Bearer '+ this.$cookies.get("token")}
         }).then(response =>{
         this.userslist.slice(index, 1)

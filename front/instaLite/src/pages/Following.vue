@@ -83,7 +83,7 @@ export default{
       },
 
 mounted:function(){
-
+//commentaire
       this.$http.get('http://localhost:5000/Instalite/GetAllMyFollowings',{
         headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
