@@ -107,7 +107,7 @@ export default{
 
 mounted:function(){
 
-        this.$http.get('http://localhost:5000/Instalite/GetAllUsers',{ headers: {
+        this.$http.get('http://localhost:5000/Instalite/GetAvailableUsers',{ headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }
         }).then(response=> {
