@@ -63,7 +63,7 @@ export default{
     return {
       userslist:null,
       urlphoto :'',
-      UserId:''
+      userId:''
 
     }
   },
@@ -78,13 +78,11 @@ export default{
   methods:{
 
 
-    follow : function(Id){
-      this.UserId = Id
-       this.$http.delete('http://localhost:5000/Instalite/Follow',{
-        UserId : this.UserId
-      ,headers: {
-          'Authorization': 'Bearer '+ this.$cookies.get("token")
-        }}).then(response =>{
+    follow : function(userId){
+      this.userId = userId
+      this.$http.put('http://localhost:5000/Instalite/Follow',{ params:{UserId : this.userId},
+      headers: {'Authorization': 'Bearer '+ this.$cookies.get("token")}
+        }).then(response =>{
         this.userslist.slice(index, 1)
         console.log(response.status)
         })
@@ -94,9 +92,8 @@ export default{
 
       this.urlphoto = urlphoto
 
-      this.$http.get('http://localhost:5000/Instalite/GetUserProfile',{ params:{ UrlPhoto : this.urlphoto }
-        ,
-        headers: {'Authorization': 'Bearer '+ this.$cookies.get("token")}
+      this.$http.get('http://localhost:5000/Instalite/GetUserProfile',{ params:{ UrlPhoto : this.urlphoto },
+      headers: {'Authorization': 'Bearer '+ this.$cookies.get("token")}
         }).then(response =>{
 
         console.log(response.data)
@@ -107,7 +104,7 @@ export default{
 
 mounted:function(){
 
-        this.$http.get('http://localhost:5000/Instalite/GetAllUsers',{ headers: {
+        this.$http.get('http://localhost:5000/Instalite/GetAvailableUsers',{ headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }
         }).then(response=> {

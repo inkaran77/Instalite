@@ -31,8 +31,8 @@
                       <i class="fa fa-circle-o-notch fa-spin"></i>  Waiting
                     </button>
                   <div>
-                    <a v-on:click="acceptF(folower.UserId)" href="#" style="color:#333333">Accept</a>
-                    <a v-on:click="ignoreF(folower.UserId)" href="#" style="color:#333333">Ignore</a>
+                    <a v-on:click="acceptF(follower.UserId)" href="#" style="color:#333333">Accept</a>
+                    <a v-on:click="ignoreF(follower.UserId)" href="#" style="color:#333333">Ignore</a>
                   </div>
                   </div>
                 </div>
@@ -97,7 +97,7 @@ export default{
     acceptF : function(Id){
       this.UserId = Id
       this.$http.put('http://localhost:5000/Instalite/AcceptFollower',{
-        UserId : this.UserId
+        params:{UserId : this.UserId}
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
@@ -107,9 +107,9 @@ export default{
     },
 
     ignoreF : function(Id){
-      this.UserId = Id
+       this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/RefuseFollowRequest',{
-        UserId : this.UserId
+        params:{UserId : this.UserId}
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
@@ -119,9 +119,9 @@ export default{
     },
 
     deleteF : function(Id){
-        this.UserId = Id
+      this.UserId = Id
        this.$http.delete('http://localhost:5000/Instalite/DeleteFollower',{
-        UserId : this.UserId
+       params:{UserId : this.UserId}
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
@@ -134,22 +134,23 @@ export default{
 
 mounted:function(){
 
-    Promise.all([
-    this.$http.get('http://localhost:5000/Instalite/GetAllMyFollowers',{ headers: {
-          'Authorization': 'Bearer '+ this.$cookies.get("token")
-        }
-        }),
     this.$http.get('http://localhost:5000/Instalite/GetWaitingList',{ headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }
-        })]
-        ).then(function(data) {
+        }).then(response => {
 
-       this.followerlist = data[0].MyFollowers
-       this.waitinglist = data[1].MyWaitingList
+       this.waitinglist = response.data.MyWaitingList
         console.log(response.data)
   });
 
+    this.$http.get('http://localhost:5000/Instalite/GetAllMyFollowings',{ headers: {
+          'Authorization': 'Bearer '+ this.$cookies.get("token")
+        }
+        }).then(response => {
+
+       this.followerlist = response.data.MyFollowings
+        console.log(response.data)
+  });
 
 
       },
