@@ -16,7 +16,7 @@ namespace projet.Controllers
     {
         
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetMyProfile")]
         public IActionResult GetMyProfile()
         {
@@ -27,7 +27,7 @@ namespace projet.Controllers
 
         }
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetMyPhotos")]
         public IActionResult GetMyPhotos()
         {
@@ -39,7 +39,7 @@ namespace projet.Controllers
 
         }
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetWaitingList")]
         public IActionResult GetWaitingList()
         {
@@ -57,7 +57,7 @@ namespace projet.Controllers
         }
 
 
-        [HttpPut("")]
+        [HttpPut]
         [Route("Instalite/ModifyMyProfile")]
         public IActionResult ModifyMyProfile([FromBody]User user)
         {
@@ -85,7 +85,7 @@ namespace projet.Controllers
 
         }
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetAllUsers")]
         public IActionResult GetAllUsers()
         {
@@ -98,7 +98,7 @@ namespace projet.Controllers
         }
 
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetAvailableUsers")]
         public IActionResult GetAvailableUsers()
         {
@@ -112,7 +112,7 @@ namespace projet.Controllers
             else return new OkObjectResult(u.GetAvailableUsers(userId).ToString());
         }
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetUserProfile")]
         public IActionResult GetUserProfile(String UrlPhoto)
         {

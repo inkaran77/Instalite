@@ -23,7 +23,7 @@ namespace projet.Controllers
         }
 
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetPost")]
         public IActionResult Get(String UrlPhoto)
         {
@@ -66,7 +66,7 @@ namespace projet.Controllers
         }
 
        
-        [HttpPut("")]
+        [HttpPut]
         [Route("Instalite/Like")]
         public IActionResult Like(String UrlPhoto)
         {
@@ -84,7 +84,7 @@ namespace projet.Controllers
             else return new BadRequestObjectResult("Erreur");
         }
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/AlreadyLiked")]
         public IActionResult AlreadyLiked(String UrlPhoto)
         {
@@ -102,7 +102,7 @@ namespace projet.Controllers
             else return new BadRequestObjectResult("Post déja liké");
         }
 
-        [HttpPut("")]
+        [HttpPut]
         [Route("Instalite/Comment")]
         public IActionResult Comment(String UrlPhoto,String Message)
         {
@@ -123,7 +123,7 @@ namespace projet.Controllers
             else return new BadRequestObjectResult("Erreur");
         }
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetAllComments")]
         public IActionResult GetAllComments(String UrlPhoto)
         {
@@ -140,7 +140,7 @@ namespace projet.Controllers
 
 
 
-        [HttpDelete("")]
+        [HttpDelete]
         [Route("Instalite/DeletePost")]
         public IActionResult DeletePost(String UrlPhoto)
         {

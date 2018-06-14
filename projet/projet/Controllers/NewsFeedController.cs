@@ -14,7 +14,7 @@ namespace projet.Controllers
     [Authorize]
     public class NewsFeedController : Controller
     {
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetMyNewsFeed")]
         public IActionResult GetMyNewsFeed()
         {
