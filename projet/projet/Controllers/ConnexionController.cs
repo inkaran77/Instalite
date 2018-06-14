@@ -35,23 +35,23 @@ namespace projet.Controllers
 
 
         // GET: Instalite/Connexion?UserId=&Password=
-        [HttpGet]
+        [HttpPost]
         public IActionResult Get([FromBody]User user )
         {
-            //// On recupére les informations contenu dans les champs
-            //User u = new User()
-            //{
-            //    UserId = user.UserId,
-            //    Password = user.Password,
-            //};
+            // On recupére les informations contenu dans les champs
+            User u = new User()
+            {
+                UserId = user.UserId,
+                Password = user.Password,
+            };
 
-            if (db.IsIdUsed(user.UserId) == false)
+            if (db.IsIdUsed(u.UserId) == false)
             {
                 
                 return new NotFoundObjectResult("L'utilisateur n'existe pas");
             }
 
-            if (db.IsIdUsed(user.UserId) == true)
+            if (db.IsIdUsed(u.UserId) == true)
             {
                 if (db.ValidePassword(user.UserId,user.Password) == false)
                 {
