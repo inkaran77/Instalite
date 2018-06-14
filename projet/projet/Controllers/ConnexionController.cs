@@ -34,7 +34,7 @@ namespace projet.Controllers
 
 
         // GET: Instalite/Connexion?UserId=&Password=
-        [HttpGet("")]
+        [HttpGet]
         public IActionResult Get(String Userid, String Password)
         {
             if (db.IsIdUsed(Userid) == false)
