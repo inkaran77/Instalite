@@ -129,16 +129,17 @@ export default {
 
       this.$validator.validateAll().then((result) => {
             if (result) {
-              if(this.Password=='Changer votre mot de passe ici'){
-                this.Password=this.profile.Password
+              if(this.Password=!'Changer votre mot de passe ici'){
+                var md5 = require('js-md5');
+                this.Password=md5(this.Password)
               }
-              var md5 = require('js-md5');
-              var hachPass=md5(this.Password)
+              else{this.Password=this.profile.Password}
+
       this.$http.put('http://localhost:5000/Instalite/ModifyMyProfile',{
         First_name:this.First_name,
         Last_name:this.Last_name,
           Email:this.Email,
-          Password:hachPass,
+          Password:this.Password,
         UrlPhoto:this.UrlPhoto,
         City:this.City,
         Country:this.Country
@@ -146,7 +147,7 @@ export default {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
        this.getAll()
-
+       this.setprofil()
        this.$notify(
          {
            message: 'Mise à jour effectuer',

@@ -91,12 +91,27 @@ export default{
     }
   },
   mounted:function() {
-
+    this.getAll()
     this.getNews()
 
 
   },
   methods:{
+    getAll:function () {
+      this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
+     }}).then(response => {
+
+
+          var user=response.data
+          localStorage.setItem('user2',JSON.stringify(user))
+          console.log(localStorage.getItem('user2'));
+
+
+        },(response) => {
+      alert('une erreur est survenu')
+    })
+  },
     like:function(){
       this.$http.put('http://localhost:5000/Instalite/Like',{
         UrlPhoto:this.urlPhoto

@@ -82,16 +82,14 @@
               var md5 = require('js-md5');
               var hachPass=md5(this.Password)
 
-                this.$http.get('http://localhost:5000/Instalite/Connexion',{params:{
-
-
+                this.$http.post('http://localhost:5000/Instalite/Connexion',{
                   UserId:this.Login,
                   Password:hachPass
-                }}).then(response => {
+                }).then(response => {
 
 
                     this.$cookies.set("token",response.data.token,60*60*3)
-                  
+
                     this.$router.push({
                         name: 'Fil d actualité'
                     });
