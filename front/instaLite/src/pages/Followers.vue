@@ -96,7 +96,7 @@ export default{
 
     acceptF : function(Id){
       this.UserId = Id
-      this.$http.get('http://localhost:5000/Instalite/AcceptFollower',{
+      this.$http.put('http://localhost:5000/Instalite/AcceptFollower',{},{
         params :{UserId : this.UserId}
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")

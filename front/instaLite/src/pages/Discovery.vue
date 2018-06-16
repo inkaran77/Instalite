@@ -80,7 +80,7 @@ export default{
 
     follow : function(Id){
       this.UserId = Id
-       this.$http.put('http://localhost:5000/Instalite/Follow',"",{
+       this.$http.put('http://localhost:5000/Instalite/Follow',{},{
         params:{UserId : this.UserId}
       ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
