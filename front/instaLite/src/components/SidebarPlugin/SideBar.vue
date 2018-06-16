@@ -3,8 +3,7 @@
     <div class="logo">
       <a class="simple-text logo-mini">
 
-            <img :src="imgLogo" style="position:relative; top:-12px;" alt="">
-
+  <avatar :image="this.urlProfil" :size ="75"></avatar>
       </a>
 
       <h2  target="_blank" class="simple-text logo-normal">
@@ -29,11 +28,12 @@
 <script>
 import SidebarLink from './SidebarLink.vue'
 import MobileMenu from '@/pages/Layout/MobileMenu.vue'
-
+import Avatar from 'vue-avatar-component'
 export default{
   components: {
     SidebarLink,
-    MobileMenu
+    MobileMenu,
+    Avatar
   },
   props: {
     title: {
@@ -62,6 +62,12 @@ export default{
       default: true
     }
   },
+  data () {
+    return {
+
+            profile:JSON.parse(localStorage.getItem('user2'))
+    }
+  },
   provide () {
     return {
       autoClose: this.autoClose
@@ -72,7 +78,11 @@ export default{
       return {
         backgroundImage: `url(${this.backgroundImage})`
       }
-    }
+    },
+    urlProfil: function() {
+      if(this.profile==null){return "http://res.cloudinary.com/dvejva95o/image/upload/v1529156655/icon.png"}
+        return this.profile.UrlPhoto
+      },
   }
 }
 </script>

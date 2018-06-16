@@ -88,7 +88,7 @@
                 }).then(response => {
 
 
-                    this.$cookies.set("token",response.data.token,60*60*3)
+                    this.$cookies.set("token",response.data.token,60*60*3,"/")
 
                     this.$router.push({
                         name: 'Fil d actualité'

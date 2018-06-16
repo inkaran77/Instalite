@@ -14,7 +14,7 @@
               <p class="hidden-lg hidden-md">Dashboard</p>
             </md-list-item>
 
-            <md-list-item to="/notifications" class="dropdown">
+            <md-list-item to="/acceuil/notifications" class="dropdown">
               <drop-down>
                 <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="material-icons">notifications</i>
@@ -25,7 +25,7 @@
               </drop-down>
             </md-list-item>
 
-            <md-list-item to="/user">
+            <md-list-item to="/acceuil/user">
               <i class="material-icons">person</i>
               <p class="hidden-lg hidden-md">Profile</p>
             </md-list-item>
@@ -64,7 +64,7 @@ export default{
     },
     signOut:function(){
       localStorage.clear();
-      this.$cookies.remove("token");
+      this.$cookies.remove("token","/");
       this.$router.push({
           name: 'Connexion'
       });

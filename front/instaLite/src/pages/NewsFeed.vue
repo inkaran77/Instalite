@@ -35,9 +35,10 @@
                 <b-form-textarea
                 v-model="comment"
                 placeholder="Votre commentaire ici"
+                :rows="6"
+                style="min-height:100px;width:80%;margin-top:15px;"
+                :min-rows="6">
 
-                style="height:190px; width:80%;"
-                >
               </b-form-textarea>
               <div class="row">
                     <button class="btn-success btn" style="margin-right:15px;margin-top:5px;margin-bottom:5px;"v-on:click="comments()">Commenter</button>
@@ -87,7 +88,8 @@ export default{
       author:'autheur',
       comment:'',
       like_counter:null,
-      alreadlike:true
+      alreadlike:true,
+      profile:JSON.parse(localStorage.getItem('user2'))
     }
   },
   mounted:function() {
@@ -105,7 +107,7 @@ export default{
 
           var user=response.data
           localStorage.setItem('user2',JSON.stringify(user))
-          console.log(localStorage.getItem('user2'));
+
 
 
         },(response) => {
@@ -113,9 +115,9 @@ export default{
     })
   },
     like:function(){
-      this.$http.put('http://localhost:5000/Instalite/Like',{
-        UrlPhoto:this.urlPhoto
-      },{headers: {
+      this.$http.put('http://localhost:5000/Instalite/Like',"",{params:{
+        UrlPhoto:this.urlPhoto}
+      ,headers: {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
 
@@ -134,13 +136,14 @@ export default{
   },
     comments:function(){
       if(this.comments!=''){
-      this.$http.put('http://localhost:5000/Instalite/Comment',{params:{
+      this.$http.put('http://localhost:5000/Instalite/Comment',"",{params:{
         UrlPhoto:this.urlPhoto,
         Message:this.comment
       },headers: {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
 
+       this.$modal.hide('descriptionFeed');
        this.$notify(
          {
            message: 'Commentaire est en ligne',
@@ -170,6 +173,7 @@ else(this.$notify(
       this.getAllComments(url)
       this.getPost()
       this.alreadyLike()
+      this.comment=""
      this.$modal.show('descriptionFeed');
 
     },
@@ -220,7 +224,7 @@ else(this.$notify(
      this.description=response.data.Description
      this.titre=response.data.Title
      this.like_counter=response.data.Like_counter
-     console.log(response.data)
+     
 
       })
   },
@@ -255,7 +259,7 @@ top: -10px;
 }
 .container-comments{
   width: 550px;
-  min-height: 200px;
+  min-height: 180px;
   overflow: scroll;
 
 }

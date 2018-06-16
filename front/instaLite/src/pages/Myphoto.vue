@@ -4,7 +4,7 @@
       <div class="md-layout-item">
         <md-card>
           <md-card-header data-background-color="blue">
-            <h4 class="title">Mes Photos</h4>
+            <h4 class="title">Mes Photos  <button variant="success" class="btn btn-success">Ajouter une photo</button></h4>
             <p class="category"></p>
           </md-card-header>
           <md-card-content>
@@ -230,6 +230,14 @@ top: -10px;
   height: 400px;
   display: flex;
   justify-content: center;
+
+}
+.btnGg {
+  display:block;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: 1px solid red;
 
 }
 </style>

@@ -129,11 +129,12 @@ export default {
 
       this.$validator.validateAll().then((result) => {
             if (result) {
-              if(this.Password=!'Changer votre mot de passe ici'){
-                var md5 = require('js-md5');
-                this.Password=md5(this.Password)
+              if(this.Password=='Changer votre mot de passe ici'){
+                this.Password=this.profile.Password
               }
-              else{this.Password=this.profile.Password}
+              else{var md5 = require('js-md5');
+              this.Password=md5(this.Password)
+                }
 
       this.$http.put('http://localhost:5000/Instalite/ModifyMyProfile',{
         First_name:this.First_name,
@@ -227,7 +228,7 @@ return false;
 
         var user=response.data
         localStorage.setItem('user2',JSON.stringify(user))
-        console.log(localStorage.getItem('user2'));
+      
 
 
       },(response) => {

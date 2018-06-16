@@ -2,7 +2,6 @@ import DashboardLayout from '@/pages/Layout/DashboardLayout.vue'
 
 
 import UserProfile from '@/pages/UserProfile.vue'
-import Typography from '@/pages/Typography.vue'
 import Notifications from '@/pages/Notifications.vue'
 import NewsFeed from '@/pages/NewsFeed.vue'
 import Followers from '@/pages/Followers.vue'
@@ -27,12 +26,6 @@ const routes = [
         component: UserProfile
       },
 
-
-      {
-        path: 'typography',
-        name: 'Typography',
-        component: Typography
-      },
       {
         path: 'newsfeed',
         name: 'Fil d actualité',
