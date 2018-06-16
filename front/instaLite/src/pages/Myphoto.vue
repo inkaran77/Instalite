@@ -4,7 +4,9 @@
       <div class="md-layout-item">
         <md-card>
           <md-card-header data-background-color="blue">
-            <h4 class="title">Mes Photos  <button variant="success" class="btn btn-success">Ajouter une photo</button></h4>
+            <h4 class="title">Mes Photos  <button variant="success" class="btn btn-success"v-on:click="post()"><i class="material-icons">
+add_a_photo
+</i></button></h4>
             <p class="category"></p>
           </md-card-header>
           <md-card-content>
@@ -127,7 +129,11 @@ export default{
 
         })
     },
-
+    post:function(){
+      this.$router.push({
+          name: 'Poster'
+      });
+    },
     delet:function(){
       this.$http.delete('http://localhost:5000/Instalite/DeletePost',{headers: {
        'Authorization': 'Bearer '+ this.$cookies.get("token")

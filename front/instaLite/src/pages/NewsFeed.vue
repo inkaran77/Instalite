@@ -42,7 +42,9 @@
               </b-form-textarea>
               <div class="row">
                     <button class="btn-success btn" style="margin-right:15px;margin-top:5px;margin-bottom:5px;"v-on:click="comments()">Commenter</button>
-                      <button v-bind:disabled="alreadlike ==true" class="btn-primary btn"style="margin-top:5px;margin-bottom:5px;" v-on:click="like()">Like</button>
+                      <button v-bind:disabled="alreadlike ==true" class="btn-primary btn"style="margin-top:5px;margin-bottom:5px;" v-on:click="like()"><i class="material-icons">
+thumb_up
+</i> Like</button>
               </div>
             </div>
 
@@ -224,7 +226,7 @@ else(this.$notify(
      this.description=response.data.Description
      this.titre=response.data.Title
      this.like_counter=response.data.Like_counter
-     
+
 
       })
   },

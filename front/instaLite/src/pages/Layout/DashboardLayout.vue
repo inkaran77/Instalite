@@ -14,15 +14,11 @@
         <p>Mon Profil</p>
       </sidebar-link>
       <sidebar-link to="/acceuil/myphoto">
-        <md-icon>person</md-icon>
+        <md-icon>collections</md-icon>
         <p>Mes Photos</p>
       </sidebar-link>
-      <sidebar-link to="/acceuil/post">
-        <md-icon>content_paste</md-icon>
-        <p>Poster</p>
-      </sidebar-link>
        <sidebar-link to="/acceuil/discovery">
-        <md-icon>person</md-icon>
+        <md-icon>search</md-icon>
         <p>Discovery</p>
       </sidebar-link>
       <sidebar-link to="/acceuil/followers">
@@ -34,11 +30,6 @@
         <p>Mes abonnements</p>
       </sidebar-link>
 
-
-      <sidebar-link to="/acceuil/notifications">
-        <md-icon>notifications</md-icon>
-        <p>Notifications</p>
-      </sidebar-link>
     </side-bar>
 
     <div class="main-panel">
