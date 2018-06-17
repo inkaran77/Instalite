@@ -14,7 +14,7 @@
 
 
               <!-- list of followings -->
-              <li class="following-id" v-for="(following, index) in followinglist">
+              <li class="following-id" v-for="following in followinglist">
                 <div class="Picture">
                   <avatar :image='following.UrlPhoto' :size ="100"></avatar>
                 </div>
@@ -71,18 +71,18 @@ export default{
 
     unfollow : function(Id){
       this.UserId = Id
+      console.log(this.UserId)
        this.$http.delete('http://localhost:5000/Instalite/UnFollow',{
-        params:{UserId : this.UserId}
+       params: { UserId : this.UserId }
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
-          this.followinglist.slice(index, 1)
+          this.getmyfollowing()
+          console.log(response.status)
         })
-    }
+    },
 
-      },
-
-mounted:function(){
+    getmyfollowing : function(){
 
       this.$http.get('http://localhost:5000/Instalite/GetAllMyFollowings',{
         headers: {
@@ -93,8 +93,13 @@ mounted:function(){
        this.followinglist = response.data.MyFollowings
         console.log(response.data)
   })
+    }
 
+      },
 
+mounted:function(){
+
+          this.getmyfollowing()
 
       },
 }

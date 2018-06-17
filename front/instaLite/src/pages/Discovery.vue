@@ -17,7 +17,7 @@
 
 
               <!-- list of all users -->
-              <li class="users-id" v-for="(user, index) in userslist">
+              <li class="users-id" v-for="user in userslist">
                 <div class="Picture">
                   <avatar :image='user.UrlPhoto' :size ="100"></avatar>
                 </div>
@@ -85,7 +85,7 @@ export default{
       ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
-        this.userslist.slice(index, 1)
+          this.getavailableusers()
         console.log(response.status)
         })
     },
@@ -98,16 +98,11 @@ export default{
         ,
         headers: {'Authorization': 'Bearer '+ this.$cookies.get("token")}
         }).then(response =>{
-
         console.log(response.data)
       })
-    }
-
-      },
-
-mounted:function(){
-
-        this.$http.get('http://localhost:5000/Instalite/GetAvailableUsers',{ headers: {
+    },
+    getavailableusers: function(){
+      this.$http.get('http://localhost:5000/Instalite/GetAvailableUsers',{ headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }
         }).then(response=> {
@@ -115,8 +110,13 @@ mounted:function(){
        this.userslist = response.data.ListUsers
         console.log(response.data)
   });
+    }
 
+      },
 
+mounted:function(){
+
+    this.getavailableusers()
 
       },
 }

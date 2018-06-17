@@ -16,7 +16,7 @@
 
 
             <!-- waiting list -->
-              <li class="follower-id" v-for="(follower, index) in waitinglist">
+              <li class="follower-id" v-for="follower in waitinglist">
                 <div class="Picture">
                   <avatar :image='follower.UrlPhoto' size ="100"></avatar>
                 </div>
@@ -39,7 +39,7 @@
               </li>
 
               <!-- list of followers -->
-              <li class="follower-id" v-for="(follower, index) in followerlist">
+              <li class="follower-id" v-for="follower in followerlist">
                 <div class="Picture">
                   <avatar :image='follower.UrlPhoto' :size ="100"></avatar>
                 </div>
@@ -101,6 +101,8 @@ export default{
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
+          this.getwaitinglist()
+          this.getfollowers()
         console.log(response.status)
         })
 
@@ -113,7 +115,7 @@ export default{
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
-          this.waitinglist.slice(index, 1)
+          this.getwaitinglist()
         console.log(response.status)
         })
     },
@@ -125,32 +127,37 @@ export default{
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
-          this.followerlist.slice(index, 1)
+          this.getfollowers()
         console.log(response.status)
         })
-    }
+    },
 
-      },
-
-mounted:function(){
-
-    this.$http.get('http://localhost:5000/Instalite/GetWaitingList',{ headers: {
+    getwaitinglist : function(){
+      this.$http.get('http://localhost:5000/Instalite/GetWaitingList',{ headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}
         ).then(response => {
        this.waitinglist = response.data.MyWaitingList
         console.log(response.data)
   });
+    },
+    getfollowers : function() {
 
-    this.$http.get('http://localhost:5000/Instalite/GetAllMyFollowers',{ headers: {
+      this.$http.get('http://localhost:5000/Instalite/GetAllMyFollowers',{ headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}
         ).then(response => {
        this.followerlist = response.data.MyFollowers
         console.log(response.data)
   })
+    }
 
+      },
 
+mounted:function(){
+
+      this.getwaitinglist()
+      this.getfollowers()
 
       },
 }
