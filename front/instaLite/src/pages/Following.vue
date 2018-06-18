@@ -14,7 +14,7 @@
 
 
               <!-- list of followings -->
-              <li class="following-id" v-for="following in followinglist">
+              <div class="following-id" v-for="following in followinglist">
                 <div class="Picture">
                   <avatar :image='following.UrlPhoto' :size ="100"></avatar>
                 </div>
@@ -33,7 +33,7 @@
                   </div>
                   </div>
                 </div>
-              </li>
+              </div>
 
 
             </div>
@@ -116,10 +116,12 @@ mounted:function(){
 
   .following-id{
     background:#FFFFFF;
-    border:2px solid #CCCCCC;
+    border-bottom:1px solid #BBBBBB;
     font-weight:bold;
     color:#FFFFFF;
     margin:auto;
+    text-align: center;
+    width:89%;
   }
   .Picture{
     display: inline-block;
@@ -136,6 +138,7 @@ mounted:function(){
     width: 76%;
     margin-bottom: 1%;
     color:black;
+    text-align: left;
   }
 
  .drop_container{

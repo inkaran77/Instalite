@@ -16,7 +16,8 @@
 
 
             <!-- waiting list -->
-              <li class="follower-id" v-for="follower in waitinglist">
+              <div class="follower-id" v-for="follower in waitinglist">
+                <div class="UserDisplay">
                 <div class="Picture">
                   <avatar :image='follower.UrlPhoto' size ="100"></avatar>
                 </div>
@@ -36,10 +37,12 @@
                   </div>
                   </div>
                 </div>
-              </li>
+              </div>
 
+              </div>
               <!-- list of followers -->
-              <li class="follower-id" v-for="follower in followerlist">
+              <div class="follower-id" v-for="follower in followerlist">
+                <div class="UserDisplay">
                 <div class="Picture">
                   <avatar :image='follower.UrlPhoto' :size ="100"></avatar>
                 </div>
@@ -58,7 +61,8 @@
                   </div>
                   </div>
                 </div>
-              </li>
+                </div>
+              </div>
 
 
             </div>
@@ -174,10 +178,12 @@ mounted:function(){
 
   .follower-id{
     background:#FFFFFF;
-    border:2px solid #CCCCCC;
+    border-bottom:1px solid #BBBBBB;
     font-weight:bold;
     color:#FFFFFF;
     margin:auto;
+    text-align: center;
+    width:89%;
   }
   .Picture{
     display: inline-block;
@@ -194,6 +200,7 @@ mounted:function(){
     width: 76%;
     margin-bottom: 1%;
     color:black;
+    text-align: left;
   }
 
  .drop_container{
