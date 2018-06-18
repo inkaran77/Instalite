@@ -97,7 +97,7 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 *** Connexion
    - Return : =un bearer token ou une http code erreur=
    - Url :[[http://localhost:5000/Instalite/Connexion]]
-   - Method : =GET=
+   - Method : =POST=
    - Required : =Id=[String]=  =Password=[String]=
    - Success Response :
      - Code : =200=

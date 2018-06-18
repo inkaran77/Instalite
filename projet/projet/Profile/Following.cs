@@ -74,10 +74,14 @@ namespace projet.Profile
                 User me = new User();
                 var result = me.GetMyProfile(myUserId);
 
-
+                // On crée un objet user pour pouvoir récupérer les infors qu'on a bessoin
+                me = JsonConvert.DeserializeObject<User>(result);
+                
                 // On supprime l'abonnement de la liste d'abonnement(followers)
-                if (me.Followings.ListUsers.Contains(followingId) == false) return false;
-
+                if (me.Followings.ListUsers.Contains(followingId) == false)
+                {
+                    return false;
+                }
                 else
                 {
                     me.Followings.ListUsers.Remove(followingId);
