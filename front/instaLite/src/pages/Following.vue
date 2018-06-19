@@ -16,7 +16,7 @@
               <!-- list of followings -->
               <div class="following-id" v-for="following in followinglist">
                 <div class="Picture">
-                  <avatar :image='following.UrlPhoto' :size ="100"></avatar>
+                  <avatar :image='following.UrlPhoto' :size ='100'></avatar>
                 </div>
 
                  <div class="profile_name" >

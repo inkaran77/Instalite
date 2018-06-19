@@ -23,10 +23,9 @@
               <!-- list of all users -->
 
               <div class="users-id" v-for="user in filterusers">
-
-                <div class="UserDisplay" >
+                <div class="UserDisplay">
                 <div class="Picture">
-                  <avatar :image='user.UrlPhoto' :size ="100"></avatar>
+                  <avatar :image='user.UrlPhoto' :size ='100'></avatar>
                 </div>
 
                  <div class="profile_name" >
@@ -80,8 +79,8 @@ export default{
       followings :null ,
       posts : null,
       show:false,
-      UserId2 : null,
-      search:''
+      UserId2 :'',
+      search:'',
 
     }
   },
@@ -192,7 +191,7 @@ mounted:function(){
     margin:0;
     text-align: left;
   }
-  /*User Fade Away style*/
+
 
  /* Button style*/
  .drop_container{

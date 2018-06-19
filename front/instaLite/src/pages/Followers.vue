@@ -19,7 +19,7 @@
               <div class="follower-id" v-for="follower in waitinglist">
                 <div class="UserDisplay">
                 <div class="Picture">
-                  <avatar :image='follower.UrlPhoto' size ="100"></avatar>
+                  <avatar :image='follower.UrlPhoto' :size ='100'></avatar>
                 </div>
 
                  <div class="profile_name" >
@@ -44,7 +44,7 @@
               <div class="follower-id" v-for="follower in followerlist">
                 <div class="UserDisplay">
                 <div class="Picture">
-                  <avatar :image='follower.UrlPhoto' :size ="100"></avatar>
+                  <avatar :image='follower.UrlPhoto' :size ='100'></avatar>
                 </div>
 
                  <div class="profile_name" >
