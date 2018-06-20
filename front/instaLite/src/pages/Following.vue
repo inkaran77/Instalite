@@ -16,7 +16,7 @@
               <!-- list of followings -->
               <div class="following-id" v-for="following in followinglist">
                 <div class="Picture">
-                  <avatar :image='following.UrlPhoto' :size ="100"></avatar>
+                  <avatar :image='following.UrlPhoto' :size ='100'></avatar>
                 </div>
 
                  <div class="profile_name" >
@@ -105,9 +105,9 @@ mounted:function(){
 }
 </script>
 <style>
-  .buttonload {
-    border-radius: 5px;
-    color : black;
+   .buttonload {
+    border-radius: 20px;
+    font-size: 17px;
     }
   .fa-spin {
     color : black;
@@ -121,7 +121,7 @@ mounted:function(){
     color:#FFFFFF;
     margin:auto;
     text-align: center;
-    width:89%;
+    width:88%;
   }
   .Picture{
     display: inline-block;
@@ -148,7 +148,7 @@ mounted:function(){
 
   .dropdown1 button{
     border:none;
-    padding:8px 20px;
+    padding: 8px 20px;
     background-color:#DDDDDD;
     color:#333333;
     transition:.3s;
@@ -171,6 +171,7 @@ mounted:function(){
     min-width:100%;
     opacity:0;
     transition:.3s;
+    border-radius: 10px;
   }
 
   .dropdown1:hover div{
@@ -184,11 +185,16 @@ mounted:function(){
     color:#000000;
     transition:.1s;
     white-space:nowrap;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 15px;
   }
 
   .dropdown1 div a:hover{
-    background-color:#DDDDDD;
+    background-color:#EEEEEE;
     color:#333333;
+    text-align: center;
+    font-size: 15px;
   }
 
 </style>

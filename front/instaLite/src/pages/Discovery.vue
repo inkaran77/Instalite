@@ -21,10 +21,11 @@
               </div>
 
               <!-- list of all users -->
+
               <div class="users-id" v-for="user in filterusers">
                 <div class="UserDisplay">
                 <div class="Picture">
-                  <avatar :image='user.UrlPhoto' :size ="100"></avatar>
+                  <avatar :image='user.UrlPhoto' :size ='100'></avatar>
                 </div>
 
                  <div class="profile_name" >
@@ -45,7 +46,6 @@
                 </div>
 
               </div>
-
 
             </div>
 
@@ -79,8 +79,8 @@ export default{
       followings :null ,
       posts : null,
       show:false,
-      UserId2 : null,
-      search:''
+      UserId2 :'',
+      search:'',
 
     }
   },
@@ -136,7 +136,9 @@ export default{
 
       this.UserId2= Id;
       this.show = !this.show;
-    }
+    },
+
+
 
       },
 
@@ -160,14 +162,6 @@ mounted:function(){
 }
 </script>
 <style >
-  .buttonload {
-    border-radius: 5px;
-    color : black;
-    }
-  .fa-spin {
-    color : black;
-    }
-
 
   .users-id{
     background:#FFFFFF;
@@ -176,7 +170,7 @@ mounted:function(){
     color:#FFFFFF;
     margin:auto;
     text-align: center;
-    width:89%;
+    width:88%;
 
   }
   .Picture{
@@ -191,19 +185,25 @@ mounted:function(){
   .profile_name{
     display: inline-block;
     position: relative;
-    margin-left: 1%;
-    margin-bottom: 1%;
+    left: 2%;
     color:black;
     width: 76%;
     margin:0;
     text-align: left;
   }
 
+
+ /* Button style*/
  .drop_container{
     display: inline-block;
     position:relative;
 
   }
+
+    .buttonload {
+    border-radius: 20px;
+    font-size: 17px;
+    }
 
   .dropdown1 button{
     border:none;
@@ -266,7 +266,6 @@ input[type=search]::-webkit-search-cancel-button { -webkit-appearance: none;}
 
 .searchfield {
 text-align: right;
-position: relative;
 }
 
 </style>

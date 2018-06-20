@@ -19,7 +19,7 @@
               <div class="follower-id" v-for="follower in waitinglist">
                 <div class="UserDisplay">
                 <div class="Picture">
-                  <avatar :image='follower.UrlPhoto' size ="100"></avatar>
+                  <avatar :image='follower.UrlPhoto' :size ='100'></avatar>
                 </div>
 
                  <div class="profile_name" >
@@ -44,7 +44,7 @@
               <div class="follower-id" v-for="follower in followerlist">
                 <div class="UserDisplay">
                 <div class="Picture">
-                  <avatar :image='follower.UrlPhoto' :size ="100"></avatar>
+                  <avatar :image='follower.UrlPhoto' :size ='100'></avatar>
                 </div>
 
                  <div class="profile_name" >
@@ -167,9 +167,9 @@ mounted:function(){
 }
 </script>
 <style>
-  .buttonload {
-    border-radius: 5px;
-    color : black;
+   .buttonload {
+    border-radius: 20px;
+    font-size: 17px;
     }
   .fa-spin {
     color : black;
@@ -183,7 +183,7 @@ mounted:function(){
     color:#FFFFFF;
     margin:auto;
     text-align: center;
-    width:89%;
+    width:88%;
   }
   .Picture{
     display: inline-block;
@@ -217,7 +217,6 @@ mounted:function(){
     cursor:pointer;
     display:inline-block;
     position:relative;
-
   }
 
   .dropdown1:hover button{
@@ -233,11 +232,13 @@ mounted:function(){
     min-width:100%;
     opacity:0;
     transition:.3s;
+    border-radius: 10px;
   }
 
   .dropdown1:hover div{
     visibility:visible;
     opacity:1;
+
   }
 
   .dropdown1 div a{
@@ -246,11 +247,16 @@ mounted:function(){
     color:#000000;
     transition:.1s;
     white-space:nowrap;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 15px;
   }
 
   .dropdown1 div a:hover{
-    background-color:#DDDDDD;
+    background-color:#EEEEEE;
     color:#333333;
+    text-align: center;
+    font-size: 15px;
   }
 
 </style>
