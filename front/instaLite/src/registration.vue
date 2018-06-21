@@ -22,7 +22,7 @@
   				<input required v-validate="'required|email'"  v-model="User1.Email"style="width: 375px;"type="email" placeholder="email">
   				<div class="st-pss">
   				<input required name="ps1" v-validate="'required'"  v-model="User1.Password2" type="password"  placeholder="Mot de passe">
-          <input required name="ps2" v-validate="'required|confirmed:ps1'"  type="password"  placeholder="Confirmation Mot de passe">	</div>
+          <input required name="ps2" v-validate="'required|confirmed:ps1'"  type="password"  placeholder="Confirmation mot de passe">	</div>
           <span v-show="errors.has('ps2')" style="color:red;font-size:10px;" class="help ">Mot de passe de confirmation différent</span>
 
         </div>

@@ -128,16 +128,28 @@ export default{
    }, {headers: {
     'Authorization': 'Bearer '+ this.$cookies.get("token")
   }}).then(response => {
-
-       alert('Votre photo est en ligne')
+    this.$notify(
+      {
+      message: 'Votre photo est en ligne',
+      icon: 'add_alert',
+      horizontalAlign: 'right',
+      verticalAlign: 'bottom',
+      type: 'success'
+    })
        this.$router.push({
            name: 'Mes Photos'
        });
       // this.$emit('changeCompo','connexion')
        console.log(response.data);
      },(response) => {
-
-     alert('échec, veuillez réessayer')
+       this.$notify(
+         {
+         message: 'échec',
+         icon: 'add_alert',
+         horizontalAlign: 'right',
+         verticalAlign: 'bottom',
+         type: 'danger'
+       })
  })
 },
 updated () {
