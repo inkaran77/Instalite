@@ -27,10 +27,17 @@ namespace projet.Profile
             _db = _client.GetDatabase("Instalite");
            
 
-          //  var connectionString = @"mongodb://instalite1_inkaran:abc@mongodb-instalite1.alwaysdata.net/instalite1_db";
-          //  var mongoUrl = new MongoUrl(connectionString);
-          //  var dbname = mongoUrl.DatabaseName;
-          //   _db = new MongoClient(mongoUrl).GetDatabase(dbname);
+            //var connectionString = @"mongodb://instalite1_inkaran:abc@mongodb-instalite1.alwaysdata.net/instalite1_db";
+            //var mongoUrl = new MongoUrl(connectionString);
+            //var dbname = mongoUrl.DatabaseName;
+             //_db = new MongoClient(mongoUrl).GetDatabase(dbname);
+        
+          
+            //var connectionString = @"mongodb://<inkaran>:<instalite91>@ds261470.mlab.com:61470/instalite";
+              //var mongoUrl = new MongoUrl(connectionString);
+              //var dbname = mongoUrl.DatabaseName;
+               //_db = new MongoClient(mongoUrl).GetDatabase(dbname);
+        
         }
 
 
