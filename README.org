@@ -67,12 +67,12 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | PostPhoto            | Ganeistan OK | Inkaran OK | OK   |
 | DeletePost           | Ganeistan OK | Inkaran OK | OK   |
 | GetPost              | Ganeistan OK | Inkaran OK | OK   |
-| Like                 | Ganeistan OK | Inkaran OK |      |
-| AlreadyLiked         | Ganeistan OK | Inkaran OK |      |
-| Comment              | Ganeistan OK | Inkaran OK |      |
+| Like                 | Ganeistan OK | Inkaran OK | OK   |
+| AlreadyLiked         | Ganeistan OK | Inkaran OK | OK   |
+| Comment              | Ganeistan OK | Inkaran OK | OK   |
 | GetAllComments       | Ganeistan OK | Inkaran OK | OK   |
 | GetMyNewsFeed        | Ganeistan OK | Inkaran OK | OK   |
-| GetUserProfile       | Ganeistan    | Inkaran OK |      |
+| GetUserProfile       | Ganeistan OK | Inkaran OK | OK   |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
 | GetAllMyFollowers    | Mohamed OK   | Inkaran OK |      |
