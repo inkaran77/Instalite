@@ -86,13 +86,8 @@
                   UserId:this.Login,
                   Password:hachPass
                 }).then(response => {
-
-
                     this.$cookies.set("token",response.data.token,60*60*3,"/")
-
-                    this.$router.push({
-                        name: 'Fil d actualité'
-                    });
+                    this.getAll()
 
                   },(response) => {
                   if(response.status==400){
@@ -141,6 +136,20 @@
       }});
 
   },
+  getAll:function () {
+    this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
+     'Authorization': 'Bearer '+ this.$cookies.get("token")
+   }}).then(response => {
+        var user=response.data
+        localStorage.setItem('user2',JSON.stringify(user))
+        this.$router.push({
+            name: 'Fil d actualité'
+        });
+
+      },(response) => {
+    alert('une erreur est survenu')
+  })
+}
 
 
         },

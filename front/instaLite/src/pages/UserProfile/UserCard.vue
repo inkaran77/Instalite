@@ -122,7 +122,7 @@ export default {
           },
   mounted:function() {
     this.getAll();
-    this.setprofil();
+
   },
   methods:{
     updateProfil:function(){
@@ -148,7 +148,6 @@ export default {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
        this.getAll()
-       this.setprofil()
        this.$notify(
          {
            message: 'Mise à jour effectuer',
@@ -228,7 +227,8 @@ return false;
 
         var user=response.data
         localStorage.setItem('user2',JSON.stringify(user))
-      
+        this.profile=JSON.parse(localStorage.getItem('user2'))
+      this.setprofil()
 
 
       },(response) => {

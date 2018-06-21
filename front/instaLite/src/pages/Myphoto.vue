@@ -15,7 +15,7 @@ add_a_photo
          :height="600" name="description" >
 
                 <div class="containers">
-                <h2>{{titre}}</h2>
+                <h4>{{titre}}</h4>
 
                   <div class="container-photo">
     <img style="height:100%; width:auto;":src='urlPhoto'alt="" /></a>
@@ -240,7 +240,7 @@ top: -10px;
 }
 .container-comments{
   width: 550px;
-  min-height: 200px;
+  min-height: 150px;
   overflow: scroll;
 
 }

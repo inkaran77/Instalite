@@ -21,7 +21,8 @@
 
 
               <p>Description : {{description}}</p>
-              <p>Like : {{like_counter}}</p>
+              <p>Like <i class="material-icons md-18">
+            thumb_up</i> : {{like_counter}}</p>
 
                 <div class="container-comments">
                   <p><b>Commentaire:</b></p>
@@ -90,30 +91,16 @@ export default{
       author:'autheur',
       comment:'',
       like_counter:null,
-      alreadlike:true,
-      profile:JSON.parse(localStorage.getItem('user2'))
+      alreadlike:true
+
     }
   },
   mounted:function() {
-    this.getAll()
     this.getNews()
-
 
   },
   methods:{
-    getAll:function () {
-      this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
-       'Authorization': 'Bearer '+ this.$cookies.get("token")
-     }}).then(response => {
-          var user=response.data
-          localStorage.setItem('user2',JSON.stringify(user))
 
-
-
-        },(response) => {
-      alert('une erreur est survenu')
-    })
-  },
     like:function(){
       this.$http.put('http://localhost:5000/Instalite/Like',"",{params:{
         UrlPhoto:this.urlPhoto}
@@ -225,7 +212,8 @@ export default{
 }
 </script>
 <style>
-
+.material-icons.md-18 { font-size: 15px;
+color: rgba(0, 0, 0, 0.54);  }
 .containers{
   width: 700px;
   height: 600px;

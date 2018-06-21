@@ -18,7 +18,7 @@
               <drop-down>
                 <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="material-icons">notifications</i>
-                  <span class="notification">{{counterWait}}</span>
+                  <span v-show="this.counterWait!=0" class="notification">{{counterWait}}</span>
                   <p class="hidden-lg hidden-md">Notifications</p>
                 </a>
 
@@ -62,7 +62,7 @@ export default{
     },
     notif:function(){
       this.counterWait=this.profil.Waiting_List.length
-    
+
     }
   },
   mounted:function() {

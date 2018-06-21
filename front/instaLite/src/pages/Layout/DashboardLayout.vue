@@ -9,10 +9,6 @@
         <md-icon>bubble_chart</md-icon>
         <p>Fil d'actualité</p>
       </sidebar-link>
-      <sidebar-link to="/acceuil/user">
-        <md-icon>person</md-icon>
-        <p>Mon Profil</p>
-      </sidebar-link>
       <sidebar-link to="/acceuil/myphoto">
         <md-icon>collections</md-icon>
         <p>Mes Photos</p>

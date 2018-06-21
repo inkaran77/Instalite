@@ -1,9 +1,9 @@
 <template>
   <div class="sidebar" :data-color="activeColor" :data-image="backgroundImage" :style="sidebarStyle">
     <div class="logo">
-      <a class="simple-text logo-mini">
+      <a v-on:click="profil()" class="simple-text logo-mini">
 
-  <avatar :image="this.urlProfil" :size ="75"></avatar>
+  <avatar  :image="this.urlProfil" :size ="75"></avatar>
       </a>
 
       <h2  target="_blank" class="simple-text logo-normal">
@@ -68,9 +68,17 @@ export default{
             profile:JSON.parse(localStorage.getItem('user2'))
     }
   },
+
   provide () {
     return {
       autoClose: this.autoClose
+    }
+  },
+  methods:{
+    profil:function(){
+      this.$router.push({
+          name: 'Mon Profil'
+      });
     }
   },
   computed: {

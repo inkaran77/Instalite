@@ -107,10 +107,21 @@ export default{
         }}).then(response =>{
           this.getwaitinglist()
           this.getfollowers()
+          this.getAll()
         console.log(response.status)
         })
 
     },
+    getAll:function () {
+      this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
+     }}).then(response => {
+          var user=response.data
+          localStorage.setItem('user2',JSON.stringify(user))
+        },(response) => {
+      alert('une erreur est survenu')
+    })
+  },
 
     ignoreF : function(Id){
       this.UserId = Id
