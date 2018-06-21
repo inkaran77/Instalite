@@ -14,11 +14,11 @@
               <p class="hidden-lg hidden-md">Dashboard</p>
             </md-list-item>
 
-            <md-list-item to="/acceuil/notifications" class="dropdown">
+            <md-list-item to="/acceuil/followers" class="dropdown">
               <drop-down>
                 <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
+                  <span class="notification">{{counterWait}}</span>
                   <p class="hidden-lg hidden-md">Notifications</p>
                 </a>
 
@@ -45,7 +45,8 @@
 export default{
   data () {
     return {
-
+      profil:JSON.parse(localStorage.getItem('user2')),
+      counterWait:0
     }
   },
   methods: {
@@ -58,8 +59,15 @@ export default{
       this.$router.push({
           name: 'Connexion'
       });
+    },
+    notif:function(){
+      this.counterWait=this.profil.Waiting_List.length
+    
     }
-  }
+  },
+  mounted:function() {
+      this.notif()
+  },
 }
 </script>
 

@@ -23,7 +23,8 @@ add_a_photo
 
 
   <p>Description : {{description}}</p>
-  <p>Like : {{like_counter}}</p>
+  <p>Like <i class="material-icons md-18">
+thumb_up</i> : {{like_counter}}</p>
 
 
                 <div class="container-comments">
@@ -34,8 +35,18 @@ add_a_photo
 
 
                 </div>
-                    <button style="margin-top:5px;margin-bottom:5px;"class="btn-danger btn" v-on:click="delet()">Effacer</button>
+                <b-form-textarea
+                v-model="comment"
+                placeholder="Votre commentaire ici"
+                :rows="2"
+                style="min-height:50px;width:80%;margin-top:15px;"
+                :min-rows="2">
 
+              </b-form-textarea>
+              <div>
+                    <button style="margin-top:5px;margin-right:5px;margin-bottom:5px;"class="btn-danger btn" v-on:click="delet()">Effacer</button>
+                    <button v-bind:disabled="comment === ''"style="margin-top:5px;margin-left:5px;margin-bottom:5px;"class="btn-primary btn" v-on:click="comments()">Commenter</button>
+                  </div>
               </div>
 
 
@@ -83,16 +94,44 @@ export default{
        commentsList:null,
        description:'une description',
        author:'autheur',
-       like_counter:null
+       like_counter:null,
+       comment:""
 }
   },
 
 
   methods:{
+    comments:function(){
+      if(this.comment!=''){
+      this.$http.put('http://localhost:5000/Instalite/Comment',"",{params:{
+        UrlPhoto:this.urlPhoto,
+        Message:this.comment
+      },headers: {
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
+     }}).then(response => {
+       this.$notify(
+         {
+           message: 'Commentaire est en ligne',
+           icon: 'add_alert',
+           horizontalAlign: 'right',
+           verticalAlign: 'bottom',
+           type: 'success'
+         })
+         this.$modal.hide('description');
+         this.$router.push({
+             name: 'Mes Photos'
+         });
+        },(response) => {
+
+    })
+}
+
+  },
     getUrl:function(url){
       this.urlPhoto=url
       this.getAllComments(url)
       this.getPost()
+      this.comment=""
       this.$modal.show('description')
 
     },
@@ -105,7 +144,7 @@ export default{
         UrlPhoto:url
       }}).then(response => {
        this.commentsList=response.data.Comments
-       console.log(response.data)
+
 
 
         //console.log(this.MyPhotos.Lien)
@@ -125,7 +164,7 @@ export default{
        this.description=response.data.Description
        this.titre=response.data.Title
        this.like_counter=response.data.Like_counter
-       console.log(response.data)
+
 
         })
     },
@@ -160,8 +199,6 @@ export default{
       this.$http.get('http://localhost:5000/Instalite/GetMyPhotos',{headers: {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
-
-       console.log(response.data.MyPhotos)
     this.Myphotos2=response.data.MyPhotos
 
         //console.log(this.MyPhotos.Lien)
@@ -177,7 +214,8 @@ export default{
 }
 </script>
 <style>
-
+.material-icons.md-18 { font-size: 15px;
+color: rgba(0, 0, 0, 0.54);  }
 .containers{
   width: 700px;
   height: 600px;

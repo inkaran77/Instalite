@@ -41,7 +41,7 @@
 
               </b-form-textarea>
               <div class="row">
-                    <button class="btn-success btn" style="margin-right:15px;margin-top:5px;margin-bottom:5px;"v-on:click="comments()">Commenter</button>
+                    <button v-bind:disabled="comment === ''"class="btn-success btn" style="margin-right:15px;margin-top:5px;margin-bottom:5px;"v-on:click="comments()">Commenter</button>
                       <button v-bind:disabled="alreadlike ==true" class="btn-primary btn"style="margin-top:5px;margin-bottom:5px;" v-on:click="like()"><i class="material-icons">
 thumb_up
 </i> Like</button>
@@ -105,8 +105,6 @@ export default{
       this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
-
-
           var user=response.data
           localStorage.setItem('user2',JSON.stringify(user))
 
@@ -137,7 +135,7 @@ export default{
     })
   },
     comments:function(){
-      if(this.comments!=''){
+      if(this.comment!=''){
       this.$http.put('http://localhost:5000/Instalite/Comment',"",{params:{
         UrlPhoto:this.urlPhoto,
         Message:this.comment
@@ -161,14 +159,7 @@ export default{
 
     })
 }
-else(this.$notify(
-  {
-    message: 'Rédiger un commentaire',
-    icon: 'add_alert',
-    horizontalAlign: 'right',
-    verticalAlign: 'bottom',
-    type: 'danger'
-  }))
+
   },
     getUrl:function(url){
       this.urlPhoto=url
@@ -183,7 +174,7 @@ else(this.$notify(
     alreadyLike:function(){
       this.$http.get('http://localhost:5000/Instalite/AlreadyLiked',{headers: {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
-     }}).then(response => {
+     },params:{UrlPhoto:this.urlPhoto}}).then(response => {
        this.alreadlike=false
         },(response) => {
 
@@ -193,7 +184,6 @@ else(this.$notify(
       this.$http.get('http://localhost:5000/Instalite/GetMyNewsFeed',{headers: {
        'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
-       console.log(response.data.NewsFeed)
     this.MyFeed=response.data.NewsFeed
         },(response) => {
 
@@ -209,7 +199,7 @@ else(this.$notify(
      'Authorization': 'Bearer '+ this.$cookies.get("token")
    }}).then(response => {
      this.commentsList=response.data.Comments
-     console.log(response.data)
+
 
    },(response) => {
 
@@ -226,8 +216,6 @@ else(this.$notify(
      this.description=response.data.Description
      this.titre=response.data.Title
      this.like_counter=response.data.Like_counter
-
-
       })
   },
 

@@ -3,7 +3,7 @@
     <transition name="slide-fade">
     <div>
     <div class="registre3">
-      <h4 style="margin-left: 150px; margin-right: 150px;">Votre photo de profile</h4>
+      <h4 style="margin-left: 150px; margin-right: 150px;">Votre photo de profil</h4>
     <div class="barre"></div><div class="barre" ></div><div class="barre"></div>
     <picture-input
       ref="pictureInput"

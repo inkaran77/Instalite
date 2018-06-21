@@ -2,7 +2,6 @@ import DashboardLayout from '@/pages/Layout/DashboardLayout.vue'
 
 
 import UserProfile from '@/pages/UserProfile.vue'
-import Notifications from '@/pages/Notifications.vue'
 import NewsFeed from '@/pages/NewsFeed.vue'
 import Followers from '@/pages/Followers.vue'
 import Following from '@/pages/Following.vue'
@@ -55,13 +54,8 @@ const routes = [
         path: 'discovery',
         name: 'Discovery',
         component: Discovery
-      },
-
-      {
-        path: 'notifications',
-        name: 'Notifications',
-        component: Notifications
       }
+
     ]
   },
   {
