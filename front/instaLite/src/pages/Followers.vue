@@ -29,11 +29,11 @@
                 <div class="drop_container">
                   <div class="dropdown1">
                     <button class="buttonload">
-                      <i class="fa fa-circle-o-notch fa-spin"></i>  Waiting
+                      <i class="fa fa-circle-o-notch fa-spin"></i> Waiting
                     </button>
                   <div>
-                    <a v-on:click="acceptF(follower.UserId)" href="#" style="color:#333333">Accept</a>
-                    <a v-on:click="ignoreF(follower.UserId)" href="#" style="color:#333333">Ignore</a>
+                    <a v-on:click="acceptF(follower.UserId)" href="#" style="color:#333333">Accepter</a>
+                    <a v-on:click="ignoreF(follower.UserId)" href="#" style="color:#333333">Ignorer</a>
                   </div>
                   </div>
                 </div>
@@ -54,10 +54,10 @@
                 <div class="drop_container">
                   <div class="dropdown1">
                     <button class="buttonload">
-                        Following
+                       &nbsp; Abonné &nbsp;
                     </button>
                   <div>
-                    <a v-on:click="deleteF(follower.UserId)" href="#" style="color:#333333">Delete</a>
+                    <a v-on:click="deleteF(follower.UserId)" href="#" style="color:#333333">Supprimer</a>
                   </div>
                   </div>
                 </div>
@@ -105,23 +105,31 @@ export default{
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
+        if(response.status==200){
+          this.$notify(
+                    {
+                      message: 'Abonnée accepté',
+                      icon: 'add_alert',
+                      horizontalAlign: 'right',
+                      verticalAlign: 'bottom',
+                      type: 'success'
+                    })
+        } else if(response.status == 400) {
+          this.$notify(
+                    {
+                      message: 'Abonnée déjà accepté',
+                      icon: 'add_alert',
+                      horizontalAlign: 'right',
+                      verticalAlign: 'bottom',
+                      type: 'danger'
+                    })
+        }
           this.getwaitinglist()
           this.getfollowers()
-          this.getAll()
-        console.log(response.status)
+
         })
 
     },
-    getAll:function () {
-      this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
-       'Authorization': 'Bearer '+ this.$cookies.get("token")
-     }}).then(response => {
-          var user=response.data
-          localStorage.setItem('user2',JSON.stringify(user))
-        },(response) => {
-      alert('une erreur est survenu')
-    })
-  },
 
     ignoreF : function(Id){
       this.UserId = Id
@@ -130,8 +138,27 @@ export default{
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
-          this.getwaitinglist()
-        console.log(response.status)
+
+        if(response.status==200){
+          this.$notify(
+                    {
+                      message: 'Demande abonnée ingorée',
+                      icon: 'add_alert',
+                      horizontalAlign: 'right',
+                      verticalAlign: 'bottom',
+                      type: 'success'
+                    })
+        } else if(response.status == 400) {
+          this.$notify(
+                    {
+                      message: 'Demande abonnée déjà ignoré',
+                      icon: 'add_alert',
+                      horizontalAlign: 'right',
+                      verticalAlign: 'bottom',
+                      type: 'danger'
+                    })
+        }
+        this.getwaitinglist()
         })
     },
 
@@ -142,8 +169,27 @@ export default{
        ,headers: {
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
-          this.getfollowers()
-        console.log(response.status)
+
+        if(response.status==200){
+          this.$notify(
+                    {
+                      message: 'Abonnée supprimé',
+                      icon: 'add_alert',
+                      horizontalAlign: 'right',
+                      verticalAlign: 'bottom',
+                      type: 'success'
+                    })
+        } else if(response.status == 400) {
+          this.$notify(
+                    {
+                      message: 'Abonnée déjà supprimé',
+                      icon: 'add_alert',
+                      horizontalAlign: 'right',
+                      verticalAlign: 'bottom',
+                      type: 'danger'
+                    })
+        }
+        this.getfollowers()
         })
     },
 
@@ -153,7 +199,8 @@ export default{
         }}
         ).then(response => {
        this.waitinglist = response.data.MyWaitingList
-        console.log(response.data)
+
+
   });
     },
     getfollowers : function() {
@@ -163,7 +210,7 @@ export default{
         }}
         ).then(response => {
        this.followerlist = response.data.MyFollowers
-        console.log(response.data)
+
   })
     }
 
@@ -212,6 +259,7 @@ mounted:function(){
     margin-bottom: 1%;
     color:black;
     text-align: left;
+
   }
 
  .drop_container{

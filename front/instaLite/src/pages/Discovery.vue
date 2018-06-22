@@ -32,14 +32,14 @@
                    <a v-on:click="getUserInfo(user.UrlPhoto), toggle(user.UserId)" href="#" style="color:#000000"><h3>{{user | fullNAme}}</h3></a>
                   <div>
                  <transition name="fade">
-                  <p class="UserInfo" v-if="UserId2==user.UserId&&show" >Posts: {{posts}} &emsp; Followers: {{followers}} &emsp; Followings : {{followings}} </p>
+                  <p class="UserInfo" v-if="UserId2==user.UserId&&show" >{{posts}} Poste(s) &emsp; {{followers}} Abonnées(s) &emsp; {{followings}} Abonnement(s) </p>
                  </transition>
                   </div>
                  </div>
                 <div class="drop_container">
                   <div class="dropdown1">
                     <button class="buttonload" v-on:click="follow(user.UserId)">
-                        Follow
+                        S'abonner
                     </button>
                   </div>
                 </div>
@@ -103,7 +103,25 @@ export default{
           'Authorization': 'Bearer '+ this.$cookies.get("token")
         }}).then(response =>{
           this.getavailableusers()
-        console.log(response.status)
+        if(response.status==200){
+          this.$notify(
+                    {
+                      message: 'Demande envoyée',
+                      icon: 'add_alert',
+                      horizontalAlign: 'right',
+                      verticalAlign: 'bottom',
+                      type: 'success'
+                    })
+        }else if(response.status == 400) {
+          this.$notify(
+                    {
+                      message: 'Vous avez déjà envoyé une demande',
+                      icon: 'add_alert',
+                      horizontalAlign: 'right',
+                      verticalAlign: 'bottom',
+                      type: 'danger'
+                    })
+        }
         })
     },
 
@@ -233,6 +251,8 @@ mounted:function(){
     transition:.3s;
   }
 
+  /* Transition style*/
+
   .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
   }
@@ -242,8 +262,9 @@ mounted:function(){
   .UserInfo{
     color:#333333;
     font-style:italic;
-    position: absolute;
-    margin-left: 0.5%
+    margin-left: 0.5%;
+    vertical-align:text-bottom;
+    position: absolute
   }
 
 
@@ -255,7 +276,9 @@ no-repeat 14px 14px;
 text-indent: 1em; display: inline-block; border: 0 none; width: 0; height: 3em;
 border-radius: 3em; -webkit-transition: .5s; transition: .5s; outline: none; padding: 1em 1.5em; cursor: pointer;
 -webkit-appearance: none; font-weight: inherit; font-size: inherit; font-family: inherit; color: #000;
-vertical-align: baseline;}
+vertical-align: baseline;
+
+}
 
 input[type=search]::-webkit-search-cancel-button { -webkit-appearance: none;}
 
