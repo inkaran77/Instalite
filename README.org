@@ -75,15 +75,15 @@ Notre application InstaLite est une version réduite qui reprend le concept d'I
 | GetUserProfile       | Ganeistan OK | Inkaran OK | OK   |
 |----------------------+--------------+------------+------|
 | *Abonné/Abonnements* |              |            |      |
-| GetAllMyFollowers    | Mohamed OK   | Inkaran OK |      |
-| GetAllMyFollowings   | Mohamed OK   | Inkaran OK |      |
-| GetWaitingList       | Mohamed OK   | Inkaran OK |      |
-| Follow               | Mohamed OK   | Inkaran OK |      |
-| Unfollow             | Mohamed OK   | Inkaran OK |      |
-| AcceptFollower       | Mohamed OK   | Inkaran OK |      |
-| RefuseFollowRequest  | Mohamed OK   | Inkaran OK |      |
-| DeleteFollower       | Mohamed OK   | Inkaran Ok |      |
-| GetAvailableUsers    | Mohamed OK   | Inkaran OK |      |
+| GetAllMyFollowers    | Mohamed OK   | Inkaran OK | OK   |
+| GetAllMyFollowings   | Mohamed OK   | Inkaran OK | OK   |
+| GetWaitingList       | Mohamed OK   | Inkaran OK | OK   |
+| Follow               | Mohamed OK   | Inkaran OK | OK   |
+| Unfollow             | Mohamed OK   | Inkaran OK | OK   |
+| AcceptFollower       | Mohamed OK   | Inkaran OK | OK   |
+| RefuseFollowRequest  | Mohamed OK   | Inkaran OK | OK   |
+| DeleteFollower       | Mohamed OK   | Inkaran Ok | OK   |
+| GetAvailableUsers    | Mohamed OK   | Inkaran OK | OK   |
 |----------------------+--------------+------------+------|
 | *Notification*       |              |            |      |
 | GetNotification      | Ganeistan    | Inkaran    |      |
