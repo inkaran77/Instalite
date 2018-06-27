@@ -27,10 +27,17 @@ namespace projet.Profile
             _db = _client.GetDatabase("Instalite");
            
 
-          //  var connectionString = @"mongodb://instalite1_inkaran:abc@mongodb-instalite1.alwaysdata.net/instalite1_db";
-          //  var mongoUrl = new MongoUrl(connectionString);
-          //  var dbname = mongoUrl.DatabaseName;
-          //   _db = new MongoClient(mongoUrl).GetDatabase(dbname);
+            //var connectionString = @"mongodb://instalite1_inkaran:abc@mongodb-instalite1.alwaysdata.net/instalite1_db";
+            //var mongoUrl = new MongoUrl(connectionString);
+            //var dbname = mongoUrl.DatabaseName;
+             //_db = new MongoClient(mongoUrl).GetDatabase(dbname);
+        
+          
+            //var connectionString = @"mongodb://<inkaran>:<instalite91>@ds261470.mlab.com:61470/instalite";
+              //var mongoUrl = new MongoUrl(connectionString);
+              //var dbname = mongoUrl.DatabaseName;
+               //_db = new MongoClient(mongoUrl).GetDatabase(dbname);
+        
         }
 
 
@@ -103,34 +110,34 @@ namespace projet.Profile
         //}
 
 
-        // ANCIEN
-        // Ajoute photo et renvoie son id
-        public String AddPhoto(String lien)
-        {
-            Photo photo = new Photo();
-            photo.UrlPhoto = lien;
-            _db.GetCollection<Photo>("photo").InsertOne(photo);
-            var id = photo._id.ToString();
-            return id;
+        //// ANCIEN
+        //// Ajoute photo et renvoie son id
+        //public String AddPhoto(String lien)
+        //{
+        //    Photo photo = new Photo();
+        //    photo.UrlPhoto = lien;
+        //    _db.GetCollection<Photo>("photo").InsertOne(photo);
+        //    var id = photo._id.ToString();
+        //    return id;
 
-        }
+        //}
 
-        // ANCIEN
-        public String GetPhoto(String PhotoId)
-        {
-            var filter = Builders<Photo>.Filter.Eq("_id", ObjectId.Parse(PhotoId));
-            var result = _db.GetCollection<Photo>("photo").Find(filter).ToList();
-            return result.ToJson();
+        //// ANCIEN
+        //public String GetPhoto(String PhotoId)
+        //{
+        //    var filter = Builders<Photo>.Filter.Eq("_id", ObjectId.Parse(PhotoId));
+        //    var result = _db.GetCollection<Photo>("photo").Find(filter).ToList();
+        //    return result.ToJson();
 
 
-         //  var jArray = JArray.Parse(result.ToJson());
-         //  return jArray[1]["UrlPhoto"].Value<String>();
+        // //  var jArray = JArray.Parse(result.ToJson());
+        // //  return jArray[1]["UrlPhoto"].Value<String>();
 
-            //var cList = JsonConvert.DeserializeObject<Photo>(result.ToJson());
-            //String obj = cList.UrlPhoto.ToString();
-            //return obj;
+        //    //var cList = JsonConvert.DeserializeObject<Photo>(result.ToJson());
+        //    //String obj = cList.UrlPhoto.ToString();
+        //    //return obj;
 
-        }
+        //}
 
         //Ancien test
         // Test retour brute

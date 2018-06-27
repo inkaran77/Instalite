@@ -2,8 +2,6 @@ import DashboardLayout from '@/pages/Layout/DashboardLayout.vue'
 
 
 import UserProfile from '@/pages/UserProfile.vue'
-import Typography from '@/pages/Typography.vue'
-import Notifications from '@/pages/Notifications.vue'
 import NewsFeed from '@/pages/NewsFeed.vue'
 import Followers from '@/pages/Followers.vue'
 import Following from '@/pages/Following.vue'
@@ -11,6 +9,7 @@ import Post from '@/pages/Post.vue'
 import Myphoto from '@/pages/Myphoto.vue'
 import Connexion from '@/connexion.vue'
 import Registration from '@/registration.vue'
+import Discovery from '@/pages/Discovery'
 
 const routes = [
   {
@@ -26,12 +25,6 @@ const routes = [
         component: UserProfile
       },
 
-
-      {
-        path: 'typography',
-        name: 'Typography',
-        component: Typography
-      },
       {
         path: 'newsfeed',
         name: 'Fil d actualité',
@@ -54,16 +47,15 @@ const routes = [
       },
       {
         path: 'myphoto',
-        name: 'Myphoto',
+        name: 'Mes Photos',
         component: Myphoto
       },
-
-
       {
-        path: 'notifications',
-        name: 'Notifications',
-        component: Notifications
+        path: 'discovery',
+        name: 'Discovery',
+        component: Discovery
       }
+
     ]
   },
   {

@@ -14,18 +14,18 @@
               <p class="hidden-lg hidden-md">Dashboard</p>
             </md-list-item>
 
-            <md-list-item to="/notifications" class="dropdown">
+            <md-list-item to="/acceuil/followers" class="dropdown">
               <drop-down>
                 <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
+                  <span v-show="this.counterWait!=0" class="notification">{{counterWait}}</span>
                   <p class="hidden-lg hidden-md">Notifications</p>
                 </a>
 
               </drop-down>
             </md-list-item>
 
-            <md-list-item to="/user">
+            <md-list-item to="/acceuil/user">
               <i class="material-icons">person</i>
               <p class="hidden-lg hidden-md">Profile</p>
             </md-list-item>
@@ -45,17 +45,8 @@
 export default{
   data () {
     return {
-      selectedEmployee: null,
-      employees: [
-        'Jim Halpert',
-        'Dwight Schrute',
-        'Michael Scott',
-        'Pam Beesly',
-        'Angela Martin',
-        'Kelly Kapoor',
-        'Ryan Howard',
-        'Kevin Malone'
-      ]
+      profil:JSON.parse(localStorage.getItem('user2')),
+      counterWait:0
     }
   },
   methods: {
@@ -64,11 +55,19 @@ export default{
     },
     signOut:function(){
       localStorage.clear();
+      this.$cookies.remove("token","/");
       this.$router.push({
           name: 'Connexion'
       });
+    },
+    notif:function(){
+      this.counterWait=this.profil.Waiting_List.length
+
     }
-  }
+  },
+  mounted:function() {
+      this.notif()
+  },
 }
 </script>
 

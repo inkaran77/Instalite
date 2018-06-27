@@ -122,31 +122,32 @@ export default {
           },
   mounted:function() {
     this.getAll();
-    this.setprofil();
+
   },
   methods:{
     updateProfil:function(){
 
       this.$validator.validateAll().then((result) => {
             if (result) {
-              if(this.Password=='Changer votre mot de pass ici'){
+              if(this.Password=='Changer votre mot de passe ici'){
                 this.Password=this.profile.Password
               }
-              var md5 = require('js-md5');
-              var hachPass=md5(this.Password)
+              else{var md5 = require('js-md5');
+              this.Password=md5(this.Password)
+                }
+
       this.$http.put('http://localhost:5000/Instalite/ModifyMyProfile',{
         First_name:this.First_name,
         Last_name:this.Last_name,
           Email:this.Email,
-          Password:hachPass,
+          Password:this.Password,
         UrlPhoto:this.UrlPhoto,
         City:this.City,
         Country:this.Country
       },{headers: {
-       'Authorization': 'Bearer '+ localStorage.token
+       'Authorization': 'Bearer '+ this.$cookies.get("token")
      }}).then(response => {
        this.getAll()
-
        this.$notify(
          {
            message: 'Mise à jour effectuer',
@@ -207,7 +208,7 @@ return false;
 
   },
   setprofil:function(){
-    this.Password='Changer votre mot de pass ici',
+    this.Password='Changer votre mot de passe ici',
     this.UserId=this.profile.UserId,
     this.Email=this.profile.Email,
     this.Last_name=this.profile.Last_name,
@@ -220,13 +221,14 @@ return false;
 
   getAll:function () {
     this.$http.get('http://localhost:5000/Instalite/GetMyProfile',{headers: {
-     'Authorization': 'Bearer '+ localStorage.token
+     'Authorization': 'Bearer '+ this.$cookies.get("token")
    }}).then(response => {
 
 
         var user=response.data
         localStorage.setItem('user2',JSON.stringify(user))
-        console.log(localStorage.getItem('user2'));
+        this.profile=JSON.parse(localStorage.getItem('user2'))
+      this.setprofil()
 
 
       },(response) => {

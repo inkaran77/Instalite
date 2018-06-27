@@ -64,6 +64,18 @@ namespace projet.Profile
                 var result3 = me.GetMyProfile(newFollowerId);
                 newFollower = JsonConvert.DeserializeObject<User>(result3);
                 //Console.WriteLine(result);
+
+                // On retire de RequestSendList la demande d'abonnement
+                if (newFollower.Followings.RequestSendList.Contains(myUserId) == false) return false;
+                else
+                {
+                    newFollower.Followings.RequestSendList.Remove(myUserId);
+                    // Maj au niveau de la BD
+                    var filter = Builders<User>.Filter.Eq("UserId", newFollowerId);
+                    var update = Builders<User>.Update.Set(x => x.Followings.RequestSendList, newFollower.Followings.RequestSendList);
+                    var result2 = db._db.GetCollection<User>("user").UpdateOne(filter, update);
+                }
+
                 // On ajoute l'id de l'utlisateur à la liste des abonnements du nouveau abonné
                 if (newFollower.Followings.ListUsers.Contains(myUserId) == true) return false;
                 else
@@ -126,11 +138,14 @@ namespace projet.Profile
                 // On recupére la waiting de l'user à qui on fait une demande d'abonnement
                 User me = new User();
                 var result = me.GetMyProfile(myUserId);
-
+                me = JsonConvert.DeserializeObject<User>(result);
 
                 // On supprime l'abonné de la liste d'abonnés(followers)
-                if (me.Followers.ListUsers.Contains(followerId)==false) return false;
-
+                if (me.Followers.ListUsers.Contains(followerId) == false)
+                {
+                    Console.WriteLine("test");
+                    return false;
+                }
                 else
                 {
                     me.Followers.ListUsers.Remove(followerId);
@@ -165,7 +180,7 @@ namespace projet.Profile
             }
         }
 
-        public String GetAllMyFollowers(String userId)
+        public JObject GetAllMyFollowers(String userId)
         {
             DataAccess db = new DataAccess();
             var filter = Builders<User>.Filter.Eq("UserId", userId);
@@ -192,7 +207,7 @@ namespace projet.Profile
 
             }
 
-            return myfollowers.ToString();
+            return myfollowers;
 
         }
     }

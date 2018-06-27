@@ -3,7 +3,7 @@
     <transition name="slide-fade">
     <div>
     <div class="registre3">
-      <h4 style="margin-left: 150px; margin-right: 150px;">Votre photo de profile</h4>
+      <h4 style="margin-left: 150px; margin-right: 150px;">Votre photo de profil</h4>
     <div class="barre"></div><div class="barre" ></div><div class="barre"></div>
     <picture-input
       ref="pictureInput"
@@ -23,7 +23,7 @@
     </picture-input>
     <div class="registre3" style="margin-top: 0;">
     <button v-on:click="back()" class="btn-danger btn btn-reg">Retour</button>
-    <button v-on:click="signup()" class="btn-success btn btn-reg">Valider</button>
+    <button v-on:click="signup()" v-bind:disabled="UrlPhoto === ''" class="btn-success btn btn-reg">Valider</button>
       </div>
   </div>
 

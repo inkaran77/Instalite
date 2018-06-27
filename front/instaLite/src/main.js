@@ -33,6 +33,7 @@ Vue.use(Notifications)
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
 Vue.use(VueRessource);
+Vue.use(require('vue-cookies'));
 
 // global library setup
 Object.defineProperty(Vue.prototype, '$Chartist', {

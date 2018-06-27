@@ -14,7 +14,7 @@ namespace projet.Controllers
     [Authorize]
     public class FollowingController : Controller
     {
-        [HttpPut("")]
+        [HttpPut]
         [Route("Instalite/Follow")]
         public IActionResult Follow(String UserId)
         {
@@ -29,7 +29,7 @@ namespace projet.Controllers
             else return new BadRequestObjectResult("Erreur");
         }
 
-        [HttpDelete("")]
+        [HttpDelete()]
         [Route("Instalite/UnFollow")]
         public IActionResult UnFollow(String UserId)
         {
@@ -44,20 +44,22 @@ namespace projet.Controllers
             else return new BadRequestObjectResult("Erreur");
         }
 
-        [HttpGet("")]
+        [HttpGet()]
         [Route("Instalite/GetAllMyFollowings")]
         public IActionResult GetAllMyFollowings()
         {
             // On récupere l'id de l'user du token
             String myUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             User u = new User();
+            u.Followings = new Following();
 
             if (u.Followings.GetAllMyFollowings(myUserId) == null)
             {
                 return new BadRequestObjectResult("Pas d'abonnements");
             }
 
-            else return new OkObjectResult(u.Followings.GetAllMyFollowings(myUserId));
+            else 
+                return new OkObjectResult(u.Followings.GetAllMyFollowings(myUserId).ToString());
 
         }
     }

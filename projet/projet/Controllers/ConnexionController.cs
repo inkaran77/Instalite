@@ -33,19 +33,27 @@ namespace projet.Controllers
         }
 
 
+
         // GET: Instalite/Connexion?UserId=&Password=
-        [HttpGet("")]
-        public IActionResult Get(String Userid, String Password)
+        [HttpPost]
+        public IActionResult Get([FromBody]User user )
         {
-            if (db.IsIdUsed(Userid) == false)
+            // On recupére les informations contenu dans les champs
+            User u = new User()
             {
-                //String a = "Id";
+                UserId = user.UserId,
+                Password = user.Password,
+            };
+
+            if (db.IsIdUsed(u.UserId) == false)
+            {
+                
                 return new NotFoundObjectResult("L'utilisateur n'existe pas");
             }
 
-            if (db.IsIdUsed(Userid) == true)
+            if (db.IsIdUsed(u.UserId) == true)
             {
-                if (db.ValidePassword(Userid, Password) == false)
+                if (db.ValidePassword(user.UserId,user.Password) == false)
                 {
                     return new BadRequestObjectResult("Mot de passe erroné");
                 }
@@ -54,7 +62,7 @@ namespace projet.Controllers
             // Création du token
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.NameId, Userid)
+                new Claim(JwtRegisteredClaimNames.NameId, user.UserId)
             };
            
             const string sec = "401abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1";
@@ -76,6 +84,52 @@ namespace projet.Controllers
 
 
     }
+
+    // Avec Params
+
+    //    // GET: Instalite/Connexion?UserId=&Password=
+    //    [HttpGet]
+    //    public IActionResult Get(String Userid, String Password)
+    //    {
+    //        if (db.IsIdUsed(Userid) == false)
+    //        {
+    //            //String a = "Id";
+    //            return new NotFoundObjectResult("L'utilisateur n'existe pas");
+    //        }
+
+    //        if (db.IsIdUsed(Userid) == true)
+    //        {
+    //            if (db.ValidePassword(Userid, Password) == false)
+    //            {
+    //                return new BadRequestObjectResult("Mot de passe erroné");
+    //            }
+    //        }
+
+    //        // Création du token
+    //        var claims = new[]
+    //        {
+    //            new Claim(JwtRegisteredClaimNames.NameId, Userid)
+    //        };
+           
+    //        const string sec = "401abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1";
+    //        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(sec));
+           
+    //        var token = new JwtSecurityToken
+    //        (
+    //            issuer: "instalite.fr",
+    //            audience: "instalite.fr",
+    //            claims: claims,
+    //            expires: DateTime.UtcNow.AddMinutes(180),
+    //            notBefore: DateTime.UtcNow,
+    //            signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
+    //        );
+
+    //        return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
+          
+    //    }
+
+
+    //}
 
    
     /*

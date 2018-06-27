@@ -48,7 +48,7 @@ namespace projet.Controllers
         }    
     
         [HttpDelete("")]
-        [Route("Instalite/RefuseFollowRequest")]
+        [Route("Instalite/DeleteFollower")]
         public IActionResult DeleteFollower(String UserId)
         {
             // On récupere l'id de l'user du token
@@ -70,13 +70,14 @@ namespace projet.Controllers
             // On récupere l'id de l'user du token
             String myUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             User u = new User();
+            u.Followers = new Follower();
 
-            if (u.Followers.GetAllMyFollowers(myUserId) == null)
+            if (u.Followers.GetAllMyFollowers(myUserId)== null)
             {
                 return new BadRequestObjectResult("Pas d'abonnées");
             }
 
-            else return new OkObjectResult(u.Followers.GetAllMyFollowers(myUserId));
+            else return new OkObjectResult(u.Followers.GetAllMyFollowers(myUserId).ToString());
 
         }
 

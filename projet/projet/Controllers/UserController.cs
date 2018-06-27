@@ -16,7 +16,7 @@ namespace projet.Controllers
     {
         
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetMyProfile")]
         public IActionResult GetMyProfile()
         {
@@ -27,7 +27,7 @@ namespace projet.Controllers
 
         }
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetMyPhotos")]
         public IActionResult GetMyPhotos()
         {
@@ -39,7 +39,7 @@ namespace projet.Controllers
 
         }
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetWaitingList")]
         public IActionResult GetWaitingList()
         {
@@ -52,12 +52,12 @@ namespace projet.Controllers
                 return new BadRequestObjectResult("Pas de demande d'abonnement");
             }
 
-            else return new OkObjectResult(u.GetWaitingList(userId));
+            else return new OkObjectResult(u.GetWaitingList(userId).ToString());
 
         }
 
 
-        [HttpPut("")]
+        [HttpPut]
         [Route("Instalite/ModifyMyProfile")]
         public IActionResult ModifyMyProfile([FromBody]User user)
         {
@@ -85,7 +85,7 @@ namespace projet.Controllers
 
         }
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetAllUsers")]
         public IActionResult GetAllUsers()
         {
@@ -94,11 +94,25 @@ namespace projet.Controllers
             {
                 return new BadRequestObjectResult("Erreur");
             }
-            else return new OkObjectResult(u.GetAllUsers());
+            else return new OkObjectResult(u.GetAllUsers().ToString());
         }
 
 
-        [HttpGet("")]
+        [HttpGet]
+        [Route("Instalite/GetAvailableUsers")]
+        public IActionResult GetAvailableUsers()
+        {
+            // On récupere l'id de l'user du token
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            User u = new User();
+            if (u.GetAllUsers() == null)
+            {
+                return new BadRequestObjectResult("Erreur");
+            }
+            else return new OkObjectResult(u.GetAvailableUsers(userId).ToString());
+        }
+
+        [HttpGet]
         [Route("Instalite/GetUserProfile")]
         public IActionResult GetUserProfile(String UrlPhoto)
         {

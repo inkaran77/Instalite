@@ -8,6 +8,7 @@
     <Folder Include="wwwroot\" />
     <Folder Include="Profile\" />
     <Folder Include="Wall\" />
+    <Folder Include="Notify\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,5 +29,6 @@
     <Compile Remove="Controllers\ValuesController.cs" />
     <Compile Remove="Profile\Post.cs" />
     <Compile Remove="Controllers\testController.cs" />
+    <Compile Remove="Controllers\PhotoController.cs" />
   </ItemGroup>
 </Project>

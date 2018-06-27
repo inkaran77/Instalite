@@ -23,7 +23,7 @@ namespace projet.Controllers
         }
 
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetPost")]
         public IActionResult Get(String UrlPhoto)
         {
@@ -66,7 +66,7 @@ namespace projet.Controllers
         }
 
        
-        [HttpPut("")]
+        [HttpPut]
         [Route("Instalite/Like")]
         public IActionResult Like(String UrlPhoto)
         {
@@ -75,7 +75,7 @@ namespace projet.Controllers
 
             Post p = new Post();
             Like l = new Like();
-            l.Author = userId;
+            l.Like_Author = userId;
             if(p.Like(UrlPhoto,l)==true)
             {
                 return new OkObjectResult("Post liké");
@@ -84,7 +84,25 @@ namespace projet.Controllers
             else return new BadRequestObjectResult("Erreur");
         }
 
-        [HttpPut("")]
+        [HttpGet]
+        [Route("Instalite/AlreadyLiked")]
+        public IActionResult AlreadyLiked(String UrlPhoto)
+        {
+            // On récupere l'id de l'user du token
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            Post p = new Post();
+            Like l = new Like();
+            l.Like_Author = userId;
+            if (p.AlreadyLiked(UrlPhoto, l) == false)
+            {
+                return new OkObjectResult("Post pas encore liké");
+            }
+
+            else return new BadRequestObjectResult("Post déja liké");
+        }
+
+        [HttpPut]
         [Route("Instalite/Comment")]
         public IActionResult Comment(String UrlPhoto,String Message)
         {
@@ -105,7 +123,7 @@ namespace projet.Controllers
             else return new BadRequestObjectResult("Erreur");
         }
 
-        [HttpGet("")]
+        [HttpGet]
         [Route("Instalite/GetAllComments")]
         public IActionResult GetAllComments(String UrlPhoto)
         {
@@ -122,7 +140,7 @@ namespace projet.Controllers
 
 
 
-        [HttpDelete("")]
+        [HttpDelete]
         [Route("Instalite/DeletePost")]
         public IActionResult DeletePost(String UrlPhoto)
         {
